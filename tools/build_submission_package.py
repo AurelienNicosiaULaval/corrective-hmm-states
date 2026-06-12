@@ -42,6 +42,7 @@ Contents:
 - `article/references.bib`: BibTeX bibliography.
 - `article/figures/`: figures used in the manuscript.
 - `article/tables/simulation_table.tex`: generated LaTeX table.
+- `article/tables/replication_summary_table.tex`: generated replication table.
 - `supplement/supporting_information.pdf`: supporting-information PDF.
 - `supplement/supporting_information.tex`: supporting-information source.
 - `numerics/`: reproducible simulation code, tests, requirements and generated outputs.
@@ -69,6 +70,7 @@ def main() -> None:
         "article/references.bib",
         "article/stat_submission_notes.md",
         "article/tables/simulation_table.tex",
+        "article/tables/replication_summary_table.tex",
         "supplement/supporting_information.tex",
         "supplement/supporting_information.pdf",
         "supplement/tables/review_summary_table.tex",

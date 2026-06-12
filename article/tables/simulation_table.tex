@@ -4,13 +4,13 @@
 \small
 \caption{Main numerical diagnostic, $T=1500$. Lower BIC is better.}
 \label{tab:sim}
-\begin{tabular}{@{}llrrrp{0.25\linewidth}@{}}
+\begin{tabular}{@{}lrrrp{0.24\linewidth}@{}}
 \toprule
-Model & emission & $K$ & logLik & BIC & diagnostic\\
+Specification & $K$ & logLik & BIC & interpretation\\
 \midrule
-Gaussian & one Gaussian/state & 2 & -2223.7 & 4498.5 & merged heterogeneous regime\\
-Gaussian & one Gaussian/state & 3 & -2014.9 & 4132.2 & split heterogeneous regime\\
-Mixture & two Gaussians/state & 2 & -2012.3 & 4119.7 & emission-level split\\
+Gaussian, one Gaussian/state & 2 & -2223.7 & 4498.5 & merged regime\\
+Gaussian, one Gaussian/state & 3 & -2014.9 & 4132.2 & split regime\\
+Mixture, two Gaussians/state & 2 & -2012.3 & 4119.7 & emission split\\
 \bottomrule
 \end{tabular}
 \end{table}

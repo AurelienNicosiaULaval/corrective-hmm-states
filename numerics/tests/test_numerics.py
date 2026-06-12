@@ -68,6 +68,16 @@ def test_mixture_em_fit_valid_and_monotone():
     assert np.all(np.diff(fit.state_means()) >= 0), "states must be sorted by mean"
 
 
+def test_screened_multistart_paths_are_valid():
+    y, _, _ = simulate_hmm(240, seed=8)
+    fit = fit_hmm(y, 3, seed=9, n_starts=5, max_iter=60,
+                  screen_iter=8, refine_top=2)
+    validate_fit(fit, len(y))
+    mix = fit_mixture_hmm(y, 2, M=2, seed=10, n_starts=5, max_iter=60,
+                          screen_iter=8, refine_top=2)
+    validate_mixture_fit(mix, len(y))
+
+
 def test_output_files_exist():
     out = ROOT / "numerics" / "output"
     fig = ROOT / "article" / "figures"
@@ -87,9 +97,10 @@ def test_output_files_exist():
         fig / "state_decoding_heatmap.pdf",
         fig / "bic_boxplot.pdf",
         fig / "bic_by_T.pdf",
-        fig / "posterior_extreme_state.pdf",
+        fig / "posterior_corrective_state.pdf",
         fig / "residual_acf.pdf",
         ROOT / "article" / "tables" / "simulation_table.tex",
+        ROOT / "article" / "tables" / "replication_summary_table.tex",
         ROOT / "supplement" / "tables" / "review_summary_table.tex",
     ]
     missing = [str(p) for p in expected if not p.exists()]

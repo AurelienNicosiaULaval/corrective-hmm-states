@@ -37,8 +37,8 @@ REQUIRED_FILES = [
     ROOT / "article" / "figures" / "simulation_density.png",
     ROOT / "article" / "figures" / "state_decoding_heatmap.pdf",
     ROOT / "article" / "figures" / "state_decoding_heatmap.png",
-    ROOT / "article" / "figures" / "posterior_extreme_state.pdf",
-    ROOT / "article" / "figures" / "posterior_extreme_state.png",
+    ROOT / "article" / "figures" / "posterior_corrective_state.pdf",
+    ROOT / "article" / "figures" / "posterior_corrective_state.png",
     ROOT / "article" / "figures" / "bic_boxplot.pdf",
     ROOT / "article" / "figures" / "bic_boxplot.png",
     ROOT / "article" / "figures" / "bic_by_T.pdf",
@@ -46,6 +46,7 @@ REQUIRED_FILES = [
     ROOT / "article" / "figures" / "residual_acf.pdf",
     ROOT / "article" / "figures" / "residual_acf.png",
     ROOT / "article" / "tables" / "simulation_table.tex",
+    ROOT / "article" / "tables" / "replication_summary_table.tex",
     ROOT / "supplement" / "supporting_information.tex",
     ROOT / "supplement" / "supporting_information.pdf",
     ROOT / "supplement" / "tables" / "review_summary_table.tex",
@@ -120,6 +121,18 @@ def check_review_outputs() -> None:
     metadata = json.loads(meta_path.read_text())
     if metadata.get("n_replications_per_T") != 200:
         fail("review simulation must contain 200 replications per sample size")
+    if metadata.get("n_starts_replications", 0) < 10:
+        fail("Gaussian replicated fits must use at least 10 EM starts")
+    if metadata.get("n_starts_mixture_replications", 0) < 10:
+        fail("mixture replicated fits must use at least 10 EM starts")
+    if metadata.get("screen_iter_replications", 0) < 1:
+        fail("Gaussian replicated fits must record deterministic start screening")
+    if metadata.get("screen_iter_mixture_replications", 0) < 1:
+        fail("mixture replicated fits must record deterministic start screening")
+    if metadata.get("refine_top_replications", 0) < 1:
+        fail("Gaussian replicated fits must refine screened starts")
+    if metadata.get("refine_top_mixture_replications", 0) < 1:
+        fail("mixture replicated fits must refine screened starts")
     expected_T = [500, 1500, 5000]
     if metadata.get("T_grid") != expected_T:
         fail(f"unexpected review T grid: {metadata.get('T_grid')}")
@@ -129,7 +142,7 @@ def check_review_outputs() -> None:
     for row in rows:
         if int(row.get("n_replications", -1)) != 200:
             fail("each T must contain 200 replications")
-    print("review outputs: metadata has 200 replications per T")
+    print("review outputs: metadata has 200 replications per T, >=10 starts and deterministic screening")
 
 
 def main() -> None:

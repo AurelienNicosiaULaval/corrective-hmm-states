@@ -8,9 +8,15 @@
   ],
   "n_replications_per_T": 200,
   "n_starts_main": 10,
-  "n_starts_replications": 2,
+  "n_starts_replications": 10,
   "n_starts_mixture_main": 10,
-  "n_starts_mixture_replications": 2,
+  "n_starts_mixture_replications": 10,
+  "n_workers": 12,
+  "max_iter_replications": 100,
+  "screen_iter_replications": 25,
+  "refine_top_replications": 3,
+  "screen_iter_mixture_replications": 30,
+  "refine_top_mixture_replications": 3,
   "true_transition": [
     [
       0.93,
@@ -69,27 +75,27 @@
     {
       "T": 500,
       "n_replications": 200,
-      "mean_delta_BIC_gauss_K3_minus_K2": -14.489290354672564,
-      "prop_gaussian_BIC_favours_K3": 0.45,
-      "mean_delta_BIC_mix_K2_minus_gauss_K3": -51.9047239243185,
-      "prop_enriched_BIC_favours_K2_mix": 0.955
+      "mean_delta_BIC_gauss_K3_minus_K2": -52.38259359785083,
+      "prop_gaussian_BIC_favours_K3": 0.87,
+      "mean_delta_BIC_mix_K2_minus_gauss_K3": -14.639457172995458,
+      "prop_enriched_BIC_favours_K2_mix": 0.945
     },
     {
       "T": 1500,
       "n_replications": 200,
-      "mean_delta_BIC_gauss_K3_minus_K2": -100.34235190433063,
-      "prop_gaussian_BIC_favours_K3": 0.485,
-      "mean_delta_BIC_mix_K2_minus_gauss_K3": -150.84065188065458,
-      "prop_enriched_BIC_favours_K2_mix": 0.97
+      "mean_delta_BIC_gauss_K3_minus_K2": -220.86395659981966,
+      "prop_gaussian_BIC_favours_K3": 0.905,
+      "mean_delta_BIC_mix_K2_minus_gauss_K3": -30.569225141662102,
+      "prop_enriched_BIC_favours_K2_mix": 0.96
     },
     {
       "T": 5000,
       "n_replications": 200,
-      "mean_delta_BIC_gauss_K3_minus_K2": -457.8483506802521,
-      "prop_gaussian_BIC_favours_K3": 0.52,
-      "mean_delta_BIC_mix_K2_minus_gauss_K3": -481.569711374767,
-      "prop_enriched_BIC_favours_K2_mix": 0.995
+      "mean_delta_BIC_gauss_K3_minus_K2": -903.460476294717,
+      "prop_gaussian_BIC_favours_K3": 0.97,
+      "mean_delta_BIC_mix_K2_minus_gauss_K3": -36.328372674246914,
+      "prop_enriched_BIC_favours_K2_mix": 0.985
     }
   ],
-  "runtime_seconds": 4146.5
+  "runtime_seconds": 1230.4
 }

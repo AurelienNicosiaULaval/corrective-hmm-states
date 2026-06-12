@@ -119,7 +119,7 @@ def plot_posterior_corrective_state(y: np.ndarray, fit3: HMMFit,
     ax.set_ylabel("Posterior prob. of corrective state")
     ax.set_ylim(-0.03, 1.03)
     ax.legend(frameon=False, fontsize=8)
-    _save(fig, fig_dir, "posterior_extreme_state")
+    _save(fig, fig_dir, "posterior_corrective_state")
 
 
 def plot_bic_boxplot(delta_bic: np.ndarray, fig_dir: Path) -> None:

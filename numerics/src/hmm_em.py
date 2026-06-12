@@ -105,16 +105,8 @@ def viterbi_path(y, pi, A, means, sds):
     return path
 
 
-def _em_single(y, K, rng, max_iter, tol, sigma_min):
-    """One EM run from a random initialization. Returns dict or None on failure."""
-    T = len(y)
-    y_sd = float(np.std(y))
-    # Random-but-sensible initialization: spread means over quantiles, jittered.
-    means = np.quantile(y, np.linspace(0.1, 0.9, K)) + rng.normal(0.0, 0.25 * y_sd, K)
-    sds = np.full(K, max(2 * sigma_min, y_sd / 2.0)) * rng.uniform(0.6, 1.4, K)
-    pi = rng.dirichlet(np.ones(K))
-    A = np.vstack([rng.dirichlet(np.ones(K) + 6.0 * np.eye(K)[i]) for i in range(K)])
-
+def _em_loop(y, pi, A, means, sds, max_iter, tol, sigma_min):
+    """Run EM from supplied parameters."""
     trace = []
     prev = -np.inf
     for it in range(max_iter):
@@ -144,18 +136,44 @@ def _em_single(y, K, rng, max_iter, tol, sigma_min):
                 gamma=gamma, n_iter=len(trace) - 1, trace=trace)
 
 
+def _em_single(y, K, rng, max_iter, tol, sigma_min):
+    """One EM run from a random initialization. Returns dict or None on failure."""
+    y_sd = float(np.std(y))
+    # Random-but-sensible initialization: spread means over quantiles, jittered.
+    means = np.quantile(y, np.linspace(0.1, 0.9, K)) + rng.normal(0.0, 0.25 * y_sd, K)
+    sds = np.full(K, max(2 * sigma_min, y_sd / 2.0)) * rng.uniform(0.6, 1.4, K)
+    pi = rng.dirichlet(np.ones(K))
+    A = np.vstack([rng.dirichlet(np.ones(K) + 6.0 * np.eye(K)[i]) for i in range(K)])
+    return _em_loop(y, pi, A, means, sds, max_iter, tol, sigma_min)
+
+
 def fit_hmm(y, K, seed, n_starts=20, max_iter=300, tol=1e-6,
-            sigma_min=SIGMA_MIN) -> HMMFit:
+            sigma_min=SIGMA_MIN, screen_iter=None, refine_top=None,
+            screen_tol=1e-4) -> HMMFit:
     """Fit a K-state univariate Gaussian HMM by EM with multiple random starts.
 
     States in the returned fit are ordered by increasing mean.
     """
     rng = np.random.default_rng(seed)
     best = None
-    for _ in range(n_starts):
-        res = _em_single(y, K, rng, max_iter, tol, sigma_min)
-        if best is None or res["loglik"] > best["loglik"]:
-            best = res
+    if screen_iter is not None and refine_top is not None and refine_top < n_starts:
+        screened = [
+            _em_single(y, K, rng, int(screen_iter), screen_tol, sigma_min)
+            for _ in range(n_starts)
+        ]
+        selected = sorted(screened, key=lambda res: res["loglik"], reverse=True)[
+            :int(refine_top)
+        ]
+        for res in selected:
+            refined = _em_loop(y, res["pi"], res["A"], res["means"], res["sds"],
+                               max_iter, tol, sigma_min)
+            if best is None or refined["loglik"] > best["loglik"]:
+                best = refined
+    else:
+        for _ in range(n_starts):
+            res = _em_single(y, K, rng, max_iter, tol, sigma_min)
+            if best is None or res["loglik"] > best["loglik"]:
+                best = res
     order = np.argsort(best["means"])
     pi = best["pi"][order]
     A = best["A"][np.ix_(order, order)]

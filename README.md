@@ -52,6 +52,7 @@ Le script genere:
 
 - les figures PDF/PNG dans `article/figures/`;
 - la table principale dans `article/tables/simulation_table.tex`;
+- la table de replications dans `article/tables/replication_summary_table.tex`;
 - la table du supplement dans `supplement/tables/review_summary_table.tex`;
 - les resultats CSV/JSON dans `numerics/output/`.
 
@@ -85,8 +86,9 @@ python3 tools/build_submission_package.py
 ```
 
 Le validateur verifie les fichiers attendus, les marqueurs non publics, les
-sorties de 200 replications par taille d'echantillon et un ajustement numerique
-court incluant le HMM a emissions melange.
+sorties de 200 replications par taille d'echantillon, au moins 10 departs EM
+par ajustement replique, le criblage deterministe des departs et un ajustement
+numerique court incluant le HMM a emissions melange.
 
 ## Paquet de soumission
 

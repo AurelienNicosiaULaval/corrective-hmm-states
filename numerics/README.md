@@ -53,7 +53,11 @@ python3 -m pytest numerics/tests -q
 ```
 
 All seeds are fixed from `SEED = 20260610`. The default review run uses
-`N_REPS = 200` for each `T` in `(500, 1500, 5000)`.
+`N_REPS = 200` for each `T` in `(500, 1500, 5000)`, 10 random EM starts for
+each replicated Gaussian fit, 10 random EM starts for each replicated
+mixture-emission fit and deterministic parallel execution. The replicated fits
+screen all 10 starts, then refine the three best starts with relative
+log-likelihood tolerance `1e-6`.
 
 For quick local checks only, the number of replications can be reduced:
 
@@ -76,10 +80,11 @@ Do not use reduced-replication outputs for submission.
 - `numerics/output/residual_acf_fit2.csv`;
 - `numerics/output/residual_acf_fit3.csv`;
 - `article/tables/simulation_table.tex`;
+- `article/tables/replication_summary_table.tex`;
 - `supplement/tables/review_summary_table.tex`;
 - `article/figures/simulation_density.{pdf,png}`;
 - `article/figures/state_decoding_heatmap.{pdf,png}`;
-- `article/figures/posterior_extreme_state.{pdf,png}`;
+- `article/figures/posterior_corrective_state.{pdf,png}`;
 - `article/figures/bic_boxplot.{pdf,png}`;
 - `article/figures/bic_by_T.{pdf,png}`;
 - `article/figures/residual_acf.{pdf,png}`.

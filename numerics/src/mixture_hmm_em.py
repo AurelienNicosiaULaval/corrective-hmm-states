@@ -115,8 +115,8 @@ def _sort_components(weights, means, sds):
     return weights, means, sds
 
 
-def _em_single(y, K, M, rng, max_iter, tol, sigma_min):
-    pi, A, weights, means, sds = _initial_components(y, K, M, rng, sigma_min)
+def _em_loop(y, pi, A, weights, means, sds, max_iter, tol, sigma_min):
+    """Run mixture-emission EM from supplied parameters."""
     trace = []
     prev = -np.inf
     for it in range(max_iter):
@@ -154,15 +154,36 @@ def _em_single(y, K, M, rng, max_iter, tol, sigma_min):
                 trace=trace)
 
 
+def _em_single(y, K, M, rng, max_iter, tol, sigma_min):
+    pi, A, weights, means, sds = _initial_components(y, K, M, rng, sigma_min)
+    return _em_loop(y, pi, A, weights, means, sds, max_iter, tol, sigma_min)
+
+
 def fit_mixture_hmm(y, K, M=2, seed=1, n_starts=12, max_iter=250, tol=1e-6,
-                    sigma_min=SIGMA_MIN) -> MixtureHMMFit:
+                    sigma_min=SIGMA_MIN, screen_iter=None, refine_top=None,
+                    screen_tol=1e-4) -> MixtureHMMFit:
     """Fit a K-state HMM with M Gaussian components per state."""
     rng = np.random.default_rng(seed)
     best = None
-    for _ in range(n_starts):
-        res = _em_single(y, K, M, rng, max_iter, tol, sigma_min)
-        if best is None or res["loglik"] > best["loglik"]:
-            best = res
+    if screen_iter is not None and refine_top is not None and refine_top < n_starts:
+        screened = [
+            _em_single(y, K, M, rng, int(screen_iter), screen_tol, sigma_min)
+            for _ in range(n_starts)
+        ]
+        selected = sorted(screened, key=lambda res: res["loglik"], reverse=True)[
+            :int(refine_top)
+        ]
+        for res in selected:
+            refined = _em_loop(y, res["pi"], res["A"], res["weights"],
+                               res["means"], res["sds"], max_iter, tol,
+                               sigma_min)
+            if best is None or refined["loglik"] > best["loglik"]:
+                best = refined
+    else:
+        for _ in range(n_starts):
+            res = _em_single(y, K, M, rng, max_iter, tol, sigma_min)
+            if best is None or res["loglik"] > best["loglik"]:
+                best = res
 
     state_mean = np.sum(best["weights"] * best["means"], axis=1)
     order = np.argsort(state_mean)
