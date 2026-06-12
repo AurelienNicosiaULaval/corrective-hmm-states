@@ -1,26 +1,30 @@
-# Projet Stat/Wiley - Corrective hidden states in misspecified HMMs
+# Corrective hidden states in misspecified HMMs
 
-Ce depot contient le manuscrit, le supplement, le code numerique reproductible
-et les fichiers de preparation pour une soumission a *Stat* de Wiley.
+This repository contains the manuscript, supporting information, reproducible
+numerical code, generated outputs, and local submission package for the *Stat*
+(Wiley) manuscript:
 
-## Contenu
+*Extra Hidden States as Kullback-Leibler Corrections under Emission
+Misspecification in Hidden Markov Models*.
+
+## Repository contents
 
 ```text
 article/
-  main.tex                  Manuscrit LaTeX compact
-  main.pdf                  PDF compile du manuscrit
-  references.bib            Bibliographie BibTeX
-  figures/                  Figures numeriques
-  tables/                   Tables LaTeX generees
+  main.tex                  compact LaTeX manuscript
+  main.pdf                  compiled manuscript PDF
+  references.bib            BibTeX bibliography
+  figures/                  generated numerical figures
+  tables/                   generated LaTeX tables
 supplement/
   supporting_information.tex
   supporting_information.pdf
-  tables/                   Tables du supplement
+  tables/                   supporting-information tables
 numerics/
   scripts/run_review_simulation.py
-  src/                      Simulation, EM HMM, diagnostics et figures
-  tests/                    Tests numeriques
-  output/                   Resultats CSV/JSON/LaTeX generes
+  src/                      simulation, HMM EM, diagnostics and figures
+  tests/                    numerical tests
+  output/                   generated CSV/JSON/LaTeX outputs
 tools/
   validate_submission.py
   build_submission_package.py
@@ -28,39 +32,38 @@ submission/
   stat_hmm_submission_package.zip
 ```
 
-## Manuscrit
+## Manuscript
 
-Le manuscrit est en anglais. Il est volontairement compact et centre sur le
-Theoreme 5.1: sous des conditions suffisantes de separation, un HMM raffine
-reproduit exactement la loi observee, tandis qu'un HMM non raffine avec le
-nombre d'etats agreges reste separe en taux de Kullback-Leibler.
+The manuscript is intentionally compact and centers on Theorem 5.1. Under
+sufficient separation conditions, a refined HMM reproduces the observed law
+exactly, whereas a non-refined HMM with the aggregate number of states remains
+separated from the truth in Kullback-Leibler rate.
 
-Le supplement contient les details de l'EM a emissions melange, les resultats
-des 200 replications par taille d'echantillon et les diagnostics graphiques
-additionnels.
+The supporting information gives the mixture-emission EM details, numerical
+replication information, supplementary diagnostics, and reproducibility notes.
 
-## Reproduction numerique
+## Numerical reproduction
 
-Depuis la racine du projet:
+From the project root:
 
 ```bash
 python3 numerics/scripts/run_review_simulation.py
 python3 -m pytest numerics/tests -q
 ```
 
-Le script genere:
+The simulation script writes:
 
-- les figures PDF/PNG dans `article/figures/`;
-- la table principale dans `article/tables/simulation_table.tex`;
-- la table de replications dans `article/tables/replication_summary_table.tex`;
-- la table du supplement dans `supplement/tables/review_summary_table.tex`;
-- les resultats CSV/JSON dans `numerics/output/`.
+- PDF and PNG figures in `article/figures/`;
+- the main manuscript table in `article/tables/simulation_table.tex`;
+- the replication table in `article/tables/replication_summary_table.tex`;
+- the supporting-information table in `supplement/tables/review_summary_table.tex`;
+- CSV and JSON outputs in `numerics/output/`.
 
-Aucune donnee externe n'est utilisee.
+No external data are used.
 
 ## Compilation
 
-Depuis `article/`:
+From `article/`:
 
 ```bash
 pdflatex main.tex
@@ -69,35 +72,35 @@ pdflatex main.tex
 pdflatex main.tex
 ```
 
-Depuis `supplement/`:
+From `supplement/`:
 
 ```bash
 pdflatex supporting_information.tex
 pdflatex supporting_information.tex
 ```
 
-## Validation locale
+## Local validation
 
-Depuis la racine du projet:
+From the project root:
 
 ```bash
 python3 tools/validate_submission.py
 python3 tools/build_submission_package.py
 ```
 
-Le validateur verifie les fichiers attendus, les marqueurs non publics, les
-sorties de 200 replications par taille d'echantillon, au moins 10 departs EM
-par ajustement replique, le criblage deterministe des departs et un ajustement
-numerique court incluant le HMM a emissions melange.
+The validator checks required files, public-facing text markers, 200
+replications per sample size, at least 10 EM starts for each replicated fit,
+deterministic start screening, and a short numerical smoke test including the
+mixture-emission HMM.
 
-## Paquet de soumission
+## Submission package
 
-`tools/build_submission_package.py` reconstruit
-`submission/stat_hmm_submission_package/` et
-`submission/stat_hmm_submission_package.zip` avec le manuscrit, le supplement,
-les sources LaTeX, les figures, les tables, le code numerique et les sorties
-reproductibles.
+`tools/build_submission_package.py` rebuilds
+`submission/stat_hmm_submission_package/` and
+`submission/stat_hmm_submission_package.zip` with the manuscript, supporting
+information, LaTeX sources, figures, tables, numerical code, and reproducible
+outputs.
 
-Avant depot final, confirmer dans le systeme de soumission les declarations
-auteur: originalite, non-soumission ailleurs, financement, conflits d'interet
-et disponibilite du code.
+Before final upload, confirm the author declarations in the submission system:
+originality, no concurrent submission elsewhere, funding, conflicts of
+interest, and code availability.

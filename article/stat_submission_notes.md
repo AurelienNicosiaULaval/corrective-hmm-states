@@ -1,24 +1,38 @@
-# Notes de format pour Stat/Wiley
+# Stat/Wiley format notes
 
-Les consignes de *Stat* indiquent que les articles doivent rester compacts, avec une longueur maximale d'environ 10 pages de texte, hors références, figures et tableaux. Source vérifiée le 2026-06-11 : <https://onlinelibrary.wiley.com/page/journal/20491573/homepage/forauthors.html>.
+The *Stat* author guidelines indicate that articles should remain compact, with
+an approximate maximum length of 10 text pages, excluding references, figures
+and tables. Source checked on 2026-06-11:
+<https://onlinelibrary.wiley.com/page/journal/20491573/homepage/forauthors.html>.
 
-Wiley recommande son gabarit LaTeX lorsque pertinent et précise qu'une soumission LaTeX doit fournir un PDF compilé avec le fichier `.tex` principal et les fichiers de support, notamment figures et bibliographie. Source vérifiée le 2026-06-11 : <https://authors.wiley.com/author-resources/Journal-Authors/Prepare/latex-template.html>.
+Wiley recommends its LaTeX template when appropriate and states that a LaTeX
+submission should include a compiled PDF together with the main `.tex` file and
+supporting files, including figures and bibliography. Source checked on
+2026-06-11:
+<https://authors.wiley.com/author-resources/Journal-Authors/Prepare/latex-template.html>.
 
-Ce projet n'inclut pas le paquet officiel `WileyDesign.zip`. Le manuscrit est donc préparé avec une classe `article` standard, une bibliographie BibTeX et un minimum de macros. Cette version est adaptée à une première soumission si le système accepte un PDF avec sources, et pourra être transposée dans le gabarit Wiley si l'interface l'exige.
+This project does not include the official `WileyDesign.zip` template package.
+The manuscript is therefore prepared with a standard `article` class, a BibTeX
+bibliography, and a minimal macro set. This version is suitable for an initial
+submission if the system accepts a PDF with source files, and it can be moved
+into the Wiley template if the submission interface requires it.
 
-Paquet local préparé :
+Prepared local package:
 
 1. `main.pdf`;
 2. `main.tex`;
 3. `references.bib`;
-4. `figures/*.pdf` et `figures/*.png`;
+4. `figures/*.pdf` and `figures/*.png`;
 5. `tables/simulation_table.tex`;
-6. `supporting_information.pdf` et `supporting_information.tex`;
-7. `numerics/` avec code, tests, sorties CSV/JSON et instructions.
+6. `supporting_information.pdf` and `supporting_information.tex`;
+7. `numerics/` with code, tests, CSV/JSON outputs and instructions.
 
-Avant dépôt final :
+Before final upload:
 
-1. Confirmer dans le système de soumission que le PDF avec sources LaTeX standard est accepté pour la première soumission.
-2. Si le système demande le gabarit Wiley, copier le contenu de `main.tex` dans le gabarit sans modifier les énoncés mathématiques.
-3. Vérifier le nombre de pages après toute conversion au gabarit officiel.
-4. Confirmer les déclarations auteur : originalité, non-soumission ailleurs, financement, conflits d'intérêt, disponibilité du code.
+1. Confirm in the submission system that a standard LaTeX source package is
+   accepted for first submission.
+2. If the system requires the Wiley template, copy the content of `main.tex`
+   into the template without changing the mathematical statements.
+3. Check the page count after any conversion to the official template.
+4. Confirm author declarations: originality, no concurrent submission
+   elsewhere, funding, conflicts of interest and code availability.
