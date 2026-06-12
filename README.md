@@ -1,8 +1,7 @@
 # Corrective hidden states in misspecified HMMs
 
 This repository contains the manuscript, supporting information, reproducible
-numerical code, generated outputs, and local submission package for the *Stat*
-(Wiley) manuscript:
+numerical code, and generated outputs for the *Stat* manuscript:
 
 *Extra Hidden States as Kullback-Leibler Corrections under Emission
 Misspecification in Hidden Markov Models*.
@@ -28,8 +27,6 @@ numerics/
 tools/
   validate_submission.py
   build_submission_package.py
-submission/
-  stat_hmm_submission_package.zip
 ```
 
 ## Manuscript
@@ -93,14 +90,10 @@ replications per sample size, at least 10 EM starts for each replicated fit,
 deterministic start screening, and a short numerical smoke test including the
 mixture-emission HMM.
 
-## Submission package
+## Submission Archive
 
 `tools/build_submission_package.py` rebuilds
 `submission/stat_hmm_submission_package/` and
 `submission/stat_hmm_submission_package.zip` with the manuscript, supporting
 information, LaTeX sources, figures, tables, numerical code, and reproducible
 outputs.
-
-Before final upload, confirm the author declarations in the submission system:
-originality, no concurrent submission elsewhere, funding, conflicts of
-interest, and code availability.

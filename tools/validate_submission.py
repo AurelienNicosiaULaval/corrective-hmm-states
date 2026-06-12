@@ -15,7 +15,6 @@ PUBLIC_FILES = [
     ROOT / "README.md",
     ROOT / "article" / "main.tex",
     ROOT / "article" / "references.bib",
-    ROOT / "article" / "stat_submission_notes.md",
     ROOT / "article" / "tables" / "simulation_table.tex",
     ROOT / "supplement" / "supporting_information.tex",
     ROOT / "supplement" / "tables" / "review_summary_table.tex",

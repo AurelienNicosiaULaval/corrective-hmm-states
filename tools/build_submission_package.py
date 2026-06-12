@@ -68,7 +68,6 @@ def main() -> None:
         "article/main.tex",
         "article/main.pdf",
         "article/references.bib",
-        "article/stat_submission_notes.md",
         "article/tables/simulation_table.tex",
         "article/tables/replication_summary_table.tex",
         "supplement/supporting_information.tex",
