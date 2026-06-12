@@ -1,0 +1,161 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xurl}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+
+\graphicspath{{../article/figures/}}
+\emergencystretch=2em
+
+\title{Supporting Information for\\
+Extra Hidden States as Kullback-Leibler Corrections under Emission Misspecification in Hidden Markov Models}
+\author{Aur\'elien Nicosia}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Reproducibility}
+
+The numerical study uses no external data. All random seeds are fixed in
+\path{numerics/scripts/run_review_simulation.py}, with master seed
+\texttt{20260610}. The code and generated outputs are available at
+\url{https://github.com/AurelienNicosiaULaval/corrective-hmm-states}.
+
+The review simulation compares three fitted models: a Gaussian-emission HMM
+with $K=2$, a Gaussian-emission HMM with $K=3$, and a two-state HMM with
+two Gaussian mixture components per state. For the replicated study, the sample
+sizes are $T\in\{500,1500,5000\}$ with 200 replications per sample size. The
+row-level replication file is \path{numerics/output/review_replications.csv};
+the compact summary is \path{numerics/output/review_summary_by_T.csv}.
+
+\section{Mixture-emission EM algorithm}
+
+For hidden state $k\in\{1,\ldots,K\}$ and mixture component
+$m\in\{1,\ldots,M\}$, the fitted emission density is
+\[
+b_k(y)=\sum_{m=1}^M \rho_{km}\,\phi(y;\mu_{km},\sigma_{km}^2),
+\qquad
+\rho_{km}\geq 0,\quad \sum_{m=1}^M \rho_{km}=1.
+\]
+The hidden chain has initial probabilities $\pi_k$ and transition matrix
+$A=(a_{k\ell})$. Given current parameters, the scaled forward-backward
+recursion gives the state posterior probabilities
+\[
+\gamma_t(k)=P(X_t=k\mid Y_{1:T})
+\]
+and transition posterior sums
+\[
+\xi(k,\ell)=\sum_{t=2}^T P(X_{t-1}=k,X_t=\ell\mid Y_{1:T}).
+\]
+Within each state, the component responsibility is
+\[
+\tau_t(k,m)=
+\frac{\gamma_t(k)\rho_{km}\phi(Y_t;\mu_{km},\sigma_{km}^2)}
+{\sum_{r=1}^M \rho_{kr}\phi(Y_t;\mu_{kr},\sigma_{kr}^2)}.
+\]
+The M-step is
+\[
+\pi_k^{new}=\gamma_1(k),\qquad
+a_{k\ell}^{new}=\frac{\xi(k,\ell)}{\sum_r \xi(k,r)},
+\]
+\[
+\rho_{km}^{new}=\frac{\sum_t\tau_t(k,m)}{\sum_t\gamma_t(k)},\qquad
+\mu_{km}^{new}=\frac{\sum_t\tau_t(k,m)Y_t}{\sum_t\tau_t(k,m)},
+\]
+\[
+(\sigma_{km}^{2})^{new}=
+\max\left\{\sigma_{\min}^2,\,
+\frac{\sum_t\tau_t(k,m)(Y_t-\mu_{km}^{new})^2}{\sum_t\tau_t(k,m)}
+\right\}.
+\]
+The implementation uses multiple random starts, scaled likelihoods, a minimum
+standard deviation $\sigma_{\min}=0.05$, and sorts states by their fitted
+state-level means after optimization. For the model used in the paper,
+$K=2$ and $M=2$. The BIC parameter count is
+\[
+(K-1)+K(K-1)+K\{(M-1)+2M\},
+\]
+corresponding to the initial probabilities, transition probabilities, mixture
+weights, means, and standard deviations.
+
+\section{Replicated selection study}
+
+Let
+\[
+\Delta_G=\mathrm{BIC}(\mathrm{Gaussian}\ K=3)-
+\mathrm{BIC}(\mathrm{Gaussian}\ K=2),
+\]
+and let
+\[
+\Delta_M=\mathrm{BIC}(\mathrm{Mixture}\ K=2,M=2)-
+\mathrm{BIC}(\mathrm{Gaussian}\ K=3).
+\]
+Thus $\Delta_G<0$ favours three Gaussian states within the simple Gaussian
+emission family, whereas $\Delta_M<0$ favours the enriched two-state
+mixture-emission model over the three-state Gaussian model.
+
+\begin{table}[tbp]
+\centering
+\caption{Selection frequencies over fixed-seed replications.}
+\label{tab:review-summary}
+\input{tables/review_summary_table.tex}
+\end{table}
+
+\section{Figures}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=.78\linewidth]{simulation_density.pdf}
+\caption{Observed marginal distribution and fitted marginal densities for the
+reference series.}
+\label{fig:si-density}
+\end{figure}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=.86\linewidth]{state_decoding_heatmap.pdf}
+\caption{Viterbi decoding proportions for Gaussian-emission HMMs with $K=2$
+and $K=3$. Rows are true refined states in the simulation.}
+\label{fig:si-decoding}
+\end{figure}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=.78\linewidth]{posterior_extreme_state.pdf}
+\caption{Posterior probability of the corrective Gaussian-HMM state in the
+reference $K=3$ fit.}
+\label{fig:si-posterior}
+\end{figure}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=.78\linewidth]{bic_boxplot.pdf}
+\caption{Distribution of $\Delta_G$ for the $T=1500$ replicated study.}
+\label{fig:si-bic-boxplot}
+\end{figure}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=.78\linewidth]{bic_by_T.pdf}
+\caption{Selection frequencies by sample size for the Gaussian and enriched
+comparisons.}
+\label{fig:si-bic-T}
+\end{figure}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=.78\linewidth]{residual_acf.pdf}
+\caption{Autocorrelation of approximate one-step standardized prediction
+residuals for the Gaussian-emission HMMs with $K=2$ and $K=3$.}
+\label{fig:si-acf}
+\end{figure}
+
+\end{document}

@@ -1,0 +1,4 @@
+T,n_replications,mean_delta_BIC_gauss_K3_minus_K2,prop_gaussian_BIC_favours_K3,mean_delta_BIC_mix_K2_minus_gauss_K3,prop_enriched_BIC_favours_K2_mix
+500,200,-14.489290354672564,0.45,-51.9047239243185,0.955
+1500,200,-100.34235190433063,0.485,-150.84065188065458,0.97
+5000,200,-457.8483506802521,0.52,-481.569711374767,0.995

@@ -1,0 +1,41 @@
+.DS_Store
+.venv/
+.pytest_cache/
+__pycache__/
+*.py[cod]
+
+# LaTeX auxiliaries
+*.aux
+*.bbl
+*.blg
+*.bcf
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lot
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+
+# Local generated package directory
+submission/stat_hmm_submission_package/
+submission/*.zip
+
+# Local planning and imported working instructions
+AGENTS.md
+dev_notes/
+literature_review/
+supplement/notes_for_revision.md
+
+# Historical numerical prototypes superseded by run_review_simulation.py
+numerics/minimal_simulation.py
+numerics/scripts/run_simulation.py
+numerics/scripts/run_sensitivity.py
+numerics/output/fit_summary.csv
+numerics/output/fit_summary_table.tex
+numerics/output/metadata.json
+numerics/output/replications.csv
+numerics/output/sensitivity_T.csv
+numerics/output/simulation_metadata.json

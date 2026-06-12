@@ -1,0 +1,95 @@
+{
+  "seed": 20260610,
+  "T_main": 1500,
+  "T_grid": [
+    500,
+    1500,
+    5000
+  ],
+  "n_replications_per_T": 200,
+  "n_starts_main": 10,
+  "n_starts_replications": 2,
+  "n_starts_mixture_main": 10,
+  "n_starts_mixture_replications": 2,
+  "true_transition": [
+    [
+      0.93,
+      0.07
+    ],
+    [
+      0.05,
+      0.95
+    ]
+  ],
+  "true_stationary": [
+    0.41666666666666685,
+    0.5833333333333331
+  ],
+  "true_mixture_weights_regime1": [
+    0.7,
+    0.3
+  ],
+  "true_refined_means": [
+    -1.2,
+    1.1,
+    3.8
+  ],
+  "true_refined_sds": [
+    0.55,
+    0.45,
+    0.65
+  ],
+  "main_model_comparison": [
+    {
+      "model": "Gaussian HMM",
+      "emission": "one Gaussian per state",
+      "K": 2,
+      "logLik": -2223.663046868637,
+      "BIC": 4498.518636446906,
+      "diagnostic": "merges the heterogeneous regime"
+    },
+    {
+      "model": "Gaussian HMM",
+      "emission": "one Gaussian per state",
+      "K": 3,
+      "logLik": -2014.9128472300508,
+      "BIC": 4132.210779879366,
+      "diagnostic": "splits the heterogeneous regime"
+    },
+    {
+      "model": "Mixture-emission HMM",
+      "emission": "two Gaussians per state",
+      "K": 2,
+      "logLik": -2012.319949727988,
+      "BIC": 4119.71176448815,
+      "diagnostic": "absorbs the split in the emission"
+    }
+  ],
+  "selection_summary": [
+    {
+      "T": 500,
+      "n_replications": 200,
+      "mean_delta_BIC_gauss_K3_minus_K2": -14.489290354672564,
+      "prop_gaussian_BIC_favours_K3": 0.45,
+      "mean_delta_BIC_mix_K2_minus_gauss_K3": -51.9047239243185,
+      "prop_enriched_BIC_favours_K2_mix": 0.955
+    },
+    {
+      "T": 1500,
+      "n_replications": 200,
+      "mean_delta_BIC_gauss_K3_minus_K2": -100.34235190433063,
+      "prop_gaussian_BIC_favours_K3": 0.485,
+      "mean_delta_BIC_mix_K2_minus_gauss_K3": -150.84065188065458,
+      "prop_enriched_BIC_favours_K2_mix": 0.97
+    },
+    {
+      "T": 5000,
+      "n_replications": 200,
+      "mean_delta_BIC_gauss_K3_minus_K2": -457.8483506802521,
+      "prop_gaussian_BIC_favours_K3": 0.52,
+      "mean_delta_BIC_mix_K2_minus_gauss_K3": -481.569711374767,
+      "prop_enriched_BIC_favours_K2_mix": 0.995
+    }
+  ],
+  "runtime_seconds": 4146.5
+}
