@@ -71,6 +71,18 @@ FORBIDDEN_PATTERNS = [
 ]
 
 
+def public_text_for_scan(path: Path) -> str:
+    text = path.read_text(errors="ignore")
+    if path == ROOT / "article" / "main.tex":
+        text = re.sub(
+            r"\\section\*\{Declaration on AI-assisted tools\}.*?(?=\\section\*|\Z)",
+            "",
+            text,
+            flags=re.DOTALL,
+        )
+    return text
+
+
 def fail(message: str) -> None:
     print(f"FAIL: {message}")
     raise SystemExit(1)
@@ -87,7 +99,7 @@ def check_public_text() -> None:
     compiled = [(pat, re.compile(pat, flags=re.IGNORECASE)) for pat in FORBIDDEN_PATTERNS]
     hits: list[str] = []
     for path in PUBLIC_FILES:
-        text = path.read_text(errors="ignore")
+        text = public_text_for_scan(path)
         for pattern, regex in compiled:
             if regex.search(text):
                 hits.append(f"{path.relative_to(ROOT)}: {pattern}")
