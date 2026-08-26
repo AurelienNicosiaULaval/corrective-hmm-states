@@ -1,21 +1,25 @@
 \documentclass[11pt]{article}
 
-% Wiley/Stat submission-oriented source: standard LaTeX, BibTeX references,
-% minimal custom formatting, and a compact article body.
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
 \usepackage{microtype}
-\usepackage[margin=0.93in]{geometry}
 \usepackage{amsmath,amssymb,amsthm,mathtools}
 \usepackage{graphicx}
 \usepackage{booktabs}
-\usepackage{enumitem}
 \usepackage{natbib}
+\usepackage[section]{placeins}
+\usepackage{xurl}
 \usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 \usepackage[nameinlink,capitalize]{cleveref}
+\ifdefined\showlinenumbers
+  \usepackage[mathlines,switch]{lineno}
+\fi
 
-\setlist{nosep,leftmargin=*}
+\onehalfspacing
+\graphicspath{{figures/}}
 \emergencystretch=2em
 
 \newtheorem{theorem}{Theorem}[section]
@@ -24,324 +28,603 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{assumption}[theorem]{Assumption}
-\theoremstyle{remark}
-\newtheorem{remark}[theorem]{Remark}
 \crefname{assumption}{Assumption}{Assumptions}
 \Crefname{assumption}{Assumption}{Assumptions}
 
 \newcommand{\Pbb}{\mathbb{P}}
 \newcommand{\Ebb}{\mathbb{E}}
-\newcommand{\Rbb}{\mathbb{R}}
 \newcommand{\Fcal}{\mathcal{F}}
 \newcommand{\Mcal}{\mathcal{M}}
 \newcommand{\Acal}{\mathcal{A}}
 \newcommand{\Hcal}{\mathsf{H}}
 \newcommand{\Yspace}{\mathsf{Y}}
 \newcommand{\norm}[1]{\left\lVert #1\right\rVert}
-\newcommand{\dd}{\,d}
 
-\title{Extra Hidden States as Kullback-Leibler Corrections under Emission Misspecification in Hidden Markov Models}
+\title{Extra Hidden States under Emission Misspecification in Hidden Markov Models}
 \author{Aur\'elien Nicosia\\
 D\'epartement de math\'ematiques et de statistique, Universit\'e Laval\\
-Qu\'ebec, Canada\\
+Qu\'ebec, Qu\'ebec, Canada\\
 \texttt{aurelien.nicosia@mat.ulaval.ca}\\
 ORCID: \href{https://orcid.org/0000-0002-0974-9988}{0000-0002-0974-9988}}
 \date{}
 
 \begin{document}
 \maketitle
+\ifdefined\showlinenumbers\linenumbers\fi
 
 \begin{abstract}
-Hidden states in fitted hidden Markov models are often interpreted as latent regimes. This interpretation can fail under emission misspecification. We formalize a sufficient mechanism under which an additional fitted state is a Kullback-Leibler correction to a restrictive emission family, not an additional scientific regime. The main result compares observed laws only: for a persistent aggregate HMM whose emissions are identifiable finite mixtures from a dominated family, a refined HMM reproduces the observed process exactly, whereas every non-refined HMM with one fitted-family emission per aggregate regime has strictly positive relative-entropy rate. A Gaussian simulation and an enriched-emission refit illustrate the diagnostic implication. A three-state Gaussian HMM splits a heterogeneous aggregate regime, while a two-state HMM with two-component Gaussian emissions absorbs the same structure inside the emission distribution. Thus the fitted number of states can measure emission approximation order rather than the number of substantive regimes.
+Additional states in a hidden Markov model can represent scientific regimes,
+but they can also compensate for restrictive state-dependent distributions.
+We formalize the latter mechanism. When aggregate-state emissions are
+identifiable finite mixtures, a refined model with simple emissions reproduces
+the observed process exactly, whereas a model with only the aggregate number
+of simple-emission states remains separated from the truth in relative-entropy
+rate. This result motivates an applied diagnostic workflow that compares a
+simple-emission model, the same model with an extra state, and a model with the
+original state count but richer emissions. One-step predictive calibration and
+decoded-state mappings complement information criteria. Simulations recover
+the predicted state-splitting mechanism. In daily movement data from four
+Canadian elk, a third Gaussian state improves on two Gaussian states, but a
+two-state Gaussian-mixture model is competitive for all animals and preferred
+by BIC for three. The findings show how practitioners can distinguish useful
+emission corrections from evidence for additional scientific regimes.
 \end{abstract}
 
-\noindent\textbf{Keywords:} hidden Markov model; misspecification; finite mixtures; relative entropy rate; Kullback-Leibler projection; state splitting.
+\noindent\textit{Keywords:} hidden Markov model; emission misspecification;
+finite mixture; relative-entropy rate; state splitting; movement ecology.
 
-\section{Introduction}
+\medskip
+\noindent\textit{MSC 2020:} Primary 62M05; Secondary 62M10.
 
-Hidden Markov models (HMMs) are widely used to segment dependent observations into latent states. In applications, these states are often interpreted as behaviours, regimes, or classes. This interpretation is attractive but fragile: a fitted state is simultaneously a scientific label and a component of a statistical approximation.
+\section{Introduction}\label{sec:introduction}
 
-The fragility is most visible under emission misspecification. Suppose the data-generating process has a small number of aggregate regimes, but the conditional distribution within one regime is not contained in the emission family used for fitting. Then a likelihood-based HMM can create extra states to approximate the shape of that misspecified emission. A heavy-tailed, overdispersed, skewed, or heterogeneous regime may be split into several fitted states, even when there is no additional aggregate behaviour.
+Hidden Markov models (HMMs) separate serial dependence from the conditional
+distribution of observations through a latent state process. This decomposition
+supports applications across time-series analysis, signal processing, and
+ecology \citep{Rabiner1989,CappeEtAl2005,ZucchiniEtAl2016}. Fitted states are
+often labelled as behaviours, regimes, phases, or classes and then become the
+main scientific object reported from an analysis \citep{McClintockEtAl2020}.
 
-This empirical difficulty is well documented in HMM order selection. In particular, \citet{PohleLangrockVanBeestSchmidt2017} show that standard information criteria can favour numbers of states that are difficult to interpret scientifically. One practical response is to enrich the observation model directly, for example with flexible nonparametric emissions as in \citet{LangrockKneibSohnDeRuiter2015}. Likelihood theory for HMMs also shows that, under misspecification, maximum likelihood targets pseudo-true parameters minimizing limiting KL or relative-entropy criteria; see \citet{Leroux1992,BickelRitovRyden1998,DoucMoulines2012}. General HMM inference is treated in \citet{CappeMoulinesRyden2005} and \citet{ZucchiniMacDonaldLangrock2016}. Our aim is to give a short structural mechanism explaining why a pseudo-true observed law can require more fitted states than the scientific number of regimes.
+That interpretation is useful but not automatic. A fitted state is also part
+of a statistical approximation. If the state-dependent distribution is too
+restrictive, likelihood can improve by creating states whose emissions jointly
+approximate skewness, heavy tails, overdispersion, or within-regime
+heterogeneity. An additional state can therefore be statistically useful
+without representing an additional scientific regime. Under misspecification,
+likelihood targets a best approximation in the fitted family rather than the
+data-generating parameter \citep{White1982,DoucMoulines2012}.
 
-The main contribution is \Cref{thm:marginal}. It compares observed laws only. Under compactness, identifiable finite mixtures, pairwise distinct refined atoms, and uniformly positive aggregate transitions, a refined HMM reproduces the observed process exactly, whereas every non-refined HMM with the smaller number of states is bounded away from the truth in relative-entropy rate. The transition-positivity assumption excludes structural zero transitions; it is used as a transparent sufficient condition for a one-step predictive lower bound, not as a necessary condition. Two preliminary results prepare this theorem. Proposition~\ref{prop:aligned} is an aligned comparison, meaning that the hidden aggregate trajectory is fixed. Proposition~\ref{prop:refinement} records the classical state-space refinement behind mixture emissions, a construction closely related to standard HMM state augmentation \citep{Rabiner1989,ZucchiniMacDonaldLangrock2016}.
+The practical phenomenon is established in the HMM literature.
+\citet{PohleEtAl2017} show that information criteria can favour state counts
+that are difficult to interpret scientifically. Additional states may absorb
+unmodelled structure in state-dependent distributions, while flexible
+parametric, mixture, and nonparametric observation models offer alternatives
+\citep{Dannemann2012,DannemannEtAl2014,LangrockEtAl2015,LangrockEtAl2018}.
+The distinction matters because methods for estimating statistical HMM order
+\citep{GassiatKeribin2000,GassiatRousseau2014,Lehericy2019,ZouEtAl2024,LinHuang2025}
+do not imply that every selected state is a distinct scientific regime.
 
-The result is deliberately stated for a general dominated emission family. It applies whenever the finite-mixture geometry is identifiable and compact. Classical finite-mixture identifiability goes back to \citet{Teicher1963} and \citet{YakowitzSpragins1968}; HMM identifiability and order estimation are studied by \citet{GassiatKeribin2000}, \citet{AllmanMatiasRhodes2009}, \citet{GassiatCleynenRobin2016}, and \citet{Lehericy2018}. The present paper uses mixture geometry directly through predictive densities. It should be read as a sufficient mechanism, not as a claim that every extra state is corrective.
+This article makes the mechanism precise and translates it into a practical
+workflow. At the theoretical level, a state-space refinement reproduces a
+persistent aggregate HMM with mixture emissions exactly. Predictive mixture
+geometry then shows that every model with only the aggregate number of simple
+emissions remains separated from the true observed process by a positive
+relative-entropy rate. The comparison is made between observed process laws,
+so no alignment of candidate and true hidden trajectories is assumed. The
+result complements HMM likelihood and identifiability theory
+\citep{Leroux1992,BickelEtAl1998,AllmanEtAl2009,GassiatEtAl2016,AlexandrovichEtAl2016}.
 
-\section{Notation and emission-mixture geometry}
+For practice, we propose comparing three fits: a scientifically plausible
+state count with simple emissions, an additional-state version of that model,
+and the original state count with enriched emissions. The Bayesian information
+criterion (BIC) is used together
+with one-step predictive calibration, decoded paths, and a direct mapping
+between the two latent partitions. A simulation isolates the mechanism. A
+real-data analysis of four Canadian elk then shows what the comparison reveals
+in a familiar movement setting. The aim is not to determine a latent ontology
+from data alone, but to give practitioners tangible evidence before an extra
+state receives a scientific label.
 
-Let $(\Yspace,\mathcal B,\lambda)$ be a dominated observation space. For densities $p,q$, write
-\[
-D(p\Vert q)=\int p(y)\log\{p(y)/q(y)\}\,\lambda(dy),
-\]
-with the usual conventions. We use Pinsker's inequality,
-\begin{equation}\label{eq:pinsker}
-D(p\Vert q)\geq \frac12\norm{p-q}_1^2.
+Section~\ref{sec:mechanism} gives the formal mechanism; Sections~\ref{sec:em}
+and~\ref{sec:workflow} describe its estimation and practical diagnosis; and
+Sections~\ref{sec:simulation} and~\ref{sec:elk} illustrate the comparison in
+simulation and data.
+
+\section{Why restrictive emissions create extra states}\label{sec:mechanism}
+
+The practical message of this section is simple. If a scientifically meaningful
+regime has a heterogeneous emission distribution, several simple-emission
+states can improve fit by representing its components rather than by revealing
+new regimes. The formal results below give conditions under which an
+aggregate-state model with richer emissions and a refined model with additional
+simple-emission states generate the same observed process.
+
+Let $\Yspace$ be the observation set, let $\mathcal B$ be its sigma-field, let
+$\lambda$ be a dominating measure on $(\Yspace,\mathcal B)$, and let $\Theta$
+be the emission-parameter space. All
+densities below are with respect to $\lambda$. For densities $p$ and $q$, define
+the Kullback--Leibler divergence and the $L^1(\lambda)$ distance by
+\begin{equation*}
+ D(p\Vert q)=\int_{\Yspace}p(y)\log\!\left\{\frac{p(y)}{q(y)}\right\}\lambda(dy),
+ \qquad
+ \norm{p-q}_1=\int_{\Yspace}|p(y)-q(y)|\lambda(dy).
+\end{equation*}
+Here, $0\log(0/q)=0$, and $D(p\Vert q)=+\infty$ if $q=0$ on a set having
+positive probability under $p$. The same notation $D(P\Vert Q)$ is used for
+probability laws through their densities. Let
+$\Fcal=\{f_\eta:\eta\in\Theta\}$ be the simple fitted emission family. Define
+the class of mixtures with at most $K$ atoms, for an integer $K\geq1$, by
+\begin{equation}\label{eq:mixture-class}
+ \Mcal_K=\left\{\sum_{j=1}^K\omega_j f_{\eta_j}:
+ \omega_j\geq0,\ \sum_{j=1}^K\omega_j=1,\ \eta_j\in\Theta\right\}.
 \end{equation}
-Let $\Fcal=\{f_\eta:\eta\in\Theta\}$ be the fitted emission family and define the class of mixtures of at most $K$ fitted-family emissions by
-\begin{equation}\label{eq:MK}
-\Mcal_K=\left\{\sum_{j=1}^K v_j f_{\eta_j}: v_j\geq0,\ \sum_{j=1}^K v_j=1,\ \eta_j\in\Theta\right\}.
-\end{equation}
-Zero weights are allowed, so $\Mcal_K\subseteq\Mcal_{K+1}$.
+Thus, the $\omega_j$ are mixing proportions. Zero weights are permitted, so
+$\Mcal_K\subseteq\Mcal_{K+1}$. Let $\Hcal_K(\Fcal)$ denote the observed
+process laws generated by $K$-state HMMs with emissions in $\Fcal$, arbitrary
+transition matrices, and arbitrary initial distributions. For process laws $P$
+and $Q$, let $P^{1:T}$ and $Q^{1:T}$ denote the respective joint laws of
+$(Y_1,\ldots,Y_T)$ and write
+\begin{equation*}
+ \underline D^{\mathrm{rate}}(P\Vert Q)
+ =\liminf_{T\to\infty}T^{-1}D(P^{1:T}\Vert Q^{1:T})
+\end{equation*}
+for their lower relative-entropy rate.
 
-For $K\geq1$, let $\Hcal_K(\Fcal)$ denote the class of observed laws generated by $K$-state HMMs with arbitrary initial distribution, arbitrary transition matrix, and emission densities in $\Fcal$. Only the one-step predictive form of such laws is used below.
+Fix an integer $K_0\geq1$, interpreted as the number of aggregate scientific
+regimes. A superscript $0$ denotes a data-generating parameter. The
+following assumptions isolate a transparent finite-mixture setting.
 
-For stationary observed processes $P,Q$, define the lower relative-entropy rate
-\[
-\underline D^{\rm rate}(P\Vert Q)=\liminf_{T\to\infty}\frac1T D(P^{1:T}\Vert Q^{1:T}).
-\]
-The liminf is enough for the lower bounds below.
-
-Fix an integer $K_0\geq1$. In the applications below, $K_0$ is the number of aggregate scientific regimes.
-
-\begin{assumption}[Emission family]\label{ass:F}
-The parameter space $\Theta$ is compact. The map $\eta\mapsto f_\eta$ is continuous from $\Theta$ to $L^1(\lambda)$, and $f_\eta>0$ $\lambda$-almost everywhere for every $\eta\in\Theta$.
+\begin{assumption}[Emission regularity]\label{ass:regularity}
+The parameter space $\Theta$ is compact, the map $\eta\mapsto f_\eta$ is
+continuous into $L^1(\lambda)$, and every $f_\eta$ is positive
+$\lambda$-almost everywhere.
 \end{assumption}
 
-\begin{assumption}[Identifiable finite mixtures]\label{ass:idmix}
-Finite mixtures of $\Fcal$ have identifiable minimal order. If two finite mixtures with strictly positive weights and pairwise distinct parameters are equal $\lambda$-almost everywhere, then they have the same number of components and agree up to label swapping.
+\begin{assumption}[Identifiable mixture order]\label{ass:identifiability}
+Finite mixtures from $\Fcal$ have identifiable minimal order. Two equal finite
+mixtures with positive weights and pairwise distinct parameters have the same
+number of components and agree up to permutation.
 \end{assumption}
+
+Classical sufficient conditions are given by \citet{Teicher1963} and
+\citet{YakowitzSpragins1968}; see also \citet{McLachlanPeel2000}. The
+assumptions include univariate Gaussian emissions on compact mean and variance
+sets with variances bounded away from zero.
 
 \begin{lemma}[Separation from lower-order mixtures]\label{lem:separation}
-Assume Assumptions~\ref{ass:F} and~\ref{ass:idmix}. Let $\eta_1^0,\ldots,\eta_R^0$ be pairwise distinct, with $R>K_0$. For $c>0$ such that $Rc\leq1$, define
-\[
-\Acal_c=\left\{\sum_{r=1}^R v_r f_{\eta_r^0}: v_r\geq c,\ \sum_{r=1}^R v_r=1\right\}.
-\]
-Then
-\[
-d_c:=\inf_{p\in\Acal_c}\inf_{q\in\Mcal_{K_0}}\norm{p-q}_1>0,
-\]
-and hence
-\[
-\inf_{p\in\Acal_c}\inf_{q\in\Mcal_{K_0}}D(p\Vert q)\geq \frac12d_c^2>0.
-\]
+Under Assumptions~\ref{ass:regularity} and~\ref{ass:identifiability}, let
+$R>K_0$ be an integer and let $\eta_1^0,\ldots,\eta_R^0$ be pairwise distinct.
+For $c>0$ and
+$Rc\leq1$, set
+\begin{equation*}
+ \Acal_c=\left\{\sum_{r=1}^R\omega_r f_{\eta_r^0}:
+ \omega_r\geq c,\ \sum_{r=1}^R\omega_r=1\right\}.
+\end{equation*}
+Then $d_c:=\inf_{p\in\Acal_c}\inf_{q\in\Mcal_{K_0}}\norm{p-q}_1>0$, and
+\begin{equation}\label{eq:kl-gap-mixtures}
+ \inf_{p\in\Acal_c}\inf_{q\in\Mcal_{K_0}}D(p\Vert q)
+ \geq d_c^2/2>0.
+\end{equation}
 \end{lemma}
 
-\begin{proof}
-By Assumption~\ref{ass:F}, $\Mcal_{K_0}$ is the continuous image of the compact set $\Delta_{K_0}\times\Theta^{K_0}$, hence compact in $L^1$. The set $\Acal_c$ is also compact. The two sets are disjoint: if $p\in\Acal_c\cap\Mcal_{K_0}$, then a mixture with exactly $R$ positive-weight, pairwise distinct components equals a mixture whose zero-weight and repeated-atom components can be reduced to a minimal representation with at most $K_0$ components. This contradicts identifiable minimal order. Two disjoint compact sets in a metric space have positive distance. The KL bound follows from \eqref{eq:pinsker}.
-\end{proof}
+The lemma says that a mixture containing $R$ distinct atoms, each with a
+non-negligible weight, cannot be approximated arbitrarily closely by only
+$K_0<R$ atoms.
 
-\section{Aligned KL correction by state splitting}
+To see the approximation incentive directly, let $Z_t\in\{1,\ldots,K_0\}$ be
+a stationary aggregate Markov chain with transition matrix
+$\Gamma^0=(\gamma^0_{k\ell})$ and stationary probabilities
+$\pi_k=\Pbb(Z_t=k)>0$. Here,
+$\gamma^0_{k\ell}=\Pbb(Z_t=\ell\mid Z_{t-1}=k)$. Suppose the emission in state
+$k$ is $g_k$, and, for an integer $m\geq1$, define
+$\delta_k(m)=\inf_{q\in\Mcal_m}D(g_k\Vert q)$. Thus,
+$\delta_k(m)$ is the smallest emission-level Kullback--Leibler loss attainable
+with at most $m$ atoms from $\Fcal$.
 
-Let $Z_t\in\{1,\ldots,K_0\}$ be a stationary aggregate Markov chain with transition matrix $\Gamma^0$ and stationary distribution $\pi$, with $\pi_k>0$. Suppose
-\[
-Y_t\mid Z_t=k\sim g_k.
-\]
-For $m\geq1$, define
-\[
-\delta_k(m)=\inf_{q\in\Mcal_m}D(g_k\Vert q).
-\]
-
-\begin{proposition}[Aligned KL improvement]\label{prop:aligned}
-If state $k$ is represented by one emission from $\Fcal$, the best aligned KL risk is
-\[
-\mathcal K_{\rm unref}=\sum_{k=1}^{K_0}\pi_k\delta_k(1).
-\]
-If state $k$ is refined into $m_k$ substates with emissions from $\Fcal$, the best aligned KL risk is
-\[
-\mathcal K_{\rm ref}=\sum_{k=1}^{K_0}\pi_k\delta_k(m_k).
-\]
-Consequently, if $\delta_{k^\star}(m_{k^\star})<\delta_{k^\star}(1)$ for some $k^\star$, then $\mathcal K_{\rm ref}<\mathcal K_{\rm unref}$.
+\begin{proposition}[Aligned improvement by state splitting]\label{prop:aligned}
+If aggregate state $k$ is represented by one emission from $\Fcal$, the best
+aligned Kullback--Leibler risk is
+$\sum_{k=1}^{K_0}\pi_k\delta_k(1)$. If it is represented by $m_k\geq1$
+substates, where $m_k$ is the number allocated to aggregate state $k$, the best
+aligned risk is $\sum_{k=1}^{K_0}\pi_k\delta_k(m_k)$. The second risk is
+strictly smaller whenever
+$\delta_{k^\star}(m_{k^\star})<\delta_{k^\star}(1)$ for at least one state.
 \end{proposition}
 
-\begin{proof}
-In the aligned comparison, the hidden trajectory law is fixed at the true aggregate chain. Thus all transition terms cancel in the complete-data likelihood ratio. With one fitted emission $f_{\eta_k}$ per aggregate state, stationarity gives risk
-\[
-\sum_{k=1}^{K_0}\pi_kD(g_k\Vert f_{\eta_k}),
-\]
-and taking the infimum over $\eta_1,\ldots,\eta_{K_0}$ gives $\sum_k\pi_k\delta_k(1)$. With $m_k$ substates inside aggregate state $k$, the aggregate fitted emission is any $q_k\in\Mcal_{m_k}$; taking the infimum over these mixtures gives $\sum_k\pi_k\delta_k(m_k)$. Since $\Mcal_1\subseteq\Mcal_{m_k}$, all terms weakly decrease, and one positive-weight strict decrease yields the claim.
-\end{proof}
+In plain terms, splitting gives a heterogeneous state several emission atoms
+instead of one. The statement is only an aligned comparison because it holds
+the aggregate trajectory fixed. The next construction removes that
+restriction.
 
-\section{Exact refinement with persistent aggregate dynamics}
-
-The next construction is the standard state-augmentation device used here to preserve the aggregate dynamics exactly.
+Suppose each aggregate emission is a finite mixture with $m_k$ components,
+\begin{equation}\label{eq:true-emissions}
+ g_k(y)=\sum_{a=1}^{m_k}\omega_{k,a}f_{\eta^0_{k,a}}(y),
+ \qquad \omega_{k,a}>0,\quad \sum_a\omega_{k,a}=1.
+\end{equation}
+The $\omega_{k,a}$ are the within-state mixing proportions.
 
 \begin{proposition}[Exact HMM refinement]\label{prop:refinement}
-Suppose the aggregate emissions are
-\begin{equation}\label{eq:gkmixture}
-g_k(y)=\sum_{a=1}^{m_k}w_{k,a}f_{\eta^0_{k,a}}(y),\qquad w_{k,a}>0,\quad \sum_a w_{k,a}=1.
+Let the refined states be $(k,a)$, where $1\leq k\leq K_0$ and
+$1\leq a\leq m_k$. Give state $(k,a)$ emission
+$f_{\eta^0_{k,a}}$ and transition probabilities
+\begin{equation}\label{eq:refined-transition}
+ \Gamma^{\mathrm{ref}}_{(k,a),(\ell,b)}
+ =\gamma^0_{k\ell}\omega_{\ell,b}.
 \end{equation}
-Let the refined states be $(k,a)$ and define $r(k,a)=k$. Set
-\begin{equation}\label{eq:reftransition}
-\Gamma^{\rm ref}_{(k,a),(\ell,b)}=\gamma^0_{k\ell}w_{\ell,b},
-\end{equation}
-and let $Y_t\mid X_t=(k,a)\sim f_{\eta^0_{k,a}}$. If $X_1$ has distribution $\pi_k w_{k,a}$ on $(k,a)$, then the observed law of the refined HMM is exactly the observed law of the aggregate HMM with transitions $\Gamma^0$ and emissions $g_k$.
+With initial probabilities $\pi_k\omega_{k,a}$, the refined HMM has exactly
+the same observed process law as the aggregate HMM with transitions
+$\Gamma^0$ and emissions in~\eqref{eq:true-emissions}.
 \end{proposition}
 
-\begin{proof}
-The matrix in \eqref{eq:reftransition} is stochastic since $\sum_{\ell,b}\gamma^0_{k\ell}w_{\ell,b}=1$. The distribution $\pi_k w_{k,a}$ is stationary because
-\[
-\sum_{k,a}\pi_k w_{k,a}\gamma^0_{k\ell}w_{\ell,b}=w_{\ell,b}\sum_k\pi_k\gamma^0_{k\ell}=\pi_\ell w_{\ell,b}.
-\]
-Moreover,
-\[
-\Pbb\{r(X_t)=\ell\mid X_{t-1}=(k,a)\}=\sum_b\gamma^0_{k\ell}w_{\ell,b}=\gamma^0_{k\ell}.
-\]
-Finally, summing over all substate paths compatible with a fixed aggregate path $z_{1:T}$ gives
-\[
-\pi_{z_1}\prod_{t=2}^T\gamma^0_{z_{t-1},z_t}\prod_{t=1}^T\sum_{a=1}^{m_{z_t}}w_{z_t,a}f_{\eta^0_{z_t,a}}(y_t)
-=
-\pi_{z_1}\prod_{t=2}^T\gamma^0_{z_{t-1},z_t}\prod_{t=1}^Tg_{z_t}(y_t).
-\]
-Summing over aggregate paths proves equality of all observed finite-dimensional laws.
-\end{proof}
+Equation~\eqref{eq:refined-transition} retains the probability of moving from
+aggregate state $k$ to $\ell$, then draws a component of the destination
+emission. The refined states therefore encode within-regime mixture components,
+not new aggregate dynamics.
 
-\section{Persistent marginal theorem}
+Assume now that
+$\varepsilon:=\min_{1\leq k,\ell\leq K_0}\gamma^0_{k\ell}>0$, let
+$R=\sum_{k=1}^{K_0}m_k$, let
+$\omega_{\min}=\min_{1\leq k\leq K_0,\,1\leq a\leq m_k}\omega_{k,a}$, and set
+$c=\varepsilon\omega_{\min}$. Suppose $R>K_0$ and all
+$\eta^0_{k,a}$ are pairwise distinct.
 
-Let the aggregate transition matrix satisfy
-\begin{equation}\label{eq:mintrans}
-\varepsilon:=\min_{k,\ell}\gamma^0_{k\ell}>0.
+\begin{theorem}[Observed-law separation]\label{thm:separation}
+Under Assumptions~\ref{ass:regularity} and~\ref{ass:identifiability}, the
+stationary aggregate HMM with emissions~\eqref{eq:true-emissions} has observed
+law $P_0^Y$ satisfying
+\begin{equation}\label{eq:main-separation}
+ \inf_{Q\in\Hcal_R(\Fcal)}
+ \underline D^{\mathrm{rate}}(P_0^Y\Vert Q)=0,
+ \qquad
+ \inf_{Q\in\Hcal_{K_0}(\Fcal)}
+ \underline D^{\mathrm{rate}}(P_0^Y\Vert Q)\geq d_c^2/2>0.
 \end{equation}
-This permits persistent regimes with large diagonal probabilities, while keeping every aggregate state present in every one-step prediction. Let
-\[
-R=K_{\rm ref}:=\sum_{k=1}^{K_0}m_k,
-\qquad
-w_{\min}:=\min_{k,a}w_{k,a},
-\qquad
-c:=\varepsilon w_{\min}.
-\]
-Assume $R>K_0$ and the refined atoms $\eta^0_{k,a}$ are pairwise distinct.
-For this value of $c$, the condition $Rc\leq1$ required in Lemma~\ref{lem:separation} is automatic, because the $R$ refined predictive weights are all at least $c$ and sum to one.
-
-\begin{theorem}[Persistent marginal KL separation]\label{thm:marginal}
-Under Assumptions~\ref{ass:F} and~\ref{ass:idmix}, the aggregate HMM with transitions $\Gamma^0$ satisfying \eqref{eq:mintrans} and emissions \eqref{eq:gkmixture} satisfies
-\[
-\inf_{Q\in\Hcal_{K_{\rm ref}}(\Fcal)}\underline D^{\rm rate}(P_0^Y\Vert Q)=0,
-\]
-but every $K_0$-state HMM with emissions in $\Fcal$ satisfies
-\[
-\text{for every }Q\in\Hcal_{K_0}(\Fcal),\qquad
-\underline D^{\rm rate}(P_0^Y\Vert Q)\geq \frac12d_c^2>0,
-\]
-where $d_c$ is the separation constant from Lemma~\ref{lem:separation}. Hence
-\[
-\inf_{Q\in\Hcal_{K_{\rm ref}}(\Fcal)}\underline D^{\rm rate}(P_0^Y\Vert Q)
-<
-\inf_{Q\in\Hcal_{K_0}(\Fcal)}\underline D^{\rm rate}(P_0^Y\Vert Q).
-\]
 \end{theorem}
 
-\begin{proof}
-The first claim follows from Proposition~\ref{prop:refinement}: the refined $K_{\rm ref}$-state HMM reproduces the observed law exactly.
+The first equality follows because the refined $R$-state model reproduces the
+truth exactly. For the second, every one-step prediction from a $K_0$-state
+simple-emission HMM belongs to $\Mcal_{K_0}$, while every true prediction
+contains all $R$ atoms with weights at least $c$. The mixture separation lemma
+and the chain rule for relative entropy then give the positive rate gap. This
+argument concerns observed predictive distributions and does not align hidden
+paths.
 
-Now fix any candidate $K_0$-state HMM with emissions $f_{\eta_1},\ldots,f_{\eta_{K_0}}$. Its one-step predictive density has the form
-\[
-p_t^Q(y\mid y_{1:t-1})=\sum_{j=1}^{K_0}\lambda_{t,j}(y_{1:t-1})f_{\eta_j}(y),
-\]
-so $p_t^Q(\cdot\mid y_{1:t-1})\in\Mcal_{K_0}$ for every history.
-
-For the true aggregate HMM, let
-\[
-\alpha_{t,k}(y_{1:t-1})=\Pbb_0(Z_t=k\mid Y_{1:t-1}=y_{1:t-1}).
-\]
-Stationarity and \eqref{eq:mintrans} imply $\alpha_{1,k}=\pi_k\geq\varepsilon$. For $t\geq2$,
-\[
-\alpha_{t,\ell}(y_{1:t-1})=
-\sum_k \Pbb_0(Z_{t-1}=k\mid Y_{1:t-1}=y_{1:t-1})\gamma^0_{k\ell}
-\geq \varepsilon.
-\]
-Therefore the true predictive density is
-\[
-p_t^0(y\mid Y_{1:t-1})=
-\sum_{k,a}\alpha_{t,k}(Y_{1:t-1})w_{k,a}f_{\eta^0_{k,a}}(y),
-\]
-with every refined weight at least $c=\varepsilon w_{\min}$. Thus $p_t^0(\cdot\mid Y_{1:t-1})\in\Acal_c$ almost surely. By Lemma~\ref{lem:separation},
-\[
-D\{p_t^0(\cdot\mid Y_{1:t-1})\Vert p_t^Q(\cdot\mid Y_{1:t-1})\}\geq \frac12d_c^2
-\]
-almost surely. If any conditional divergence is infinite, the desired bound is immediate. Otherwise, the chain rule for relative entropy yields
-\[
-D(P_0^{Y_{1:T}}\Vert Q^{Y_{1:T}})=
-\sum_{t=1}^T\Ebb_0\left[D\{p_t^0(\cdot\mid Y_{1:t-1})\Vert p_t^Q(\cdot\mid Y_{1:t-1})\}\right]
-\geq T\frac12d_c^2.
-\]
-Divide by $T$ and take the liminf.
-\end{proof}
-
-\begin{corollary}[Enriched-emission diagnostic]\label{cor:enriched}
-Under the assumptions of Theorem~\ref{thm:marginal}, suppose the fitted emission family is enlarged from $\Fcal$ to $\Mcal_M$ for some $M\geq\max_k m_k$. Then
-\[
-\inf_{Q\in\Hcal_{K_0}(\Mcal_M)}\underline D^{\rm rate}(P_0^Y\Vert Q)=0.
-\]
-Thus the refined $K_{\rm ref}$-state HMM with simple emissions and the aggregate $K_0$-state HMM with enriched emissions can both reproduce the observed law exactly.
+\begin{corollary}[Enriched-emission representation]\label{cor:enriched}
+If the fitted emission family is enlarged from $\Fcal$ to $\Mcal_M$, with an
+integer $M\geq\max_{1\leq k\leq K_0}m_k$, then
+\begin{equation*}
+ \inf_{Q\in\Hcal_{K_0}(\Mcal_M)}
+ \underline D^{\mathrm{rate}}(P_0^Y\Vert Q)=0.
+\end{equation*}
 \end{corollary}
 
-\begin{proof}
-Each aggregate emission $g_k$ in \eqref{eq:gkmixture} belongs to $\Mcal_M$ when $M\geq m_k$. The original aggregate chain with emissions $g_k$ is therefore a $K_0$-state HMM with emissions in $\Mcal_M$, and it has observed law $P_0^Y$.
-\end{proof}
+Thus, a refined model with more simple-emission states and an aggregate model
+with richer emissions can describe the same observations. Equality of the two
+representations does not determine which latent description is scientifically
+meaningful.
 
-\begin{remark}[On the transition positivity assumption]
-The assumption $\min_{k,\ell}\gamma^0_{k\ell}>0$ is sufficient, not necessary. It gives a short one-step predictive proof and an explicit lower bound. A more abstract replacement is possible: compactness of a regular $K_0$-state class, lower semicontinuity of the entropy-rate map, observed-law identifiability, and non-representability of at least one aggregate emission by $\Fcal$ imply a positive separation by contradiction. That route is less transparent and is not needed for the present sufficient mechanism.
-\end{remark}
+For reference, Sections~S1.1--S1.5 of the Supporting Information give proofs
+of Lemma~2.3, Proposition~2.4, Proposition~2.5, Theorem~2.6, and
+Corollary~2.7, respectively.
 
-\section{Numerical illustration}
+\section{Fitting the enriched-emission HMM}\label{sec:em}
 
-We simulated a persistent two-regime aggregate HMM with
-\[
-\Gamma^0=\begin{pmatrix}0.93&0.07\\0.05&0.95\end{pmatrix}.
-\]
-The first aggregate regime had a two-component Gaussian mixture emission, $0.70N(-1.20,0.55^2)+0.30N(1.10,0.45^2)$, and the second regime had emission $N(3.80,0.65^2)$. We fitted a Gaussian-emission HMM with $K=2$, a Gaussian-emission HMM with $K=3$, and an enriched $K=2$ HMM with two Gaussian components per state. The replication script repeats the comparison for $T\in\{500,1500,5000\}$ with 200 fixed-seed replications per sample size and 10 random EM starts per replicated fit.
+Let $X_t\in\{1,\ldots,K\}$ denote the fitted hidden state at time $t$. For
+state $k$, let $M_k\geq1$ be the number of fitted Gaussian components and let
+$\phi(y;\mu,\sigma^2)$ denote the Gaussian density at $y$ with mean $\mu$ and
+variance $\sigma^2>0$. The fitted state-dependent density is
+\begin{equation}\label{eq:fitted-mixture}
+ b_k(y)=\sum_{m=1}^{M_k}\omega_{km}
+ \phi(y;\mu_{km},\sigma_{km}^2),
+ \qquad \omega_{km}\geq0,\quad \sum_m\omega_{km}=1.
+\end{equation}
+The quantities $\omega_{km}$ are mixing proportions within state $k$; they do
+not change the state transition probabilities. The hidden chain has initial
+probabilities $\alpha_k=\Pbb(X_1=k)$ and transition probabilities
+$a_{k\ell}=\Pbb(X_t=\ell\mid X_{t-1}=k)$, collected in
+$A=(a_{k\ell})$.
 
-% Table auto-generated by numerics/scripts/run_review_simulation.py
-\input{tables/simulation_table.tex}
+The expectation-maximization (EM) algorithm alternates between state and
+component allocation and closed-form parameter updates. Write
+$Y_{1:T}=(Y_1,\ldots,Y_T)$ and let $C_t\in\{1,\ldots,M_{X_t}\}$ denote the
+Gaussian-component label at time $t$. A scaled forward--backward recursion gives
+\begin{align*}
+ \zeta_t(k)&=\Pbb(X_t=k\mid Y_{1:T}),\\
+ \xi_t(k,\ell)&=\Pbb(X_{t-1}=k,X_t=\ell\mid Y_{1:T}).
+\end{align*}
+Here, $\zeta_t(k)$ is defined for $t=1,\ldots,T$, whereas
+$\xi_t(k,\ell)$ is defined for $t=2,\ldots,T$.
+The joint posterior responsibility for state $k$ and component $m$ is
+\begin{equation}\label{eq:responsibility}
+ r_t(k,m)=\Pbb(X_t=k,C_t=m\mid Y_{1:T})=\zeta_t(k)
+ \frac{\omega_{km}\phi(Y_t;\mu_{km},\sigma_{km}^2)}{b_k(Y_t)}.
+\end{equation}
+The M-step updates are
+\begin{align}
+ \alpha_k^{\mathrm{new}}&=\zeta_1(k), &
+ a_{k\ell}^{\mathrm{new}}&=
+ \frac{\sum_{t=2}^T\xi_t(k,\ell)}
+ {\sum_{t=2}^T\sum_j\xi_t(k,j)},\label{eq:em-chain}\\
+ \omega_{km}^{\mathrm{new}}&=
+ \frac{\sum_t r_t(k,m)}{\sum_t\zeta_t(k)}, &
+ \mu_{km}^{\mathrm{new}}&=
+ \frac{\sum_t r_t(k,m)Y_t}{\sum_t r_t(k,m)},\label{eq:em-weight-mean}\\
+ (\sigma_{km}^2)^{\mathrm{new}}&=
+ \frac{\sum_t r_t(k,m)(Y_t-\mu_{km}^{\mathrm{new}})^2}
+ {\sum_t r_t(k,m)}.\label{eq:em-variance}
+\end{align}
+In these updates, sums over $t$ without displayed limits run from $1$ to $T$,
+and $\sum_j$ runs over the $K$ fitted states.
+In computation, a small lower bound on $\sigma_{km}$ prevents likelihood
+degeneracy. Multiple starts are needed because mixture-HMM likelihoods are
+multimodal. For a sequence of length $T$, BIC is
+$-2\ell(\widehat\theta)+p\log T$, where $\widehat\theta$ is the maximum
+likelihood estimate, $\ell(\widehat\theta)$ is the maximized log-likelihood,
+and the number $p$ of free parameters is
+\begin{equation}\label{eq:parameter-count}
+ (K-1)+K(K-1)+\sum_{k=1}^K\{(M_k-1)+2M_k\}.
+\end{equation}
+The three terms count initial probabilities, transition probabilities, and
+state-specific mixture parameters, respectively.
 
-\begin{figure}[t]
+\section{A diagnostic workflow for practitioners}\label{sec:workflow}
+
+Suppose scientific knowledge suggests $K_0$ regimes, while a simple-emission
+analysis favours $K_0+1$ states. We recommend the following comparison.
+
+\begin{enumerate}
+\item Fit the simple-emission HMMs with $K_0$ and $K_0+1$ states, then fit a
+$K_0$-state model with a scientifically plausible richer emission family.
+\item Compare penalized fit, but do not use BIC alone as evidence for a new
+scientific regime.
+\item Check one-step predictive calibration. For continuous data, compute the
+probability integral transform (PIT) values
+$U_t=F_t(Y_t\mid Y_{1:t-1})$, where $F_t$ is the fitted one-step predictive
+cumulative distribution function. A calibrated model should produce PIT values
+approximately uniform on $(0,1)$.
+\item Compare decoded sequences and state-dependent distributions. Cross-tabulate
+the $K_0+1$-state decoding against the enriched $K_0$-state decoding. If two
+simple-emission states map largely to one enriched state, they are candidates
+for an emission-driven split.
+\item Present the observed series, predictive diagnostics, and mapping to the
+context researcher. Interpret an extra state substantively only when its
+temporal and domain-specific meaning remains after plausible emission
+enrichment.
+\end{enumerate}
+
+These steps do not prove that an extra state is corrective. They provide
+direct, data-related evidence that is easier to discuss than a BIC difference
+alone. Formal goodness-of-fit procedures, sensitivity to starting values, and
+subject-matter validation remain important.
+
+\section{Simulation study}\label{sec:simulation}
+
+We first isolate the mechanism in a controlled setting. The data-generating
+process has two aggregate states, transition matrix
+\begin{equation*}
+ \Gamma^0=\begin{pmatrix}0.93&0.07\\0.05&0.95\end{pmatrix}.
+\end{equation*}
+The first-state emission was a two-component Gaussian mixture with weights
+0.70 and 0.30, means $-1.20$ and $1.10$, and standard deviations 0.55 and
+0.45. The second-state emission was Gaussian with mean 3.80 and standard
+deviation 0.65. The process therefore
+has two aggregate regimes and three distinct Gaussian atoms.
+
+For a reference series of length 1500, we fitted Gaussian HMMs with $K=2$ and
+$K=3$, and an enriched $K=2$ HMM with two Gaussian components per state. Each
+model used 10 EM starts. The two-state Gaussian model merged the heterogeneous
+first regime and had BIC 4487.4. The three-state Gaussian model separated its
+two components and had BIC 4197.3. The enriched two-state model recovered the
+same within-regime structure while retaining two aggregate states and had BIC
+4191.8. \Cref{fig:simulation-density} shows the directly observable emission
+fit.
+
+\begin{figure}[tbp]
 \centering
-\includegraphics[width=.72\linewidth]{figures/simulation_density.pdf}
-\caption{Histogram of observations and fitted marginal densities from Gaussian HMMs with $K=2$ and $K=3$ states. The three-state fit recovers two components inside the first aggregate regime.}
-\label{fig:sim}
+\includegraphics[width=.78\linewidth]{simulation_density.pdf}
+\caption{Observed histogram and fitted marginal densities for the reference
+simulation. The two-state Gaussian model smooths over the heterogeneous first
+regime. The three-state Gaussian and enriched two-state models recover its two
+components.}
+\label{fig:simulation-density}
 \end{figure}
 
-For the reference series in Table~\ref{tab:sim}, the two-state Gaussian model uses one broad Gaussian to represent the heterogeneous first regime. The three-state Gaussian model improves the fit by splitting this heterogeneous regime. The enriched two-state model absorbs the same correction inside the emission distribution. The additional Gaussian-HMM state is therefore an emission-correction substate in the sense of the theory.
+Across 200 fixed-seed replications at each sample size, BIC selected the third
+Gaussian state in 89.5\%, 94.5\%, and 96.0\% of samples for
+$T=500,1500,5000$, respectively. When the three-state Gaussian model was
+compared with the enriched two-state model, BIC preferred the latter in 94.0\%,
+98.5\%, and 98.5\% of samples. Full computational details and additional
+diagnostics are reported in the Supporting Information.
 
-\input{tables/replication_summary_table.tex}
+These frequencies are descriptive. Finite mixtures and overfitted HMMs contain
+singular parameter strata, so regular-model interpretations of BIC require
+caution \citep{Keribin2000,RousseauMengersen2011,GassiatRousseau2014,Watanabe2013,DrtonPlummer2017}.
 
-\begin{figure}[t]
+\section{Canadian elk movement application}\label{sec:elk}
+
+\subsection{Data and analysis}
+
+We used the public \texttt{elk\_data} distributed with the R package
+\texttt{moveHMM} \citep{MichelotEtAl2016}. The data contain 735 ordered GPS
+locations for four elk in east-central Ontario, with 194, 159, 164, and 218
+locations for elk 115, 163, 287, and 363, respectively. The animals and study
+setting originate from \citet{MoralesEtAl2004}. Exact timestamps are absent
+from the distributed data; following the documented use of elk 115 in
+\citet{PartonBlackwell2017}, consecutive locations were treated as
+approximately 24 hours apart. We calculated 193, 158, 163, and 217 daily step
+lengths.
+
+The analysis deliberately uses only step length. It is not a full ecological
+reanalysis and does not assign behavioural labels. Its purpose is to show how
+emission flexibility changes the interpretation of fitted state count. For
+each animal separately, the response was $\log(1+\text{step length in km})$.
+We fitted Gaussian HMMs with $K=2$ and $K=3$, plus an enriched $K=2$ HMM with
+two Gaussian components in each state-dependent distribution. Separate fits
+avoid imposing identical movement distributions across animals. Each fit used
+200 deterministic-seed starts, a fitted standard-deviation lower bound of 0.05,
+and the same screening and convergence rules. The models have 7, 14, and 13
+free parameters, respectively.
+
+We compared BIC and the empirical distribution of in-sample one-step PIT
+values. Because the same observations are used to estimate and assess each
+model, these PIT summaries are descriptive calibration diagnostics rather than
+out-of-sample performance estimates. We also compared Viterbi-decoded state
+sequences, meaning the most likely joint hidden-state paths, and
+cross-tabulated the three Gaussian states against the two enriched-emission
+states.
+
+\subsection{Results}
+
+The three-state Gaussian model improved substantially on the two-state
+Gaussian model for every animal, with BIC reductions from 15.5 to 65.1
+\Cref{tab:elk-comparison}. That result alone could be presented as evidence for
+a third movement state. The enriched comparison changes the interpretation.
+The two-state mixture model had lower BIC than the three-state Gaussian model
+for elk 163, 287, and 363, by 10.8, 8.7, and 8.0 points. For elk 115 its BIC was
+2.8 points higher, so the two representations were close on that criterion.
+
+\input{tables/elk_model_comparison.tex}
+
+\begin{figure}[tbp]
 \centering
-\includegraphics[width=.70\linewidth]{figures/bic_by_T.pdf}
-\caption{BIC selection frequencies across 200 replications for each sample size. The Gaussian comparison checks whether the simple-emission family favours $K=3$ over $K=2$; the enriched comparison checks whether a $K=2$ mixture-emission HMM improves on the $K=3$ Gaussian HMM.}
-\label{fig:bicT}
+\includegraphics[width=.96\linewidth]{elk_observation_diagnostics.pdf}
+\caption{Diagnostics directly connected to the observed elk step lengths.
+Panel A overlays the histogram of the transformed observations with fitted
+emission densities weighted by posterior state occupation. Panel B compares
+the empirical one-step PIT distributions of the Gaussian $K=3$ and enriched
+$K=2$ models with the uniform reference. Agreement with the histogram and the
+diagonal are descriptive checks of distributional fit and predictive
+calibration, respectively.}
+\label{fig:elk-diagnostics}
 \end{figure}
 
-\begin{figure}[t]
+The enriched two-state model also had the smallest PIT distance for elk 115,
+287, and 363, and was close to the three-state Gaussian model for elk 163
+\Cref{fig:elk-diagnostics}. Its central 90\% predictive interval coverage was
+between 0.914 and 0.931 across animals. The corresponding range was 0.914 to
+0.948 for the three-state Gaussian model. Thus, reducing the number of states
+after enriching the emissions did not produce a general loss of predictive
+calibration.
+
+The fitted component distributions show what the enrichment contributes beyond
+a third Gaussian state. For elk 115, one enriched state combines component
+medians of 2.60 and 9.39 km with weights 0.70 and 0.30. The corresponding pairs
+are 0.58 and 5.26 km for elk 163, 0.11 and 3.77 km for elk 287, and 0.13 and
+4.43 km for elk 363. Thus, a single aggregate state can accommodate distinct
+parts of the observed step-length distribution without assigning each part a
+separate state. These components are distributional features, not behavioural
+categories; complete component and transition estimates are reported in the
+Supporting Information.
+
+The only near-boundary transition estimates occurred for elk 287: the two
+self-transition probabilities were 1.000 and 0.989. Inference about aggregate
+switching for that individual should therefore be treated with particular
+caution.
+
+The decoded-state mapping makes the mechanism tangible
+\Cref{fig:elk-mapping}. For elk 115, the first two Gaussian states mapped almost
+entirely to the first enriched state, while the third mapped to the second. For
+elk 287, the first and third Gaussian states mapped to one enriched state and
+the second mapped to the other, up to label permutation. Elk 163 showed the
+same broad aggregation with partial overlap in one Gaussian state. The mapping
+for elk 363 was less discrete, indicating that the two latent descriptions
+should not be treated as interchangeable for that animal.
+
+\begin{figure}[tbp]
 \centering
-\includegraphics[width=.78\linewidth]{figures/state_decoding_heatmap.pdf}
-\caption{Viterbi decoding proportions for the reference series. The $K=3$ Gaussian HMM separates the two refined substates inside the heterogeneous aggregate regime.}
-\label{fig:decoding}
+\includegraphics[width=.98\linewidth]{elk_state_mapping.pdf}
+\caption{Row proportions from cross-tabulations of Viterbi states. Each panel
+shows how observations decoded into each state of the Gaussian $K=3$ model are
+allocated between the two states of the enriched-emission model. State labels
+are model-specific and have no behavioural interpretation here.}
+\label{fig:elk-mapping}
 \end{figure}
 
-The replicated comparison confirms the diagnostic pattern. Within the simple Gaussian family, the three-state HMM is favoured in $87.0\%$, $90.5\%$, and $97.0\%$ of the replications for $T=500$, $1500$, and $5000$, respectively, because it can split the heterogeneous first regime. Once two-component Gaussian emissions are allowed, the two-state enriched model has lower BIC than the three-state Gaussian model in $94.5\%$, $96.0\%$, and $98.5\%$ of the replications, in line with Corollary~\ref{cor:enriched}.
+Taken together, the observation-level diagnostics support an emission-driven
+explanation for at least part of the third Gaussian state. They do not establish
+that elk movement has exactly two biological behaviours. Instead, they show
+that the evidence for a third state is sensitive to the state-dependent
+distribution and should not be presented to a context researcher as a new
+behaviour on BIC alone.
 
-\section{Discussion}
+\section{Discussion}\label{sec:discussion}
 
-The results show that, under transparent sufficient conditions,
-\[
-K_{\rm fitted}=K_{\rm aggregate}+\text{emission-correction substates}
-\]
-can be the correct likelihood geometry. Extra states need not be spurious, but neither should they automatically be interpreted as new scientific regimes. They may be necessary to approximate a misspecified emission family.
+The theoretical and empirical results clarify why additional HMM states can be
+both useful and scientifically misleading. They are useful when they improve
+the approximation of a restrictive observation model. They are misleading
+when approximation components are labelled as new regimes without testing
+plausible emission alternatives.
 
-The theory suggests a diagnostic workflow. After fitting a model with additional states, examine whether the extra state disappears when the emission family is enriched directly, for example by a heavy-tailed, overdispersed, copula, or explicit finite-mixture emission. If it does, the state was likely corrective. This distinction is relevant for likelihood-based state selection and for applied HMM interpretation, especially in domains where states are routinely assigned substantive meaning.
+The proposed workflow makes that test directly visible. In the elk example,
+three Gaussian states fit better than two, but two richer state-dependent
+distributions match or improve the penalized fit for three animals and improve
+the PIT distance for three. Decoded-state cross-tabulations show where the
+third Gaussian partition collapses after enrichment. These displays are more
+tangible than a BIC table alone, yet they remain diagnostics rather than an
+automatic state-merging rule.
 
-The exact theorem assumes that the aggregate emissions are finite mixtures from the fitted family. In applications, an emission may instead be heavy-tailed, skewed, or otherwise outside every finite mixture order considered in practice. The same interpretation remains useful but should be stated as approximation rather than exact representation: increasing the number of simple-emission states may successively reduce emission misspecification without producing a final finite-order equality. In that setting, the selected number of states can depend on sample size, the information criterion, and the richness of the competing emission family.
+Several limitations are important. Extra states can correct emissions,
+transitions, missing covariates, temporal resolution, or multiple mechanisms at
+once. Equality or near-equality of observed-law representations cannot identify
+a unique latent ontology. Domain knowledge, robustness to covariates and
+dependence structures, and scientific validation are therefore necessary
+\citep{PohleEtAl2017,McClintockEtAl2020}. The theorem is a one-way warning:
+under its assumptions, the aggregate-state simple-emission model is necessarily
+misspecified.
+
+The exact result assumes finite mixtures and a positive aggregate transition
+matrix. Heavy-tailed or skewed emissions may require successively richer
+approximations rather than a finite exact refinement. Structural zeros in the
+transition matrix would require blockwise accessibility conditions instead of
+the uniform one-step bound used here.
+
+The elk illustration has additional limitations. The public data lack exact
+timestamps, the sample sizes per animal are modest, only step length is used,
+and the PIT checks are in-sample. Direction, habitat covariates, individual
+heterogeneity, and irregular observation times are outside its scope. The
+analysis consequently demonstrates a diagnostic workflow, not a definitive
+behavioural classification.
+
+\section{Conclusion}\label{sec:conclusion}
+
+Emission misspecification can make additional hidden states valuable for
+observed-law approximation even when the scientific process has fewer
+aggregate regimes. Exact refinement and predictive mixture separation explain
+the mechanism. Comparing simple additional-state models with enriched-emission
+models, then examining predictive calibration and decoded-state mappings, gives
+practitioners concrete evidence before assigning substantive meaning to an
+extra state.
+
+\section*{Acknowledgments}
+During preparation of the manuscript and supporting computational materials,
+the author used OpenAI ChatGPT and Codex for language editing, manuscript
+restructuring, code development and organization, and reproducibility checks.
+These tools were not treated as authors or sources of evidence. The author
+reviewed and edited all tool-assisted material; regenerated the reported
+numerical results from the archived code; and takes full responsibility for the
+content, accuracy, and integrity of the article.
+
+\section*{Funding}
+This research did not receive any specific grant from funding agencies in the
+public, commercial, or not-for-profit sectors.
 
 \section*{Data availability statement}
-The numerical code and generated outputs needed to reproduce the simulation are available at \url{https://github.com/AurelienNicosiaULaval/corrective-hmm-states}. No external data are used in the present draft.
+The elk locations are distributed as \texttt{elk\_data} in the open-source R
+package \texttt{moveHMM}. The reproducibility package accompanying this
+submission, named \nolinkurl{4416781_Reproducibility_Package.zip}, contains the
+package version, source references, in-memory object digest, analysis code,
+fixed seeds, and generated outputs, including row-level simulation results.
+The workflow is implemented entirely in R, reads \texttt{elk\_data} directly
+from the package, and does not redistribute the raw locations.
 
-\section*{Conflict of interest}
+\section*{Ethics statement}
+This study is a secondary analysis of publicly distributed data. No new data
+were collected and no animals were handled for this study.
+
+\section*{Conflict of interest statement}
 The author declares no conflict of interest.
-
-\section*{Declaration on AI-assisted tools}
-During revision, the author used OpenAI ChatGPT/Codex as an editorial and
-programming assistant for language polishing, code organization, and
-reproducibility checks. The author reviewed and verified all mathematical
-statements, numerical results, code, and conclusions, and takes full
-responsibility for the manuscript.
 
 \bibliographystyle{plainnat}
 \bibliography{references}
-
-\section*{Supporting information}
-The following supporting information is supplied separately: \texttt{supporting\_information.pdf}, containing the mixture-emission EM details, supplementary BIC, posterior corrective-state, and residual ACF diagnostics, and a reproducibility note. The numerical files \texttt{review\_replications.csv}, \texttt{review\_summary\_by\_T.csv}, \texttt{review\_model\_comparison.csv}, and \texttt{review\_metadata.json} accompany the supplement.
 
 \end{document}

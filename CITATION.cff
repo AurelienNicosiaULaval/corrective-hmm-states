@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you use these materials, please cite the associated manuscript and this repository."
+title: "Extra Hidden States under Emission Misspecification in Hidden Markov Models"
+type: software
+version: 1.0.0
+authors:
+  - family-names: Nicosia
+    given-names: Aurélien
+    orcid: "https://orcid.org/0000-0002-0974-9988"
+repository-code: "https://github.com/AurelienNicosiaULaval/corrective-hmm-states"
+keywords:
+  - hidden Markov model
+  - emission misspecification
+  - mixture emission
+  - reproducible research

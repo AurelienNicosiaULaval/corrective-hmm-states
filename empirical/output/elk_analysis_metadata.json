@@ -1,0 +1,28 @@
+{
+  "implementation": "R",
+  "r_version": "R version 4.5.0 (2025-04-11)",
+  "seed": 20260826,
+  "elk_data_source": "moveHMM::elk_data",
+  "moveHMM_version": "1.10",
+  "elk_data_object_sha256": "b18bb2b3a6f2b71bd7e95efcb59d9f5c907bd88a7664989e17ecea5ccbb1ea49",
+  "raw_data_csv_distributed": false,
+  "response": "log(1 + daily step length in kilometres)",
+  "n_starts": 200,
+  "screen_iterations": 70,
+  "refined_starts": 10,
+  "maximum_refinement_iterations": 500,
+  "minimum_standard_deviation": 0.050000000000000003,
+  "animals": ["elk-115", "elk-163", "elk-287", "elk-363"],
+  "n_steps": {
+    "elk-115": 193,
+    "elk-163": 158,
+    "elk-287": 163,
+    "elk-363": 217
+  },
+  "models": {
+    "gaussian_k2": "Gaussian K=2",
+    "gaussian_k3": "Gaussian K=3",
+    "mixture_k2": "Mixture K=2"
+  },
+  "enriched_component_counts": [2, 2]
+}

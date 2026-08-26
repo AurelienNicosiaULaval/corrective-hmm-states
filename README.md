@@ -1,99 +1,82 @@
-# Corrective hidden states in misspecified HMMs
+# Extra Hidden States under Emission Misspecification in Hidden Markov Models
 
-This repository contains the manuscript, supporting information, reproducible
-numerical code, and generated outputs for the *Stat* manuscript:
+This repository contains the revised manuscript, supporting information,
+analysis code, fixed seeds, generated outputs, and validation tests for
+manuscript 4416781, currently under revision for *Statistica Neerlandica*.
 
-*Extra Hidden States as Kullback-Leibler Corrections under Emission
-Misspecification in Hidden Markov Models*.
+The numerical work has two parts: a fixed-seed simulation study and an
+empirical illustration using the public `elk_data` object distributed with the
+R package `moveHMM`. The complete computational workflow is implemented in R,
+and all figures are generated with `ggplot2`.
 
 ## Repository contents
 
 ```text
-article/
-  main.tex                  compact LaTeX manuscript
-  main.pdf                  compiled manuscript PDF
-  references.bib            BibTeX bibliography
-  figures/                  generated numerical figures
-  tables/                   generated LaTeX tables
-supplement/
-  supporting_information.tex
-  supporting_information.pdf
-  tables/                   supporting-information tables
-numerics/
-  scripts/run_review_simulation.py
-  src/                      simulation, HMM EM, diagnostics and figures
-  tests/                    numerical tests
-  output/                   generated CSV/JSON/LaTeX outputs
-tools/
-  validate_submission.py
-  build_submission_package.py
+article/                         revised manuscript, figures and tables
+supplement/                      proofs, computational details and diagnostics
+numerics/R/                      HMM implementations and diagnostics
+numerics/scripts/                simulation and elk analysis drivers
+numerics/tests/                  testthat validation suite
+numerics/output/                 fixed-seed simulation outputs
+empirical/output/                derived elk analysis outputs
+empirical/figures/               elk diagnostic figures
+empirical/DATA_SOURCE.md         data provenance and object digest
+renv.lock                        locked R package environment
 ```
 
-## Manuscript
+## Requirements
 
-The manuscript is intentionally compact and centers on Theorem 5.1. Under
-sufficient separation conditions, a refined HMM reproduces the observed law
-exactly, whereas a non-refined HMM with the aggregate number of states remains
-separated from the truth in Kullback-Leibler rate.
+The archived analyses were produced with R 4.5.0 and `moveHMM` 1.10. Package
+versions are recorded in `renv.lock`. From the repository root, restore the
+environment with:
 
-The supporting information gives the mixture-emission EM details, numerical
-replication information, supplementary diagnostics, and reproducibility notes.
-
-## Numerical reproduction
-
-From the project root:
-
-```bash
-python3 numerics/scripts/run_review_simulation.py
-python3 -m pytest numerics/tests -q
+```sh
+Rscript -e 'renv::restore()'
 ```
 
-The simulation script writes:
+A LaTeX distribution is required only to rebuild the document PDFs.
 
-- PDF and PNG figures in `article/figures/`;
-- the main manuscript table in `article/tables/simulation_table.tex`;
-- the replication table in `article/tables/replication_summary_table.tex`;
-- the supporting-information table in `supplement/tables/review_summary_table.tex`;
-- CSV and JSON outputs in `numerics/output/`.
+## Reproduce the analyses
 
-No external data are used.
+From the repository root:
 
-## Compilation
+```sh
+Rscript numerics/scripts/run_review_simulation.R
+Rscript numerics/scripts/run_elk_application.R
+Rscript numerics/tests/testthat.R
+Rscript tools/validate_repository.R
+```
+
+The full simulation uses 200 replications at each sample size. A reduced
+implementation check can be run with:
+
+```sh
+REVIEW_N_REPS=2 Rscript numerics/scripts/run_review_simulation.R
+```
+
+Reduced outputs must not replace the archived 200-replication results.
+
+## Data provenance
+
+No raw elk-data CSV is created or redistributed. The empirical script loads
+`moveHMM::elk_data` directly into memory and verifies its structure and
+SHA-256 object digest before fitting any model. The CSV files in
+`empirical/output/` contain derived analysis results only. Full provenance and
+source citations are recorded in `empirical/DATA_SOURCE.md`.
+
+## Compile the documents
 
 From `article/`:
 
-```bash
-pdflatex main.tex
-bibtex main
-pdflatex main.tex
-pdflatex main.tex
+```sh
+latexmk -pdf main.tex
 ```
 
 From `supplement/`:
 
-```bash
-pdflatex supporting_information.tex
-pdflatex supporting_information.tex
+```sh
+latexmk -pdf supporting_information.tex
 ```
 
-## Local validation
-
-From the project root:
-
-```bash
-python3 tools/validate_submission.py
-python3 tools/build_submission_package.py
-```
-
-The validator checks required files, public-facing text markers, 200
-replications per sample size, at least 10 EM starts for each replicated fit,
-deterministic start screening, and a short numerical smoke test including the
-mixture-emission HMM.
-
-## Submission Archive
-
-`tools/build_submission_package.py` rebuilds
-`submission/stat_hmm_submission_package/` and
-`submission/stat_hmm_submission_package.zip` with the manuscript, supporting
-information, LaTeX sources, figures, tables, numerical code, and reproducible
-outputs.
+Precompiled PDFs are included for review convenience. Numerical interpretation
+should be based on the archived CSV and JSON outputs.

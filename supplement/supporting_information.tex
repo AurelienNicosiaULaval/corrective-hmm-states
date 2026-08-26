@@ -3,136 +3,319 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
-\usepackage{microtype}
 \usepackage[margin=1in]{geometry}
-\usepackage{amsmath,amssymb,mathtools}
+\usepackage{setspace}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
 \usepackage{booktabs}
 \usepackage{graphicx}
+\usepackage{float}
 \usepackage{xurl}
-\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
 
-\graphicspath{{../article/figures/}}
+\onehalfspacing
+\graphicspath{{figures/}}
 \emergencystretch=2em
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\theequation}{S\arabic{equation}}
+
+\newcommand{\Pbb}{\mathbb{P}}
+\newcommand{\Ebb}{\mathbb{E}}
+\newcommand{\Fcal}{\mathcal{F}}
+\newcommand{\Mcal}{\mathcal{M}}
+\newcommand{\Acal}{\mathcal{A}}
+\newcommand{\Hcal}{\mathsf{H}}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
 
 \title{Supporting Information for\\
-Extra Hidden States as Kullback-Leibler Corrections under Emission Misspecification in Hidden Markov Models}
-\author{Aur\'elien Nicosia}
+Extra Hidden States under Emission Misspecification in Hidden Markov Models}
+\author{Aur\'elien Nicosia\\
+D\'epartement de math\'ematiques et de statistique, Universit\'e Laval}
 \date{}
 
 \begin{document}
 \maketitle
 
-\section{Reproducibility}
+\section{Proofs}\label{sec:proofs}
 
-The numerical study uses no external data. All random seeds are fixed in
-\path{numerics/scripts/run_review_simulation.py}, with master seed
-\texttt{20260610}. The code and generated outputs are available at
-\url{https://github.com/AurelienNicosiaULaval/corrective-hmm-states}.
+This section gives the proofs of Lemma~2.3, Propositions~2.4--2.5,
+Theorem~2.6, and Corollary~2.7 from Section~2 of the main article, in that
+order. Notation is identical to that article. For convenience, the
+Kullback--Leibler divergence and $L^1(\lambda)$ distance used below are
+$D(p\Vert q)=\int p\log(p/q)\,d\lambda$ and
+$\norm{p-q}_1=\int|p-q|\,d\lambda$, with the extended-value conventions stated
+in the main article. Also let
+$\Delta_K=\{(\omega_1,\ldots,\omega_K)\in[0,1]^K:
+\sum_{j=1}^K\omega_j=1\}$ denote the $K$-weight probability simplex.
 
-The replication script compares three fitted models: a Gaussian-emission HMM
-with $K=2$, a Gaussian-emission HMM with $K=3$, and a two-state HMM with
-two Gaussian mixture components per state. For the replicated study, the sample
-sizes are $T\in\{500,1500,5000\}$ with 200 replications per sample size and
-10 random EM starts per replicated fit. In the replicated fits, all 10 starts
-are screened deterministically; the three best starts are then refined with
-relative log-likelihood stopping tolerance $10^{-6}$ and maximum 100
-refinement iterations. The row-level replication file is
-\path{numerics/output/review_replications.csv}; the compact summary is
-\path{numerics/output/review_summary_by_T.csv}.
+\subsection{Proof of Lemma~2.3: separation from lower-order mixtures}
 
-\section{Mixture-emission EM algorithm}
+The class $\Mcal_{K_0}$ is the continuous image of the compact set
+$\Delta_{K_0}\times\Theta^{K_0}$ and is therefore compact in $L^1$. The
+constrained simplex defining $\Acal_c$ is compact, so $\Acal_c$ is compact as
+well. The sets are disjoint. Otherwise, a mixture containing exactly $R$
+positive-weight, pairwise distinct atoms would equal a mixture with at most
+$K_0$ atoms after zero-weight and repeated atoms were removed. This contradicts
+identifiable minimal order. Two disjoint compact sets in a metric space have
+positive distance, hence
+\begin{equation*}
+ d_c=\inf_{p\in\Acal_c}\inf_{q\in\Mcal_{K_0}}\norm{p-q}_1>0.
+\end{equation*}
+Pinsker's inequality, $D(p\Vert q)\geq\norm{p-q}_1^2/2$, then gives the claimed
+Kullback--Leibler lower bound.
 
-For hidden state $k\in\{1,\ldots,K\}$ and mixture component
-$m\in\{1,\ldots,M\}$, the fitted emission density is
-\[
-b_k(y)=\sum_{m=1}^M \rho_{km}\,\phi(y;\mu_{km},\sigma_{km}^2),
-\qquad
-\rho_{km}\geq 0,\quad \sum_{m=1}^M \rho_{km}=1.
-\]
-The hidden chain has initial probabilities $\pi_k$ and transition matrix
-$A=(a_{k\ell})$. Given current parameters, the scaled forward-backward
-recursion gives the state posterior probabilities
-\[
-\gamma_t(k)=P(X_t=k\mid Y_{1:T})
-\]
-and transition posterior sums
-\[
-\xi(k,\ell)=\sum_{t=2}^T P(X_{t-1}=k,X_t=\ell\mid Y_{1:T}).
-\]
-Within each state, the component responsibility is
-\[
-\tau_t(k,m)=
-\frac{\gamma_t(k)\rho_{km}\phi(Y_t;\mu_{km},\sigma_{km}^2)}
-{\sum_{r=1}^M \rho_{kr}\phi(Y_t;\mu_{kr},\sigma_{kr}^2)}.
-\]
-The M-step is
-\[
-\pi_k^{new}=\gamma_1(k),\qquad
-a_{k\ell}^{new}=\frac{\xi(k,\ell)}{\sum_r \xi(k,r)},
-\]
-\[
-\rho_{km}^{new}=\frac{\sum_t\tau_t(k,m)}{\sum_t\gamma_t(k)},\qquad
-\mu_{km}^{new}=\frac{\sum_t\tau_t(k,m)Y_t}{\sum_t\tau_t(k,m)},
-\]
-\[
-(\sigma_{km}^{2})^{new}=
-\max\left\{\sigma_{\min}^2,\,
-\frac{\sum_t\tau_t(k,m)(Y_t-\mu_{km}^{new})^2}{\sum_t\tau_t(k,m)}
-\right\}.
-\]
-The implementation uses multiple random starts, scaled likelihoods, relative
-log-likelihood stopping tolerance $10^{-6}$, a minimum standard deviation
-$\sigma_{\min}=0.05$, and sorts states by their fitted state-level means after
-optimization. In the replicated study, the Gaussian-emission fits screen each
-start for 25 EM iterations, the mixture-emission fits screen each start for 30
-EM iterations, and the best three starts are refined. For the model used in
-the paper, $K=2$ and $M=2$. The BIC
-parameter count is
-\[
-(K-1)+K(K-1)+K\{(M-1)+2M\},
-\]
-corresponding to the initial probabilities, transition probabilities, mixture
-weights, means, and standard deviations.
+\subsection{Proof of Proposition~2.4: aligned improvement by state splitting}
 
-\section{Supplementary diagnostics}
+In the aligned comparison, the hidden aggregate trajectory law is held fixed.
+All transition terms therefore cancel in the complete-data likelihood ratio.
+With one fitted emission $f_{\eta_k}$ per state, stationarity gives the risk
+\begin{equation*}
+ \sum_{k=1}^{K_0}\pi_k\,D(g_k\Vert f_{\eta_k}).
+\end{equation*}
+Taking the infimum over the emission parameters gives
+$\sum_k\pi_k\delta_k(1)$. With $m_k$ substates, the fitted aggregate emission
+can be any $q_k\in\Mcal_{m_k}$, yielding
+$\sum_k\pi_k\delta_k(m_k)$. Since
+$\Mcal_1\subseteq\Mcal_{m_k}$, all terms weakly decrease. A strict decrease in
+one state with $\pi_k>0$ proves the claim.
 
-Let
-\[
-\Delta_G=\mathrm{BIC}(\mathrm{Gaussian}\ K=3)-
-\mathrm{BIC}(\mathrm{Gaussian}\ K=2),
-\]
-and let
-\[
-\Delta_M=\mathrm{BIC}(\mathrm{Mixture}\ K=2,M=2)-
-\mathrm{BIC}(\mathrm{Gaussian}\ K=3).
-\]
-Thus $\Delta_G<0$ favours three Gaussian states within the simple Gaussian
-emission family, whereas $\Delta_M<0$ favours the enriched two-state
-mixture-emission model over the three-state Gaussian model. The main text gives
-the selection-frequency table and decoding figure; the full row-level outputs
-are supplied as CSV files.
+\subsection{Proof of Proposition~2.5: exact HMM refinement}
 
-\begin{figure}[tbp]
+Let $X_t^{\mathrm{ref}}$ denote the refined chain and let $r(k,a)=k$ map a
+refined state to its aggregate state. The refined transition matrix is
+stochastic because
+\begin{equation*}
+ \sum_{\ell,b}\gamma^0_{k\ell}\omega_{\ell,b}=1.
+\end{equation*}
+The distribution $\pi_k\omega_{k,a}$ is stationary since
+\begin{equation*}
+ \sum_{k,a}\pi_k\omega_{k,a}\gamma^0_{k\ell}\omega_{\ell,b}
+ =\omega_{\ell,b}\sum_k\pi_k\gamma^0_{k\ell}
+ =\pi_\ell\omega_{\ell,b}.
+\end{equation*}
+Furthermore,
+\begin{equation*}
+ \Pbb\{r(X_t^{\mathrm{ref}})=\ell\mid X_{t-1}^{\mathrm{ref}}=(k,a)\}
+ =\sum_b\gamma^0_{k\ell}\omega_{\ell,b}=\gamma^0_{k\ell}.
+\end{equation*}
+Summing the refined joint density over substate paths compatible with a fixed
+aggregate path $z_{1:T}=(z_1,\ldots,z_T)$ gives
+\begin{align*}
+ &\pi_{z_1}\prod_{t=2}^T\gamma^0_{z_{t-1},z_t}
+ \prod_{t=1}^T\sum_{a=1}^{m_{z_t}}
+ \omega_{z_t,a}f_{\eta^0_{z_t,a}}(y_t)\\
+ &\qquad=\pi_{z_1}\prod_{t=2}^T\gamma^0_{z_{t-1},z_t}
+ \prod_{t=1}^T g_{z_t}(y_t).
+\end{align*}
+Summing over aggregate paths proves equality of all observed
+finite-dimensional distributions.
+
+\subsection{Proof of Theorem~2.6: observed-law separation}
+
+Exact refinement establishes
+\begin{equation*}
+ \inf_{Q\in\Hcal_R(\Fcal)}
+ \underline D^{\mathrm{rate}}(P_0^Y\Vert Q)=0.
+\end{equation*}
+
+Write $\Pbb_0$ and $\Ebb_0$ for probability and expectation under the true
+aggregate HMM\@. Fix a candidate $Q\in\Hcal_{K_0}(\Fcal)$ with emissions
+$f_{\eta_1},\ldots,f_{\eta_{K_0}}$. Let
+$\beta^Q_{t,j}(y_{1:t-1})$ be its predictive probability of hidden state $j$
+given the realized observation history
+$y_{1:t-1}=(y_1,\ldots,y_{t-1})$. Its one-step predictive density has the form
+\begin{equation*}
+ p_t^Q(y\mid y_{1:t-1})
+ =\sum_{j=1}^{K_0}\beta^Q_{t,j}(y_{1:t-1})f_{\eta_j}(y),
+\end{equation*}
+where the $\beta^Q_{t,j}$ are nonnegative and sum to one. Thus the predictive
+density belongs to $\Mcal_{K_0}$ for every history, regardless of the candidate
+transition matrix and initial distribution.
+
+For the true aggregate HMM, let
+\begin{equation*}
+ \beta^0_{t,k}(y_{1:t-1})
+ =\Pbb_0(Z_t=k\mid Y_{1:t-1}=y_{1:t-1}).
+\end{equation*}
+Stationarity implies
+$\pi_\ell=\sum_k\pi_k\gamma^0_{k\ell}\geq\varepsilon$, so
+$\beta^0_{1,\ell}\geq\varepsilon$. For $t\geq2$,
+\begin{align*}
+ \beta^0_{t,\ell}(y_{1:t-1})
+ &=\sum_k\Pbb_0(Z_{t-1}=k\mid Y_{1:t-1}=y_{1:t-1})
+ \gamma^0_{k\ell}\\
+ &\geq\varepsilon.
+\end{align*}
+The true predictive density is consequently
+\begin{equation*}
+ p_t^0(y\mid Y_{1:t-1})
+ =\sum_{k,a}\beta^0_{t,k}(Y_{1:t-1})\omega_{k,a}
+ f_{\eta^0_{k,a}}(y),
+\end{equation*}
+with every refined weight at least $c=\varepsilon\omega_{\min}$. Thus
+$p_t^0(\cdot\mid Y_{1:t-1})\in\Acal_c$ almost surely. By the
+mixture-separation lemma,
+\begin{equation*}
+ D\{p_t^0(\cdot\mid Y_{1:t-1})\Vert
+ p_t^Q(\cdot\mid Y_{1:t-1})\}\geq d_c^2/2
+\end{equation*}
+almost surely. If a conditional divergence is infinite, the desired bound is
+immediate. Otherwise, the chain rule gives
+\begin{align*}
+ D\{(P_0^Y)^{1:T}\Vert Q^{1:T}\}
+ &=\sum_{t=1}^T\Ebb_0\left[
+ D\{p_t^0(\cdot\mid Y_{1:t-1})\Vert
+ p_t^Q(\cdot\mid Y_{1:t-1})\}\right]\\
+ &\geq Td_c^2/2.
+\end{align*}
+Dividing by $T$ and taking a lower limit proves the positive
+relative-entropy-rate bound.
+
+\subsection{Proof of Corollary~2.7: enriched-emission representation}
+
+Each true emission $g_k$ belongs to $\Mcal_M$ when
+$M\geq\max_{1\leq k\leq K_0}m_k$. The original aggregate chain is therefore an
+element of
+$\Hcal_{K_0}(\Mcal_M)$ with observed law $P_0^Y$, and the infimum of the
+relative-entropy rate is zero.
+
+\section{Simulation computation and diagnostics}\label{sec:simulation-si}
+
+The reproducibility package accompanying this submission, named
+\nolinkurl{4416781_Reproducibility_Package.zip}, contains the code, fixed
+seeds, data provenance, and generated outputs. From its extracted root, the
+fixed-seed simulation is run entirely in R by
+\path{numerics/scripts/run_review_simulation.R}, with master seed
+\texttt{20260610}.
+
+The replication script compares a Gaussian-emission HMM with $K=2$, a
+Gaussian-emission HMM with $K=3$, and a two-state HMM with two Gaussian
+components per state-dependent distribution. The sample sizes are
+$T\in\{500,1500,5000\}$, with 200 replications per sample size and 10 random EM
+starts per replicated fit. All starts are screened deterministically and the
+three best are refined with relative log-likelihood tolerance $10^{-6}$ and at
+most 100 refinement iterations. The Gaussian-emission fits use 25 screening
+iterations and the mixture-emission fits use 30. The implementation uses scaled
+forward--backward recursions, a minimum standard deviation of 0.05, and
+deterministic ordering by state-level mean.
+
+Model comparisons use the Bayesian information criterion (BIC), as defined in
+the main article. Row-level results are stored in
+\path{numerics/output/review_replications.csv}; the compact summary is in
+\path{numerics/output/review_summary_by_T.csv}. Additional diagnostics appear
+in Figures~\ref{fig:si-posterior}--\ref{fig:si-acf}.
+
+\begin{figure}[p]
 \centering
-\includegraphics[width=.78\linewidth]{posterior_corrective_state.pdf}
+\includegraphics[width=.82\linewidth]{posterior_corrective_state.pdf}
 \caption{Posterior probability of the corrective Gaussian-HMM state in the
-reference $K=3$ fit.}
+reference $K=3$ fit. The probability tracks observations associated with the
+second component of the heterogeneous first aggregate regime.}
 \label{fig:si-posterior}
 \end{figure}
 
-\begin{figure}[tbp]
+\begin{figure}[p]
 \centering
-\includegraphics[width=.78\linewidth]{bic_boxplot.pdf}
-\caption{Distribution of $\Delta_G$ for the $T=1500$ replicated study.}
+\includegraphics[width=.82\linewidth]{bic_boxplot.pdf}
+\caption{Distribution of the BIC difference between the three-state and
+two-state Gaussian models over the $T=1500$ replications. Negative values
+favour the corrective three-state Gaussian HMM.}
 \label{fig:si-bic-boxplot}
 \end{figure}
 
-\begin{figure}[tbp]
+\begin{figure}[p]
 \centering
-\includegraphics[width=.78\linewidth]{residual_acf.pdf}
+\includegraphics[width=.82\linewidth]{residual_acf.pdf}
 \caption{Autocorrelation of approximate one-step standardized prediction
 residuals for the Gaussian-emission HMMs with $K=2$ and $K=3$.}
 \label{fig:si-acf}
 \end{figure}
+
+\section{Elk application details}\label{sec:elk-si}
+
+The public elk locations are read directly from the \texttt{elk\_data} object
+distributed with \texttt{moveHMM}. No copy of the data is redistributed in the
+reproducibility package. At run time,
+\path{numerics/scripts/run_elk_application.R} loads the object directly into
+memory and verifies its structure and SHA-256 digest before fitting any model.
+No raw-data CSV is created or redistributed. The archived results used
+\texttt{moveHMM} version 1.10. The file
+\path{empirical/DATA_SOURCE.md} records the data provenance, source
+publications, loading command, package licence, and expected object digest. The exact
+timestamps are unavailable, so no claims are made about variation in sampling
+intervals.
+
+The script \path{numerics/scripts/run_elk_application.R} constructs consecutive
+Euclidean step lengths within each animal, converts coordinate distances from
+metres to kilometres, applies $\log(1+x)$ to each step length $x$, and fits the
+three models reported
+in the main article. Its master seed is \texttt{20260826}. Each model uses 200
+starts, 70 screening iterations, refinement of the 10 best starts, at most 500
+refinement iterations, relative log-likelihood tolerance $10^{-6}$, and a
+minimum standard deviation of 0.05. Output CSV files contain model comparisons,
+state and mixture parameters, transition matrices, Viterbi decodings, and
+decoded-state cross-tabulations; these are derived results, not redistributed
+raw locations. All figures are generated with \texttt{ggplot2}.
+
+\input{tables/elk_predictive_diagnostics.tex}
+
+\input{tables/elk_mixture_parameters.tex}
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=.92\linewidth]{elk_model_diagnostics.pdf}
+\caption{Numerical model comparison for the four elk. Panel A reports BIC
+differences relative to the three-state Gaussian model; negative values favour
+the alternative. Panel B reports the Kolmogorov--Smirnov distance between the
+empirical one-step probability integral transform (PIT) distribution and the
+uniform distribution; smaller
+values indicate better descriptive predictive calibration.}
+\label{fig:si-elk-model-diagnostics}
+\end{figure}
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=.92\linewidth]{elk_decoding_comparison.pdf}
+\caption{Observed daily step lengths and Viterbi states under the three-state
+Gaussian and two-state enriched-emission models. Colours denote model-specific
+statistical states, not assigned behaviours.}
+\label{fig:si-elk-decoding}
+\end{figure}
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=.92\linewidth]{elk_tracks_decoded.pdf}
+\caption{Movement paths coloured by Viterbi state under the three-state
+Gaussian and two-state enriched-emission models. Long straight segments partly
+reflect the approximately daily observation schedule and should not be read as
+fine-scale trajectories.}
+\label{fig:si-elk-tracks}
+\end{figure}
+
+\section{Reproduction sequence}\label{sec:reproduction}
+
+From the extracted root of the reproducibility package, the versioned R
+environment is restored with
+\begin{verbatim}
+Rscript -e 'renv::restore()'
+\end{verbatim}
+The empirical analysis is then reproduced with
+\begin{verbatim}
+Rscript numerics/scripts/run_elk_application.R
+\end{verbatim}
+This command requires R with the \texttt{moveHMM} package installed and reads
+\texttt{moveHMM::elk\_data} directly. It does not require a separately
+distributed data file. The fixed-seed simulation study is reproduced with
+\begin{verbatim}
+Rscript numerics/scripts/run_review_simulation.R
+\end{verbatim}
+The \path{renv.lock} file records the package versions used for the archived
+results. The entire reproducibility workflow, including the custom Gaussian
+and mixture-emission EM implementations, is written in R. The included
+\texttt{testthat} tests check forward--backward normalization, monotone
+EM likelihood, transition stochasticity, parameter counts, multi-sequence
+handling, and the presence and schema of article outputs.
 
 \end{document}

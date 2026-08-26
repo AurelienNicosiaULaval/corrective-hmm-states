@@ -1,8 +1,7 @@
 # Numerical study: corrective hidden states in misspecified HMMs
 
-This directory contains the reproducible numerical study for the manuscript
-*Extra Hidden States as Kullback-Leibler Corrections under Emission
-Misspecification in Hidden Markov Models*.
+This directory contains the reproducible numerical study for manuscript 4416781,
+*Extra Hidden States under Emission Misspecification in Hidden Markov Models*.
 
 ## Idea
 
@@ -17,39 +16,45 @@ mixtures, the same correction can be absorbed inside the emission distribution.
 
 ```text
 numerics/
-  requirements.txt
-  minimal_simulation.py
-  src/
-    simulate.py             true model and simulation
-    hmm_em.py               Gaussian-HMM EM
-    mixture_hmm_em.py       mixture-emission HMM EM
-    diagnostics.py          summaries, BIC, crosstabs and residuals
-    plotting.py             article and supplement figures
+  R/
+    simulate.R              true model and simulation
+    hmm_em.R                Gaussian-HMM EM
+    mixture_hmm_em.R        mixture-emission HMM EM
+    diagnostics.R           summaries, BIC, crosstabs and residuals
+    plotting.R              ggplot2 article and supplement figures
   scripts/
-    run_review_simulation.py
-    run_simulation.py       earlier compact Gaussian-only study
-    run_sensitivity.py      earlier sensitivity script
+    run_review_simulation.R
+    run_elk_application.R
   tests/
-    test_numerics.py
+    testthat.R
+    testthat/
   output/
 ```
 
 ## Requirements
 
-The HMM implementations use pure NumPy and do not rely on an external HMM
-library. Install the Python requirements with:
+The HMM implementations use base R matrix operations and do not rely on an
+external HMM fitting library. Tables and figures use standard R packages,
+including `dplyr`, `ggplot2`, and `patchwork`. The versioned `renv.lock` file
+records the complete package environment. Restore it from the repository root
+with:
 
-```bash
-pip install -r numerics/requirements.txt
+```sh
+Rscript -e 'renv::restore()'
 ```
+
+The elk analysis reads `moveHMM::elk_data` directly in memory and checks its
+structure and SHA-256 digest before fitting the models. It neither creates nor
+redistributes a raw-data CSV.
 
 ## Main reproduction command
 
 From the project root:
 
-```bash
-python3 numerics/scripts/run_review_simulation.py
-python3 -m pytest numerics/tests -q
+```sh
+Rscript numerics/scripts/run_review_simulation.R
+Rscript numerics/scripts/run_elk_application.R
+Rscript numerics/tests/testthat.R
 ```
 
 All seeds are fixed from `SEED = 20260610`. The default review run uses
@@ -61,15 +66,15 @@ log-likelihood tolerance `1e-6`.
 
 For quick local checks only, the number of replications can be reduced:
 
-```bash
-REVIEW_N_REPS=2 python3 numerics/scripts/run_review_simulation.py
+```sh
+REVIEW_N_REPS=2 Rscript numerics/scripts/run_review_simulation.R
 ```
 
 Do not use reduced-replication outputs for submission.
 
 ## Main outputs
 
-`run_review_simulation.py` writes:
+`run_review_simulation.R` writes:
 
 - `numerics/output/review_gaussian_fit_summary.csv`;
 - `numerics/output/review_mixture_fit_summary.csv`;

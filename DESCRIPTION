@@ -1,0 +1,23 @@
+Package: hmmExtraStatesRepro
+Type: Project
+Title: Reproducibility Materials for Extra Hidden States under Emission Misspecification
+Version: 1.0.0
+Authors@R: person("Aurelien", "Nicosia", role = c("aut", "cre"), email = "aurelien.nicosia@mat.ulaval.ca")
+Description: R code, fixed seeds, tests, and generated outputs accompanying
+    manuscript 4416781. The project implements Gaussian and mixture-emission
+    hidden Markov models and applies them to data distributed with moveHMM.
+Depends: R (>= 4.4.0)
+Imports:
+    digest,
+    dplyr,
+    ggplot2,
+    jsonlite,
+    moveHMM,
+    patchwork,
+    scales,
+    tidyr
+Suggests:
+    renv,
+    testthat
+Config/testthat/edition: 3
+Encoding: UTF-8
