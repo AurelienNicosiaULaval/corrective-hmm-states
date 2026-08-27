@@ -58,9 +58,10 @@ Reduced outputs must not replace the archived 200-replication results.
 
 ## Data provenance
 
-No raw elk-data CSV is created or redistributed. The empirical script loads
-`moveHMM::elk_data` directly into memory and verifies its structure and
-SHA-256 object digest before fitting any model. The CSV files in
+The original elk coordinate table is not redistributed. The empirical script
+loads `moveHMM::elk_data` directly into memory and verifies its structure and
+SHA-256 object digest before fitting any model. No CSV containing the original
+coordinates or derived coordinate endpoints is created. The CSV files in
 `empirical/output/` contain derived analysis results only. Full provenance and
 source citations are recorded in `empirical/DATA_SOURCE.md`.
 

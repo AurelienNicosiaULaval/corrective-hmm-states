@@ -29,6 +29,7 @@ required_files <- c(
   "supplement/supporting_information.pdf",
   "empirical/DATA_SOURCE.md",
   "empirical/output/elk_analysis_metadata.json",
+  "empirical/output/elk_decoding.csv",
   "empirical/output/elk_model_comparison.csv",
   "numerics/R/hmm_em.R",
   "numerics/R/mixture_hmm_em.R",
@@ -60,8 +61,28 @@ if (any(grepl("\\.py$", repository_files, ignore.case = TRUE))) {
 if (any(basename(repository_files) == "requirements.txt")) {
   fail("a Python requirements.txt file remains in the R-only repository")
 }
-if (any(tolower(basename(repository_files)) == "elk_data.csv")) {
-  fail("elk_data.csv must not be distributed")
+forbidden_elk_files <- c("elk_data.csv", "elk_daily_steps.csv")
+if (any(tolower(basename(repository_files)) %in% forbidden_elk_files)) {
+  fail("an elk coordinate or step-endpoint CSV is distributed")
+}
+
+empirical_csv_files <- list.files(
+  file.path(ROOT, "empirical/output"),
+  pattern = "\\.csv$",
+  full.names = TRUE
+)
+coordinate_columns <- tolower(c(
+  "Easting", "Northing", "x_from", "y_from", "x_to", "y_to"
+))
+offending_empirical_files <- vapply(empirical_csv_files, function(path) {
+  header <- names(utils::read.csv(path, nrows = 0L, check.names = FALSE))
+  any(tolower(header) %in% coordinate_columns)
+}, logical(1))
+if (any(offending_empirical_files)) {
+  fail(paste(
+    "coordinate endpoints occur in:",
+    paste(basename(empirical_csv_files[offending_empirical_files]), collapse = ", ")
+  ))
 }
 
 elk_metadata <- jsonlite::read_json(
@@ -76,6 +97,9 @@ if (!identical(elk_metadata$elk_data_source, "moveHMM::elk_data")) {
 }
 if (!identical(elk_metadata$elk_data_object_sha256, EXPECTED_ELK_DIGEST)) {
   fail("unexpected archived elk-data object digest")
+}
+if (!identical(elk_metadata$raw_data_csv_distributed, FALSE)) {
+  fail("elk metadata does not state that raw coordinate CSVs are excluded")
 }
 expected_steps <- c("elk-115" = 193L, "elk-163" = 158L, "elk-287" = 163L, "elk-363" = 217L)
 observed_steps <- unlist(elk_metadata$n_steps, use.names = TRUE)
@@ -110,6 +134,6 @@ if (!identical(as.integer(review_metadata$T_grid), c(500L, 1500L, 5000L))) {
 
 message("Required files: ", length(required_files), " found")
 message("Implementation: R only")
-message("Elk data: loaded from moveHMM; digest verified; no raw CSV distributed")
+message("Elk data: loaded from moveHMM; digest verified; no coordinate endpoints distributed")
 message("Archived simulation: 200 replications for T = 500, 1500, 5000")
 message("Repository validation: passed")

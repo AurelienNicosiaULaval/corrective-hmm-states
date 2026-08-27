@@ -2,8 +2,9 @@
 
 # Empirical diagnostic application to Canadian elk movement data.
 #
-# The data are read directly from moveHMM::elk_data. No raw-data CSV is read,
-# written, or redistributed. Run from the reproducibility-package root:
+# The data are read directly from moveHMM::elk_data. No CSV containing the
+# original coordinates or derived coordinate endpoints is written or
+# redistributed. Run from the reproducibility-package root:
 #   Rscript numerics/scripts/run_elk_application.R
 
 required_packages <- c(
@@ -349,9 +350,9 @@ write_parameter_table <- function(mixture_table) {
       "Component medians are back-transformed to kilometres.}"
     ),
     "\\label{tab:elk-mixture-parameters}",
-    "\\begin{tabular}{llrrrrr}",
+    "\\begin{tabular}{llrrrr@{\\hspace{2em}}r}",
     "\\toprule",
-    "Animal & state & component & weight & median step & occupation & self-transition\\\\",
+    "Animal & state & comp. & weight & median & occupation & self-transition\\\\",
     "\\midrule"
   )
   for (index in seq_len(nrow(mixture_table))) {
@@ -623,7 +624,6 @@ main <- function() {
   ))
   raw_data <- load_elk_data()
   step_data <- prepare_steps(raw_data)
-  utils::write.csv(step_data, file.path(OUTPUT_DIRECTORY, "elk_daily_steps.csv"), row.names = FALSE)
 
   fits_by_animal <- list()
   model_rows <- list()
@@ -677,7 +677,15 @@ main <- function() {
   utils::write.csv(mixture_table, file.path(OUTPUT_DIRECTORY, "elk_mixture_state_parameters.csv"), row.names = FALSE)
   utils::write.csv(mapping_table, file.path(OUTPUT_DIRECTORY, "elk_state_mapping.csv"), row.names = FALSE)
   utils::write.csv(transition_table, file.path(OUTPUT_DIRECTORY, "elk_transition_matrices.csv"), row.names = FALSE)
-  utils::write.csv(decoding_table, file.path(OUTPUT_DIRECTORY, "elk_decoding.csv"), row.names = FALSE)
+  archived_decoding_table <- dplyr::select(
+    decoding_table,
+    -x_from, -y_from, -x_to, -y_to
+  )
+  utils::write.csv(
+    archived_decoding_table,
+    file.path(OUTPUT_DIRECTORY, "elk_decoding.csv"),
+    row.names = FALSE
+  )
 
   metadata <- list(
     implementation = "R",

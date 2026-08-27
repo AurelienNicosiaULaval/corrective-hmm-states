@@ -1,10 +1,11 @@
 # Elk GPS data used in the empirical application
 
 The analysis reads the `elk_data` object distributed with R package `moveHMM`.
-No copy of the data is redistributed in this repository. At run time,
-`numerics/scripts/run_elk_application.R` loads the object directly into memory
-and verifies its structure and SHA-256 digest before fitting any model. No
-raw-data CSV is created.
+The original coordinate table is not redistributed in this repository. At run
+time, `numerics/scripts/run_elk_application.R` loads the object directly into
+memory and verifies its structure and SHA-256 digest before fitting any model.
+No CSV containing the original coordinates or derived coordinate endpoints is
+created.
 The archived results were generated from `moveHMM` version 1.10. The object
 contains 735 ordered GPS locations for four elk (`elk-115`, `elk-163`,
 `elk-287`, and `elk-363`) released in east-central Ontario, Canada.

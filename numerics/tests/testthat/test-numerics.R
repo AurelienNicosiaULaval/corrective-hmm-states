@@ -136,3 +136,23 @@ test_that("archived output files are present", {
   paths <- file.path(ROOT, expected)
   expect_true(all(file.exists(paths)), info = paste(expected[!file.exists(paths)], collapse = "\n"))
 })
+
+test_that("archived elk outputs omit coordinate endpoints", {
+  output_directory <- file.path(ROOT, "empirical/output")
+  expect_false(file.exists(file.path(output_directory, "elk_daily_steps.csv")))
+
+  coordinate_columns <- c(
+    "Easting", "Northing", "x_from", "y_from", "x_to", "y_to"
+  )
+  csv_paths <- list.files(
+    output_directory,
+    pattern = "\\.csv$",
+    full.names = TRUE
+  )
+  offending_files <- vapply(csv_paths, function(path) {
+    header <- names(utils::read.csv(path, nrows = 0L, check.names = FALSE))
+    any(header %in% coordinate_columns)
+  }, logical(1))
+
+  expect_false(any(offending_files), info = paste(basename(csv_paths[offending_files]), collapse = ", "))
+})

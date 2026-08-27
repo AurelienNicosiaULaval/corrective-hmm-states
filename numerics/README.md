@@ -45,7 +45,8 @@ Rscript -e 'renv::restore()'
 
 The elk analysis reads `moveHMM::elk_data` directly in memory and checks its
 structure and SHA-256 digest before fitting the models. It neither creates nor
-redistributes a raw-data CSV.
+redistributes a CSV containing the original coordinates or derived coordinate
+endpoints.
 
 ## Main reproduction command
 
