@@ -601,8 +601,8 @@ the author used OpenAI ChatGPT and Codex for language editing, manuscript
 restructuring, code development and organization, and reproducibility checks.
 These tools were not treated as authors or sources of evidence. The author
 reviewed and edited all tool-assisted material; regenerated the reported
-numerical results from the archived code; and takes full responsibility for the
-content, accuracy, and integrity of the article.
+numerical results from the versioned public code; and takes full responsibility
+for the content, accuracy, and integrity of the article.
 
 \section*{Funding}
 This research did not receive any specific grant from funding agencies in the
@@ -610,15 +610,14 @@ public, commercial, or not-for-profit sectors.
 
 \section*{Data availability statement}
 The elk locations are distributed as \texttt{elk\_data} in the open-source R
-package \texttt{moveHMM}. The reproducibility package accompanying this
-submission, named \nolinkurl{4416781_Reproducibility_Package.zip}, contains the
-package version, source references, in-memory object digest, analysis code,
-fixed seeds, and generated outputs, including row-level simulation results.
-The workflow is implemented entirely in R, reads \texttt{elk\_data} directly
-from the package, and does not redistribute the original coordinate table or
-coordinate endpoints in its archived outputs.
-The same code and derived outputs are publicly available at
-\url{https://github.com/AurelienNicosiaULaval/corrective-hmm-states}.
+package \texttt{moveHMM}. The complete workflow is implemented entirely in R
+and is publicly available at
+\url{https://github.com/AurelienNicosiaULaval/corrective-hmm-states}. The
+repository records the package version, source references, in-memory object
+digest, analysis code, fixed seeds, generated outputs, including row-level
+simulation results, and validation tests. The workflow reads
+\texttt{elk\_data} directly from the package and does not redistribute the
+original coordinate table or coordinate endpoints.
 
 \section*{Ethics statement}
 This study is a secondary analysis of publicly distributed data. No new data

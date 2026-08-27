@@ -183,13 +183,10 @@ relative-entropy rate is zero.
 
 \section{Simulation computation and diagnostics}\label{sec:simulation-si}
 
-The reproducibility package accompanying this submission, named
-\nolinkurl{4416781_Reproducibility_Package.zip}, contains the code, fixed
-seeds, data provenance, and generated outputs. The same materials are publicly
-available at
+The complete code, fixed seeds, data provenance, package lockfile, generated
+outputs, and validation tests are publicly available at
 \url{https://github.com/AurelienNicosiaULaval/corrective-hmm-states}.
-From the extracted archive root, the
-fixed-seed simulation is run entirely in R by
+From the repository root, the fixed-seed simulation is run entirely in R by
 \path{numerics/scripts/run_review_simulation.R}, with master seed
 \texttt{20260610}.
 
@@ -240,11 +237,11 @@ residuals for the Gaussian-emission HMMs with $K=2$ and $K=3$.}
 
 The public elk locations are read directly from the \texttt{elk\_data} object
 distributed with \texttt{moveHMM}. The original coordinate table is not
-redistributed in the reproducibility package. At run time,
+redistributed in the public repository. At run time,
 \path{numerics/scripts/run_elk_application.R} loads the object directly into
 memory and verifies its structure and SHA-256 digest before fitting any model.
 No CSV containing the original coordinates or derived coordinate endpoints is
-created or redistributed. The archived results used
+created or redistributed. The reported results used
 \texttt{moveHMM} version 1.10. The file
 \path{empirical/DATA_SOURCE.md} records the data provenance, source
 publications, loading command, package licence, and expected object digest. The exact
@@ -301,8 +298,8 @@ fine-scale trajectories.}
 
 \section{Reproduction sequence}\label{sec:reproduction}
 
-From the extracted root of the reproducibility package, the versioned R
-environment is restored with
+After cloning or downloading the public GitHub repository, the versioned R
+environment is restored from the repository root with
 \begin{verbatim}
 Rscript -e 'renv::restore()'
 \end{verbatim}
@@ -316,9 +313,9 @@ distributed data file. The fixed-seed simulation study is reproduced with
 \begin{verbatim}
 Rscript numerics/scripts/run_review_simulation.R
 \end{verbatim}
-The \path{renv.lock} file records the package versions used for the archived
+The \path{renv.lock} file records the package versions used for the reported
 results. The entire reproducibility workflow, including the custom Gaussian
-and mixture-emission EM implementations, is written in R. The included
+and mixture-emission EM implementations, is written in R. The repository's
 \texttt{testthat} tests check forward--backward normalization, monotone
 EM likelihood, transition stochasticity, parameter counts, multi-sequence
 handling, and the presence and schema of article outputs.
