@@ -1,18 +1,16 @@
 # Extra Hidden States under Emission Misspecification in Hidden Markov Models
 
-Research materials for the second revision of manuscript 4416781 for
-*Statistica Neerlandica*, dated 17 September 2026 (version 1.2.1).
+Data, code and computational results accompanying
+*Extra Hidden States under Emission Misspecification in Hidden Markov Models*.
 
-The main empirical application is genomic: chromosomal allelic imbalance in
-the HCC1143 breast cancer cell line and its matched normal cell line,
-HCC1143BL. The earlier elk movement application is retained in Supporting
-Information S4–S5, including its sensitivity analyses and unfavorable results.
-It is no longer the main application.
+The main application examines chromosomal allelic imbalance in the HCC1143
+breast cancer cell line and its matched normal cell line, HCC1143BL.
+Additional analyses of elk movement, including sensitivity analyses and
+negative results, are presented in Supporting Information S4–S5.
 
-This version includes the revised manuscript and supplement, processed genomic
-data, analysis code, fitted models, the corrected 600-replication simulation
-study, and all 199 parametric-bootstrap replicates. It corresponds to a
-revision prepared for resubmission; it does not indicate journal acceptance.
+The repository includes the manuscript and Supporting Information, processed
+genomic data, analysis scripts, fitted models, 600 simulation replicates and
+199 parametric-bootstrap replicates.
 
 ## Start here
 
@@ -23,7 +21,8 @@ revision prepared for resubmission; it does not indicate journal acceptance.
 | Genomic data and analysis guide | [genomics/README.md](genomics/README.md) |
 | Full reproduction instructions | [REPRODUCIBILITY.md](REPRODUCIBILITY.md) |
 | Data download URLs and SHA-256 hashes | [genomics/source_manifest.json](genomics/source_manifest.json) |
-| Changes in this revision | [CHANGELOG.md](CHANGELOG.md) |
+| Version history | [CHANGELOG.md](CHANGELOG.md) |
+| Downloadable materials | [Releases](https://github.com/AurelienNicosiaULaval/corrective-hmm-states/releases/latest) |
 
 The scientific question is whether extra Gaussian HMM states describe
 additional persistent regimes or compensate for an overly simple emission

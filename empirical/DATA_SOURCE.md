@@ -45,7 +45,7 @@ treated as approximately 24 hours apart because exact observation times are
 not included in the open data.
 
 
-## Matched supplementary measurements for the second revision
+## Matched supplementary measurements
 
 Morales et al. (2004), Supplement 1, archived with the original publication:
 https://doi.org/10.6084/m9.figshare.3523667.v1
@@ -54,7 +54,7 @@ SHA-256: `36d423b2832aecd929f7d539da8779965b93a48fa6aa1321fdb7b194e68db2a5`.
 The archive metadata identify the supplementary deposit as CC0.
 
 After removing 370 blank rows, all 735 IDs and coordinate pairs match the
-package data exactly. The second revision uses published turning angles and
+package data exactly. The supplementary analyses use published turning angles and
 distance to open forest as auxiliary descriptive measurements. These are not
 independently observed behavioural labels. A targeted check for elk 163 uses
 the published interval-adjusted movement rates. No raw coordinate file is

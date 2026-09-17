@@ -1,12 +1,12 @@
 Package: hmmExtraStatesRepro
 Type: Project
 Title: Reproducibility Materials for Extra Hidden States under Emission Misspecification
-Version: 1.2.1
+Version: 1.2.2
 Authors@R: person("Aurelien", "Nicosia", role = c("aut", "cre"), email = "aurelien.nicosia@mat.ulaval.ca")
-Description: R code, fixed seeds, tests, and generated outputs accompanying
-    the second revision of manuscript 4416781. The project implements Gaussian and mixture-emission
-    hidden Markov models, a genomic allelic-imbalance application, and retained
-    supplementary movement analyses.
+Description: Data, R code, fixed seeds, tests, and computational results for
+    studying emission misspecification in hidden Markov models. Includes
+    Gaussian and mixture-emission models, a genomic allelic-imbalance
+    application, and supplementary movement analyses.
 Depends: R (>= 4.4.0)
 Imports:
     Rcpp,

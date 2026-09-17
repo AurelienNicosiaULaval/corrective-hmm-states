@@ -16,28 +16,28 @@
   },
   {
     "path": "CHANGELOG.md",
-    "bytes": 985,
-    "sha256": "bfb59d5bd85823e9a682689cd6b4cdec2c75b810d52c7576a718c55822d0e445"
+    "bytes": 1006,
+    "sha256": "d6e1f472e142fae24ae14b900afe4c07513022f998f7578a1b6dcabd3654cb1f"
   },
   {
     "path": "CITATION.cff",
     "bytes": 596,
-    "sha256": "ebff73a016223458582481e691f0ccdf076ea6bc4ef558f88eb4e22ca56aa2c1"
+    "sha256": "35c106e8008aa1753cc59981ca0eb4997aab9ccbd51f903f625001cd2d18bc36"
   },
   {
     "path": "DESCRIPTION",
-    "bytes": 764,
-    "sha256": "218e5f2f6ca0e737d1e4f911b468efdbefc119b222c36bd4d62412cc73271832"
+    "bytes": 745,
+    "sha256": "4cc2d75af886759f74ded12f9d48fb6540e1c5bb6fa7a63acdd65698d23a3de2"
   },
   {
     "path": "README.md",
-    "bytes": 7691,
-    "sha256": "e749e351ea44388583f411aa51dde22528f0a5c9e56070d7203c1aff56fdd11a"
+    "bytes": 7625,
+    "sha256": "3398ab2b25ce837fd457f32ca8829e0f4653142aa6fd93e4320e52e4df2c8515"
   },
   {
     "path": "REPRODUCIBILITY.md",
-    "bytes": 9024,
-    "sha256": "b4ec054435fd9810f0167b6aebb008b06f725482e66b585fa82929d9269ac0fe"
+    "bytes": 8834,
+    "sha256": "dbab2348d4b6d9569040401b4dc09be37d9e22807eefee6717aa1dcdc9787002"
   },
   {
     "path": "article/figure_legends.tex",
@@ -201,8 +201,8 @@
   },
   {
     "path": "empirical/DATA_SOURCE.md",
-    "bytes": 3008,
-    "sha256": "0239ef145702217be194970e3b4644d084a4f3c50655b12d910884b7dc3de878"
+    "bytes": 2990,
+    "sha256": "a1930ee1201c0b494ded49ad228499155fb3d1e8ca22bf916b6b226084116bf6"
   },
   {
     "path": "empirical/application_review/component_parameters.csv",
@@ -5396,8 +5396,8 @@
   },
   {
     "path": "genomics/README.md",
-    "bytes": 5751,
-    "sha256": "cfebf0d71f2e995e0f0279497a8edcda77752e6542f68889d852df825279ead1"
+    "bytes": 5795,
+    "sha256": "a20f77f613b1dc8057b63de4a969d5be9a21db5cd05710018fec3607e26eaae8"
   },
   {
     "path": "genomics/audit/annotation_get_checks.json",
@@ -7141,8 +7141,8 @@
   },
   {
     "path": "numerics/README.md",
-    "bytes": 4339,
-    "sha256": "eab4e38d0267f7e819b26535121a31c37e4db843ee7a608cee91c01f3fb5602d"
+    "bytes": 4243,
+    "sha256": "589bd268e3234e70c0a4756d01e29bfaf8db19c1f60a19e14261b7d5cee63b82"
   },
   {
     "path": "numerics/output/crosstab_fit2.csv",

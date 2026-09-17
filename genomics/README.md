@@ -52,9 +52,9 @@ The Python extraction command requires pypdf. Source downloads are checked again
 
 The full raw preprocessing was performed for the analysis. The delivered raw-regeneration instructions fix the coordinate export that was initially performed as a separate step. The supplied processed-input path, numerical refit, predictive evaluation, table extraction and tests were verified separately; the raw download-and-preprocess sequence was not repeated from a second empty machine.
 
-## Scientific limits
+## Interpretation and limitations
 
-This is a statistical worked example, not a new clinical copy-number caller. Three fitted allelic profiles are not three cell populations, absolute copy-number states, or a known true order. F3 has lower BIC than M221 and a higher confirmation score. PSCBS uses total intensity as well as fractions. Published sequencing segments provide an independent assay of total copy ratio, not ground-truth allelic-state labels. Broad assignments are repeatable, but short runs are sensitive to marker thinning and residual magnitude dependence remains.
+The application illustrates a statistical modeling problem in one cell line. The fitted states describe regional allelic profiles; they do not identify cell populations, absolute copy-number states, or a known true order. F3 has lower BIC than M221 and a higher confirmation score. PSCBS uses total intensity as well as fractions. Published sequencing segments provide an independent assay of total copy ratio, not ground-truth allelic-state labels. Broad assignments are repeatable, but short runs are sensitive to marker thinning and residual magnitude dependence remains.
 
 ## Refinement constraints
 

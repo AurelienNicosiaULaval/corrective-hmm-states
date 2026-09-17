@@ -1,10 +1,9 @@
 # Simulation and supplementary numerical workflows
 
-For the second-revision application, follow the package-root README. The commands below reproduce the corrected simulation and retain access
-to the supplementary movement workflows.
-
-This directory contains the reproducible numerical study for manuscript 4416781,
-*Extra Hidden States under Emission Misspecification in Hidden Markov Models*.
+This directory contains the simulation study and supplementary movement
+analyses for *Extra Hidden States under Emission Misspecification in Hidden
+Markov Models*. For the main genomic application, see
+[genomics/README.md](../genomics/README.md).
 
 ## Idea
 
