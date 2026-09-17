@@ -190,7 +190,7 @@ relative-entropy rate is zero.
 \section{Simulation computation and diagnostics}\label{sec:simulation-si}
 
 The accompanying reproducibility files contain the simulation, genomic and
-supplementary movement analyses. The simulation repository is
+supplementary movement analyses. The reproducibility repository is
 \url{https://github.com/AurelienNicosiaULaval/corrective-hmm-states}.
 The replicated study is regenerated from the package root with
 \path{numerics/scripts/run_optimization_audit.R}, using master seed
@@ -302,8 +302,11 @@ chromosomes 2--11 were reserved as possible extensions but were unused.
 Chromosomes 12--17 were validation, and 18--22 were not evaluated until the
 fitted model files and specification had been hashed and frozen. This is a
 local exploratory design, not an externally registered confirmatory study.
-The saved model objects and written protocol match the recorded freeze
-hashes; the distributed evaluation script is a later version. Here
+The saved model objects and original protocol match the recorded freeze
+hashes. The original protocol is preserved in
+\path{genomics/audit/protocol_before_confirmation.md}; the current protocol
+guide has been edited for presentation. The distributed evaluation script
+is a later version. Here
 ``confirmation'' denotes a later held-out block within this exploratory
 analysis, rather than preregistered confirmatory inference.
 No chromosome outside chromosome 1 contributes to parameter estimation.
@@ -405,9 +408,7 @@ training parameters. Each validation or confirmation sequence starts with
 the fitted initial distribution, not a state estimated from the full held-out
 path. Smoothed states are used only for descriptive assignment and are never
 substituted into the predictive density. Table~\ref{tab:si-genomic-chromosomes}
-gives all chromosome-specific differences. F3's predictive advantage on some
-chromosomes is retained; the analysis does not select a comparator on the
-basis of which one makes M221 look best.
+gives all chromosome-specific differences, including those favouring F3.
 
 \input{tables/genomic_chromosomes.tex}
 \input{tables/genomic_calibration.tex}
@@ -511,8 +512,12 @@ behavior labels limit the interpretation of the fitted states.
 
 \subsection{Input data and matched supplementary measurements}
 
-The analysis reads \texttt{elk\_data} from \texttt{moveHMM} version 1.10 and
-checks its structure and serialized SHA-256 digest before fitting. Consecutive
+The data comprise GPS locations of four elk translocated in east-central
+Ontario, Canada, studied by Morales et al. (2004),
+\url{https://doi.org/10.1890/03-0269}. The analysis reads
+\texttt{elk\_data} from \texttt{moveHMM} version 1.10
+(Michelot et al., 2016, \url{https://doi.org/10.1111/2041-210X.12578})
+and checks its structure and serialized SHA-256 digest before fitting. Consecutive
 Euclidean displacements are computed separately for each animal, converted
 from metres to kilometres and transformed by $\log(1+x)$. The same 735
 locations yield 731 within-animal displacements.
@@ -892,9 +897,8 @@ records the separate development, validation and confirmation sequence.
 Saved fits are evidence for the reported calculations, not substitutes for
 these reproduction instructions.
 
-For the retained elk analyses, use the following commands.
-Run the following commands from the accompanying reproducibility-package
-root, using R and a C++ compiler supported by Rcpp:
+For the retained elk analyses, run the following commands from the
+reproducibility-package root, using R and a C++ compiler supported by Rcpp:
 \begin{verbatim}
 Rscript -e 'renv::restore()'
 Rscript numerics/scripts/run_revision_validation.R

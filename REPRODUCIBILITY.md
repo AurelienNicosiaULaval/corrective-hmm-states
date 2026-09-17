@@ -74,7 +74,8 @@ not independently validated behaviour or a general forecasting advantage.
 
 ## Joint movement models and emission alternatives
 
-The complete sequence is in Supporting Information S5. Run these commands
+The models are described in Supporting Information S5; the complete
+reproduction sequence is in S6. Run these commands
 from the package root after the Gaussian benchmark:
 
 ```sh
@@ -127,7 +128,7 @@ is claimed. Sensitivity to rounding resolution is not a GPS-error model.
 ## Simulation study and numerical optimization checks
 
 The study uses 200 replications at each of 500, 1500 and 5000 observations,
-with master seed 20260610. All 600 fits have been recalculated using the
+with master seed 20260610. All 600 replications have been rerun using the
 original random-start distributions, data-derived nested starts and a
 relative likelihood tolerance of 1e-9. The original parameter-generating
 values are not used as starts. Reproduce the corrected study with:

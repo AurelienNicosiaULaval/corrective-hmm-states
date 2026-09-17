@@ -16,18 +16,18 @@
   },
   {
     "path": "CHANGELOG.md",
-    "bytes": 1006,
-    "sha256": "d6e1f472e142fae24ae14b900afe4c07513022f998f7578a1b6dcabd3654cb1f"
+    "bytes": 1548,
+    "sha256": "b30eb48bb0bafcd0eafc0282cd5235078b24c8ff85a6d61807006ff7a3ec2a62"
   },
   {
     "path": "CITATION.cff",
     "bytes": 596,
-    "sha256": "35c106e8008aa1753cc59981ca0eb4997aab9ccbd51f903f625001cd2d18bc36"
+    "sha256": "29b9061d6cfbd9e2bb98e0433e48c87502e8cca5804b9393657c1a6a8c7af72b"
   },
   {
     "path": "DESCRIPTION",
-    "bytes": 745,
-    "sha256": "4cc2d75af886759f74ded12f9d48fb6540e1c5bb6fa7a63acdd65698d23a3de2"
+    "bytes": 771,
+    "sha256": "fcb62c3698805ed5774c01432b540c05f030eb6e3b5345d868c67614bfbc69e5"
   },
   {
     "path": "README.md",
@@ -36,13 +36,13 @@
   },
   {
     "path": "REPRODUCIBILITY.md",
-    "bytes": 8834,
-    "sha256": "dbab2348d4b6d9569040401b4dc09be37d9e22807eefee6717aa1dcdc9787002"
+    "bytes": 8880,
+    "sha256": "146606a11b315a6b27fa8b5fe9dba6b99da35c0ec3c0120c1a4df0423fabd376"
   },
   {
     "path": "article/figure_legends.tex",
-    "bytes": 881,
-    "sha256": "2a8f607b14cc9ce38a3e42ac1cb01b178e48451113624064b6ab57cb1c651c56"
+    "bytes": 1328,
+    "sha256": "d29ab1ae41bae2b1ef636f1d12a93fdddc372567637320be440e38082962dc7f"
   },
   {
     "path": "article/figures/bic_boxplot.pdf",
@@ -156,13 +156,13 @@
   },
   {
     "path": "article/main.pdf",
-    "bytes": 2698040,
-    "sha256": "553cef6c55d76716f03751442a0944fc4bf72a23222b2e106652a1af468928e6"
+    "bytes": 2698593,
+    "sha256": "a5027e6cc586b907c937010ad0928dfa3ed294bc4b2847031c90d337a58a023f"
   },
   {
     "path": "article/main.tex",
-    "bytes": 48107,
-    "sha256": "1b60d117d3bdeaa86090640f647e0c8e70aa4a0a5189f0629eb5190109ebb9fe"
+    "bytes": 48088,
+    "sha256": "531c99b6ffa6987d14406f533234299ee08e9e2f9e8ebb39dd060e7aa8cb69d7"
   },
   {
     "path": "article/references.bib",
@@ -5391,13 +5391,13 @@
   },
   {
     "path": "genomics/GENOMICS_PROTOCOL.md",
-    "bytes": 4534,
-    "sha256": "278152175c8ff1bb0def8771e661e9a99fb20c1c65c201dffb5f32046bc57bbf"
+    "bytes": 3880,
+    "sha256": "3121bc7abc4260b63caea22e086c489f2cb6163deab43ec3ad85d79e2398a37a"
   },
   {
     "path": "genomics/README.md",
-    "bytes": 5795,
-    "sha256": "a20f77f613b1dc8057b63de4a969d5be9a21db5cd05710018fec3607e26eaae8"
+    "bytes": 5976,
+    "sha256": "4448b3aec2ca0a0db3938772c89512da76af59dc00b31f45ea83c466c0f9d789"
   },
   {
     "path": "genomics/audit/annotation_get_checks.json",
@@ -5498,6 +5498,16 @@
     "path": "genomics/audit/package_inventory.csv",
     "bytes": 22859,
     "sha256": "838c20c7b8ae353363321147eb4536057b8dd331ccba1a9409e8b288401fb3b6"
+  },
+  {
+    "path": "genomics/audit/protocol_before_confirmation.md",
+    "bytes": 4534,
+    "sha256": "278152175c8ff1bb0def8771e661e9a99fb20c1c65c201dffb5f32046bc57bbf"
+  },
+  {
+    "path": "genomics/audit/protocol_provenance.json",
+    "bytes": 474,
+    "sha256": "ba7670f46c535b007d9dcf7765c13f2536867afc9278245fd8b3e2b2ba283487"
   },
   {
     "path": "genomics/audit/source_urls_checked.json",
@@ -7141,8 +7151,8 @@
   },
   {
     "path": "numerics/README.md",
-    "bytes": 4243,
-    "sha256": "589bd268e3234e70c0a4756d01e29bfaf8db19c1f60a19e14261b7d5cee63b82"
+    "bytes": 4486,
+    "sha256": "3da133dac3cde15aac19b6487605e3ca46dbc41a27577adbb3793422aeebcccb"
   },
   {
     "path": "numerics/output/crosstab_fit2.csv",
@@ -10436,13 +10446,13 @@
   },
   {
     "path": "supplement/supporting_information.pdf",
-    "bytes": 583757,
-    "sha256": "d31d5839fbd78c4f7fcd885f69e52a4cfdd48aeb05cc09201b1e80c1cda5d341"
+    "bytes": 584692,
+    "sha256": "7966d872bee1b0e701e7d08b8451d6ac5d7f86df88b6f17c6378c09308c83a29"
   },
   {
     "path": "supplement/supporting_information.tex",
-    "bytes": 51405,
-    "sha256": "d68da2afba2d658e6b55d669921561d133e4ae6d19e373c05c65e96d48a39c67"
+    "bytes": 51639,
+    "sha256": "e8b505d771c99741663c355ded624172a3cc5a56e64d1bedca614160ac14f1f6"
   },
   {
     "path": "supplement/tables/elk_convergence.tex",

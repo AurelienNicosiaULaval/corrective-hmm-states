@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use these materials, please cite the associated manuscript and this repository."
 title: "Extra Hidden States under Emission Misspecification in Hidden Markov Models"
 type: software
-version: 1.2.2
+version: 1.2.3
 date-released: "2026-09-17"
 authors:
   - family-names: Nicosia

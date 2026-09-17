@@ -1,0 +1,8 @@
+{
+  "description": "The original protocol is preserved byte for byte. The current guide was edited for publication on 17 September 2026; no analytical settings were changed.",
+  "original_recorded_path": "GENOMICS_PROTOCOL.md",
+  "archived_path": "audit/protocol_before_confirmation.md",
+  "original_sha256": "278152175c8ff1bb0def8771e661e9a99fb20c1c65c201dffb5f32046bc57bbf",
+  "freeze_record": "audit/confirmation_freeze.json",
+  "current_guide": "GENOMICS_PROTOCOL.md"
+}

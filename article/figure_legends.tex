@@ -1,17 +1,22 @@
 \section*{Figure legends}
 
-\noindent\textit{Figure 1.} Observed histogram and fitted marginal densities for the reference
+\noindent\textit{Figure~\ref{fig:simulation-density}.} Observed histogram and fitted marginal densities for the reference
 simulation. The two-state Gaussian model smooths over the heterogeneous first
 regime. The three-state Gaussian and enriched two-state models recover its two
 components.
 
-\noindent\textit{Figure 2.} Chromosome 1 of HCC1143. Panels A and B show the
-M221 and G5 Viterbi labels. Paired light and dark colours in B share an
-aggregate colour in A. Panel C separates conditional state densities and
-weighted within-state component contributions. The chain resets across
-the gap near the centromere.
+\noindent\textit{Figure~\ref{fig:genomic-profiles}.} Chromosome 1 of HCC1143. Panels A and B colour the corrected
+fractions by the M221 and G5 Viterbi paths. The paired light and dark colours
+in B distinguish ordinary states that have the same aggregate colour in A.
+Panel C shows M221 state densities (solid) and weighted within-state
+component contributions (dashed). These are conditional densities, without
+multiplication by state occupation. The gap near the centromere resets the
+chain.
 
-\noindent\textit{Figure 3.} Development-data comparison of M221 allele-fraction
-profiles, PSCBS allelic imbalance from the same arrays, and independent
-sequencing copy-ratio estimates. An approximately balanced fraction does not
-identify unchanged total DNA dosage.
+\noindent\textit{Figure~\ref{fig:genomic-assays}.} A chromosome-1 interval in the development data. Panel A shows
+M221 allele-fraction profiles, using the colours of
+Figure~\ref{fig:genomic-profiles}. Panel B shows the allelic-imbalance measure
+from PSCBS applied to the same arrays. Panel C shows the published independent
+sequencing copy-ratio segments of Chiang et al. (2009). Allelic balance and
+total dosage measure different properties. This development-data comparison
+is not a held-out classification test.

@@ -17,7 +17,7 @@ Rscript genomics/scripts/evaluate_genomic_pilot.R
 Rscript genomics/scripts/genomic_diagnostics.R
 ```
 
-The evaluation script uses fixed fitted parameters and resets filtering at recorded sequence boundaries. The file named `confirmation` contains only chromosomes 18–22 and represents a later held-out block in an exploratory analysis. The seven fitted objects and written protocol match the hashes in `audit/confirmation_freeze.json`; the distributed evaluation script is a later version and does not match its earlier recorded hash. This is not a preregistered confirmatory study. Keep the saved models fixed when reproducing the reported scores.
+The evaluation script uses fixed fitted parameters and resets filtering at recorded sequence boundaries. The file named `confirmation` contains only chromosomes 18–22 and represents a later held-out block in an exploratory analysis. The seven fitted objects and the original protocol, preserved in `audit/protocol_before_confirmation.md`, match the hashes in `audit/confirmation_freeze.json`. The current `GENOMICS_PROTOCOL.md` is an edited reader guide; `audit/protocol_provenance.json` records that distinction. The distributed evaluation script is a later version and does not match its earlier recorded hash. This is not a preregistered confirmatory study. Keep the saved models fixed when reproducing the reported scores.
 
 ## Complete refit
 

@@ -1,33 +1,69 @@
-# Genomic application: exploratory protocol
+# Genomic analysis protocol
 
-Recorded before inspecting processed profiles or fitting HMMs. This is a local analysis protocol, not an externally registered study. Earlier animal and economic pilots are retained in ETAT_SCIENTIFIQUE.md.
+The analysis examines whether complementary low and high B-allele fractions
+can share regional transition dynamics. The fitted states describe allelic
+balance and degrees of imbalance. Allele fractions alone do not identify
+absolute copy number or the number of cell populations.
 
-## Scientific question and data
+This guide describes the study design and candidate analyses. The
+[original protocol](audit/protocol_before_confirmation.md), recorded before
+profile inspection and HMM fitting, is preserved without changes. Its SHA-256
+matches the protocol entry in the [confirmation freeze](audit/confirmation_freeze.json).
+The [provenance record](audit/protocol_provenance.json) documents this guide's
+editorial update. The study was exploratory and was not externally registered.
 
-Can a model distinguish sustained chromosomal allelic imbalance from changes in the allele measured at successive SNP markers? The target is regional allelic balance or imbalance, not clinical diagnosis or an estimate of the true number of cancer cell populations. A component corresponding to a low B-allele fraction and its high-fraction counterpart can describe the same imbalance. The identity of the allele designated B need not remain on the same parental chromosome along the sequence.
+## Data and preprocessing
 
-Use the first two accession-ordered HCC1143 tumor-normal pairs from GSE13372: GSM337641/GSM337662 and GSM337642/GSM337663. Four original CEL files are preserved. AS-CRMAv2 performs single-array preprocessing; TumorBoost will correct tumor allele fractions using the matched normal. Retain raw and corrected fractions. Coordinates for comparisons to Chiang et al. (2009) must be hg18. No anonymous, scrambled, simulated or merely genotype-called demonstration file is substituted for these measurements.
+The data are HCC1143 tumor and HCC1143BL matched-normal SNP arrays from
+[GEO GSE13372](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE13372),
+associated with [Chiang et al. (2009)](https://doi.org/10.1038/nmeth.1276).
+The two pairs, selected in accession order, are GSM337641/GSM337662 and
+GSM337642/GSM337663. The second pair is a technical repeat of the same cell lines.
 
-## Exploratory and validation separation
+AS-CRMAv2 processes the original CEL files, and TumorBoost corrects tumor
+fractions using the matched normal. Analysis coordinates use hg18. Retained
+markers have finite measurements, unique positive genomic positions and
+matched-normal fractions in [0.3, 0.7]. Alternative filters use [0.25, 0.75]
+and [0.35, 0.65]. Corrected tumor fractions are not clipped to [0, 1]. Each
+chromosome boundary and gap exceeding one megabase starts a new sequence.
+Marker thinning assesses sensitivity to spacing and local dependence.
 
-Chromosome 1 of pair 1 is the initial development series, chosen by chromosome number before profile inspection. Pair 1 chromosomes 2–11 are development extensions; 12–17 are validation and 18–22 remain confirmation until the specification is frozen. Pair 2 is a technical replication, not a second independent biological sample. No claim of patient-level generalization is supported by these two pairs.
+## Development and evaluation
 
-Retain autosomal SNPs with finite measurements, unique positive genomic positions, and matched-normal B-allele fraction between 0.3 and 0.7. This filter identifies candidate heterozygous loci without inspecting the tumor profile. Thresholds 0.25–0.75 and 0.35–0.65 are sensitivity analyses. Do not clip corrected tumor values at zero or one. Reset the hidden chain at chromosome boundaries and gaps larger than one megabase. Record exclusions and actual distances. Check subsampling for effects of local linkage and marker spacing.
+Chromosome 1 of the first pair was chosen for development by chromosome
+number before profile inspection. Chromosomes 2–11 were reserved for possible
+extensions and were not used. Chromosomes 12–17 provide validation data.
+Chromosomes 18–22 were evaluated after the fitted models and specification
+were frozen. They form a later held-out block within the exploratory design.
+Chromosome 1 of the second pair assesses technical repeatability. None of
+these comparisons supplies independent patient-level validation.
 
-## First pilot
+## Candidate models and estimation
 
-Fit univariate Gaussian-emission HMMs to the corrected tumor B-allele fractions on development chromosome 1. Compare G2, G3, G5 and mixtures M21 (two states with two and one components) and M221 (three states with two, two and one components). The mixture labels represent balance and degrees of imbalance only if their fitted components support that reading. Do not assign a copy number solely from an allele fraction. Use multiple starts, refine the best solutions, enforce the exact M21-to-G3 and M221-to-G5 inclusions, and report any likelihood nesting failure. The primary standard-deviation floor is 0.01 on the fraction scale; use 0.005 and 0.02 for sensitivity if the case progresses.
+Gaussian HMMs G2, G3 and G5 have two, three and five states. Mixture models
+M21 and M221 have component counts (2, 1) and (2, 2, 1). The comparisons
+M21–G3 and M221–G5 hold the total component count fixed. Multiple starts,
+refinement of the best solutions and starts at exact nested representations
+check optimization. The primary standard-deviation floor is 0.01; sensitivity
+analyses use 0.005 and 0.02.
 
-Quantify the fitted emissions, transition rows, occupancy, decoded run counts, convergence, competing maxima and boundary hits. The first pilot is for feasibility, not confirmatory performance. No model is chosen because a lower-likelihood local solution has appealing state labels.
+The recorded outputs include emission parameters, transition rows, posterior
+occupation, decoded runs, convergence diagnostics, competing solutions and
+boundary estimates. Selection within each candidate family uses likelihood.
+The detailed fitting settings and symmetry-aware comparators are described
+in Supporting Information S3.2.
 
-## Evidence required before manuscript adoption
+## Interpretation and sensitivity
 
-1. Biological interpretation supported by component locations and by the spatial profiles of raw measurements.
-2. Comparisons at the same total number of components, with both density fit and scientifically relevant segmentation assessed.
-3. Validation on chromosomes excluded from parameter estimation; technical replication reported separately.
-4. Comparisons with established symmetry-aware processing of B-allele fractions and with a standard genomic segmentation method. A naive Gaussian baseline alone is insufficient.
-5. A measured stability analysis under allele-label exchange, variance bounds, marker thinning and normal heterozygosity thresholds.
-6. A comparison to independent sequencing-derived copy-ratio segments after coordinate verification. These are estimates from another assay, not error-free truth and not direct labels of allelic balance.
-7. Explicit reporting of any persistent differences between the low- and high-fraction component transition rows. Extra states cannot simply be called spurious when the data support distinct dynamics.
+The assessment combines observed fraction profiles, emission components,
+comparisons at equal component count, fixed-parameter prediction on excluded
+chromosomes and technical repeatability. It also examines allelic symmetry,
+allele-label exchange, variance constraints, marker thinning and normal-fraction
+filters. Differences between paired transition rows are reported.
 
-The application may be rejected. Core manuscript theory, notation, title and EM exposition are not altered to accommodate a favorable empirical outcome.
+PSCBS supplies an established comparator using the same arrays and additional
+total-intensity information. Published sequencing segments supply a separate
+assay of total copy ratio after coordinate alignment. Neither provides
+error-free labels for the HMM allelic profiles. The results, including the
+advantages of competing models and the instability of short segments, are
+reported in the article and Supporting Information S3.

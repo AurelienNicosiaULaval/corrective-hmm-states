@@ -25,8 +25,10 @@ numerics/
     diagnostics.R           summaries, BIC, crosstabs and residuals
     plotting.R              ggplot2 article and supplement figures
   scripts/
-    run_review_simulation.R
-    run_elk_application.R
+    run_optimization_audit.R  current replicated simulation
+    refine_reference_simulation.R  current reference fit and figures
+    run_review_simulation.R   earlier simulation protocol
+    run_elk_application.R     earlier Gaussian movement analysis
   tests/
     testthat.R
     testthat/
@@ -38,7 +40,9 @@ numerics/
 The HMM implementations use base R matrix operations and do not rely on an
 external HMM fitting library. Tables and figures use standard R packages,
 including `dplyr`, `ggplot2`, and `patchwork`. The versioned `renv.lock` file
-records the complete package environment. Restore it from the repository root
+records the simulation and movement environment. Genomic dependencies are
+documented separately in the genomic guide. Restore the legacy environment
+from the repository root
 with:
 
 ```sh
@@ -105,7 +109,7 @@ The BIC parameter count for the mixture-emission HMM is
 `(K - 1) + K(K - 1) + K((M - 1) + 2M)`, covering the initial distribution,
 transitions, mixture weights, means and standard deviations.
 
-The numerical interpretation should always be read from the generated outputs.
-In the reference run, the intended diagnostic pattern is that the simple
-Gaussian family favours an additional fitted state, while the enriched
-two-state mixture-emission model absorbs the split into the emission model.
+In the reference series, BIC is 4487.4 for G2, 4197.3 for G3 and 4191.6
+for M22. Both G3 and M22 contain the data-generating law. Their fitted
+likelihoods are close, so the M22 preference mainly reflects its smaller
+parameter count (13 versus 14).

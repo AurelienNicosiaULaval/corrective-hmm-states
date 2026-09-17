@@ -1,7 +1,7 @@
 Package: hmmExtraStatesRepro
 Type: Project
 Title: Reproducibility Materials for Extra Hidden States under Emission Misspecification
-Version: 1.2.2
+Version: 1.2.3
 Authors@R: person("Aurelien", "Nicosia", role = c("aut", "cre"), email = "aurelien.nicosia@mat.ulaval.ca")
 Description: Data, R code, fixed seeds, tests, and computational results for
     studying emission misspecification in hidden Markov models. Includes
@@ -10,6 +10,8 @@ Description: Data, R code, fixed seeds, tests, and computational results for
 Depends: R (>= 4.4.0)
 Imports:
     Rcpp,
+    clue,
+    data.table,
     digest,
     dplyr,
     ggplot2,
