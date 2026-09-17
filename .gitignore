@@ -28,3 +28,12 @@ AGENTS.md
 dev_notes/
 literature_review/
 supplement/notes_for_revision.md
+
+# Local genomic dependencies and downloaded raw inputs
+genomics/library/
+genomics/genomic_processing/
+genomics/data/genomics/*.CEL.gz
+
+# Archived bibliography and computational provenance are distributed
+!article/main.bbl
+!genomics/audit/*.log

@@ -1,0 +1,10 @@
+{
+  "seed": 20260610,
+  "replications": 600,
+  "random_starts": 10,
+  "refine_top": 3,
+  "max_iterations_per_chunk": 3000,
+  "tolerance": 1e-09,
+  "nested_starts": "G2 split into M21; M22 reduced into M21; M21 exactly expanded into G3 and duplicated into M22",
+  "oracle_starts": false
+}

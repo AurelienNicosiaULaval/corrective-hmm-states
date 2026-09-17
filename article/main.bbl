@@ -1,0 +1,236 @@
+\begin{thebibliography}{35}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Alexandrovich et~al.(2016)Alexandrovich, Holzmann, and
+  Leister]{AlexandrovichEtAl2016}
+Alexandrovich, G., H.~Holzmann, and A.~Leister (2016), Nonparametric
+  identification and maximum likelihood estimation for hidden {Markov} models,
+  \emph{Biometrika}, 103\penalty0 (2),\penalty0{} 423--434.
+\newblock \doi{10.1093/biomet/asw001}.
+
+\bibitem[Allman et~al.(2009)Allman, Matias, and Rhodes]{AllmanEtAl2009}
+Allman, E.~S., C.~Matias, and J.~A. Rhodes (2009), Identifiability of
+  parameters in latent structure models with many observed variables, \emph{The
+  Annals of Statistics}, 37\penalty0 (6A),\penalty0{} 3099--3132.
+\newblock \doi{10.1214/09-AOS689}.
+
+\bibitem[Bengtsson et~al.(2009)Bengtsson, Wirapati, and
+  Speed]{BengtssonEtAl2009}
+Bengtsson, H., P.~Wirapati, and T.~P. Speed (2009), {A single-array
+  preprocessing method for estimating full-resolution raw copy numbers from all
+  Affymetrix genotyping arrays including GenomeWideSNP 5 \& 6},
+  \emph{Bioinformatics}, 25\penalty0 (17),\penalty0{} 2149--2156.
+\newblock \doi{10.1093/bioinformatics/btp371}.
+
+\bibitem[Bengtsson et~al.(2010)Bengtsson, Neuvial, and
+  Speed]{BengtssonEtAl2010}
+Bengtsson, H., P.~Neuvial, and T.~P. Speed (2010), {TumorBoost: Normalization
+  of allele-specific tumor copy numbers from a single pair of tumor-normal
+  genotyping microarrays}, \emph{BMC Bioinformatics}, 11\penalty0
+  (1),\penalty0{} 245.
+\newblock \doi{10.1186/1471-2105-11-245}.
+
+\bibitem[Bickel et~al.(1998)Bickel, Ritov, and Ryd{\'e}n]{BickelEtAl1998}
+Bickel, P.~J., Y.~Ritov, and T.~Ryd{\'e}n (1998), Asymptotic normality of the
+  maximum-likelihood estimator for general hidden {Markov} models, \emph{The
+  Annals of Statistics}, 26\penalty0 (4),\penalty0{} 1614--1635.
+\newblock \doi{10.1214/aos/1024691255}.
+
+\bibitem[Capp{\'e} et~al.(2005)Capp{\'e}, Moulines, and
+  Ryd{\'e}n]{CappeEtAl2005}
+Capp{\'e}, O., {\'E}.~Moulines, and T.~Ryd{\'e}n (2005), \emph{Inference in
+  Hidden Markov Models}, Springer.
+\newblock \doi{10.1007/0-387-28982-8}.
+
+\bibitem[Chen et~al.(2017)Chen, Robertson, Ganesamoorthy, and
+  Coin]{ChenEtAl2017}
+Chen, W., A.~J. Robertson, D.~Ganesamoorthy, and L.~J. Coin (2017), {sCNAphase:
+  using haplotype resolved read depth to genotype somatic copy number
+  alterations from low cellularity aneuploid tumors}, \emph{Nucleic Acids
+  Research}, 45\penalty0 (5),\penalty0{} e34.
+\newblock \doi{10.1093/nar/gkw1086}.
+
+\bibitem[Chiang et~al.(2009)Chiang, Getz, Jaffe, O'Kelly, Zhao, Carter, Russ,
+  Nusbaum, Meyerson, and Lander]{ChiangEtAl2009}
+Chiang, D.~Y., G.~Getz, D.~B. Jaffe, M.~J.~T. O'Kelly, X.~Zhao, S.~L. Carter,
+  C.~Russ, C.~Nusbaum, M.~Meyerson, and E.~S. Lander (2009), {High-resolution
+  mapping of copy-number alterations with massively parallel sequencing},
+  \emph{Nature Methods}, 6\penalty0 (1),\penalty0{} 99--103.
+\newblock \doi{10.1038/nmeth.1276}.
+
+\bibitem[Dannemann(2012)]{Dannemann2012}
+Dannemann, J. (2012), Semiparametric hidden {Markov} models, \emph{Journal of
+  Computational and Graphical Statistics}, 21\penalty0 (3),\penalty0{}
+  677--692.
+\newblock \doi{10.1080/10618600.2012.681264}.
+
+\bibitem[Dannemann et~al.(2014)Dannemann, Holzmann, and
+  Leister]{DannemannEtAl2014}
+Dannemann, J., H.~Holzmann, and A.~Leister (2014), Semiparametric hidden
+  {Markov} models: identifiability and estimation, \emph{WIREs Computational
+  Statistics}, 6\penalty0 (6),\penalty0{} 418--425.
+\newblock \doi{10.1002/wics.1326}.
+
+\bibitem[Douc and Moulines(2012)]{DoucMoulines2012}
+Douc, R. and {\'E}.~Moulines (2012), Asymptotic properties of the maximum
+  likelihood estimation in misspecified hidden {Markov} models, \emph{The
+  Annals of Statistics}, 40\penalty0 (5),\penalty0{} 2697--2732.
+\newblock \doi{10.1214/12-AOS1047}.
+
+\bibitem[Drton and Plummer(2017)]{DrtonPlummer2017}
+Drton, M. and M.~Plummer (2017), A {Bayesian} information criterion for
+  singular models, \emph{Journal of the Royal Statistical Society: Series B
+  (Statistical Methodology)}, 79\penalty0 (2),\penalty0{} 323--380.
+\newblock \doi{10.1111/rssb.12187}.
+
+\bibitem[Gassiat and Keribin(2000)]{GassiatKeribin2000}
+Gassiat, E. and C.~Keribin (2000), The likelihood ratio test for the number of
+  components in a mixture with {Markov} regime, \emph{ESAIM: Probability and
+  Statistics}, 4,\penalty0{} 25--52.
+\newblock URL \url{https://www.numdam.org/item/PS_2000__4__25_0/}.
+
+\bibitem[Gassiat and Rousseau(2014)]{GassiatRousseau2014}
+Gassiat, E. and J.~Rousseau (2014), About the posterior distribution in hidden
+  {Markov} models with unknown number of states, \emph{Bernoulli}, 20\penalty0
+  (4),\penalty0{} 2039--2075.
+\newblock \doi{10.3150/13-BEJ550}.
+
+\bibitem[Gassiat et~al.(2016)Gassiat, Cleynen, and Robin]{GassiatEtAl2016}
+Gassiat, E., A.~Cleynen, and S.~Robin (2016), Inference in finite state space
+  nonparametric hidden {Markov} models and applications, \emph{Statistics and
+  Computing}, 26\penalty0 (1-2),\penalty0{} 61--71.
+\newblock \doi{10.1007/s11222-014-9523-8}.
+
+\bibitem[Holzmann and Schwaiger(2015)]{HolzmannSchwaiger2015}
+Holzmann, H. and F.~Schwaiger (2015), Hidden {Markov} models with
+  state-dependent mixtures: minimal representation, model testing and
+  applications to clustering, \emph{Statistics and Computing}, 25\penalty0
+  (6),\penalty0{} 1185--1200.
+\newblock \doi{10.1007/s11222-014-9481-1}.
+
+\bibitem[Keribin(2000)]{Keribin2000}
+Keribin, C. (2000), Consistent estimation of the order of mixture models,
+  \emph{Sankhy{\=a}: The Indian Journal of Statistics, Series A}, 62\penalty0
+  (1),\penalty0{} 49--66.
+\newblock URL \url{https://www.jstor.org/stable/25051289}.
+
+\bibitem[Langrock et~al.(2015)Langrock, Kneib, Sohn, and
+  DeRuiter]{LangrockEtAl2015}
+Langrock, R., T.~Kneib, A.~Sohn, and S.~L. DeRuiter (2015), Nonparametric
+  inference in hidden {Markov} models using {P}-splines, \emph{Biometrics},
+  71\penalty0 (2),\penalty0{} 520--528.
+\newblock \doi{10.1111/biom.12282}.
+
+\bibitem[Langrock et~al.(2018)Langrock, Adam, Leos-Barajas, Mews, Miller, and
+  Papastamatiou]{LangrockEtAl2018}
+Langrock, R., T.~Adam, V.~Leos-Barajas, S.~Mews, D.~L. Miller, and Y.~P.
+  Papastamatiou (2018), Spline-based nonparametric inference in general
+  state-switching models, \emph{Statistica Neerlandica}, 72\penalty0
+  (3),\penalty0{} 179--200.
+\newblock \doi{10.1111/stan.12133}.
+
+\bibitem[Leh{\'e}ricy(2019)]{Lehericy2019}
+Leh{\'e}ricy, L. (2019), Consistent order estimation for nonparametric hidden
+  {Markov} models, \emph{Bernoulli}, 25\penalty0 (1),\penalty0{} 464--498.
+\newblock \doi{10.3150/17-BEJ993}.
+
+\bibitem[Leroux(1992)]{Leroux1992}
+Leroux, B.~G. (1992), Maximum-likelihood estimation for hidden {Markov} models,
+  \emph{Stochastic Processes and their Applications}, 40\penalty0
+  (1),\penalty0{} 127--143.
+\newblock \doi{10.1016/0304-4149(92)90141-C}.
+
+\bibitem[Lin and Huang(2025)]{LinHuang2025}
+Lin, Y. and M.~Huang (2025), Penalized composite likelihood estimation for
+  hidden {Markov} models with unknown number of states, \emph{Statistics \&
+  Probability Letters}, 216,\penalty0{} 110247.
+\newblock \doi{10.1016/j.spl.2024.110247}.
+
+\bibitem[McClintock et~al.(2020)McClintock, Langrock, Gimenez, Cam, Borchers,
+  Glennie, and Patterson]{McClintockEtAl2020}
+McClintock, B.~T., R.~Langrock, O.~Gimenez, E.~Cam, D.~L. Borchers, R.~Glennie,
+  and T.~A. Patterson (2020), Uncovering ecological state dynamics with hidden
+  {Markov} models, \emph{Ecology Letters}, 23\penalty0 (12),\penalty0{}
+  1878--1903.
+\newblock \doi{10.1111/ele.13610}.
+
+\bibitem[McLachlan and Peel(2000)]{McLachlanPeel2000}
+McLachlan, G.~J. and D.~Peel (2000), \emph{Finite Mixture Models}, John Wiley
+  \& Sons.
+\newblock \doi{10.1002/0471721182}.
+
+\bibitem[Olshen et~al.(2011)Olshen, Bengtsson, Neuvial, Spellman, Olshen, and
+  Seshan]{OlshenEtAl2011}
+Olshen, A.~B., H.~Bengtsson, P.~Neuvial, P.~T. Spellman, R.~A. Olshen, and
+  V.~E. Seshan (2011), {Parent-specific copy number in paired tumor--normal
+  studies using circular binary segmentation}, \emph{Bioinformatics},
+  27\penalty0 (15),\penalty0{} 2038--2046.
+\newblock \doi{10.1093/bioinformatics/btr329}.
+
+\bibitem[Pohle et~al.(2017)Pohle, Langrock, van Beest, and
+  Schmidt]{PohleEtAl2017}
+Pohle, J., R.~Langrock, F.~M. van Beest, and N.~M. Schmidt (2017), Selecting
+  the number of states in hidden {Markov} models: pragmatic solutions
+  illustrated using animal movement, \emph{Journal of Agricultural, Biological
+  and Environmental Statistics}, 22\penalty0 (3),\penalty0{} 270--293.
+\newblock \doi{10.1007/s13253-017-0283-8}.
+
+\bibitem[Rabiner(1989)]{Rabiner1989}
+Rabiner, L.~R. (1989), A tutorial on hidden {Markov} models and selected
+  applications in speech recognition, \emph{Proceedings of the IEEE},
+  77\penalty0 (2),\penalty0{} 257--286.
+\newblock \doi{10.1109/5.18626}.
+
+\bibitem[Rousseau and Mengersen(2011)]{RousseauMengersen2011}
+Rousseau, J. and K.~Mengersen (2011), Asymptotic behaviour of the posterior
+  distribution in overfitted mixture models, \emph{Journal of the Royal
+  Statistical Society: Series B (Statistical Methodology)}, 73\penalty0
+  (5),\penalty0{} 689--710.
+\newblock \doi{10.1111/j.1467-9868.2011.00781.x}.
+
+\bibitem[Teicher(1963)]{Teicher1963}
+Teicher, H. (1963), Identifiability of finite mixtures, \emph{The Annals of
+  Mathematical Statistics}, 34\penalty0 (4),\penalty0{} 1265--1269.
+\newblock \doi{10.1214/aoms/1177703862}.
+
+\bibitem[Volant et~al.(2014)Volant, B{\'e}rard, Martin-Magniette, and
+  Robin]{VolantEtAl2014}
+Volant, S., C.~B{\'e}rard, M.-L. Martin-Magniette, and S.~Robin (2014), Hidden
+  {Markov} models with mixtures as emission distributions, \emph{Statistics and
+  Computing}, 24\penalty0 (4),\penalty0{} 493--504.
+\newblock \doi{10.1007/s11222-013-9383-7}.
+
+\bibitem[Watanabe(2013)]{Watanabe2013}
+Watanabe, S. (2013), A widely applicable {Bayesian} information criterion,
+  \emph{Journal of Machine Learning Research}, 14,\penalty0{} 867--897.
+\newblock URL \url{https://www.jmlr.org/papers/v14/watanabe13a.html}.
+
+\bibitem[White(1982)]{White1982}
+White, H. (1982), Maximum likelihood estimation of misspecified models,
+  \emph{Econometrica}, 50\penalty0 (1),\penalty0{} 1--25.
+\newblock \doi{10.2307/1912526}.
+
+\bibitem[Yakowitz and Spragins(1968)]{YakowitzSpragins1968}
+Yakowitz, S.~J. and J.~D. Spragins (1968), On the identifiability of finite
+  mixtures, \emph{The Annals of Mathematical Statistics}, 39\penalty0
+  (1),\penalty0{} 209--214.
+\newblock \doi{10.1214/aoms/1177698520}.
+
+\bibitem[Zou et~al.(2024)Zou, Lin, and Song]{ZouEtAl2024}
+Zou, Y., Y.~Lin, and X.~Song (2024), Bayesian heterogeneous hidden {Markov}
+  models with an unknown number of states, \emph{Journal of Computational and
+  Graphical Statistics}, 33\penalty0 (1),\penalty0{} 15--24.
+\newblock \doi{10.1080/10618600.2023.2231055}.
+
+\bibitem[Zucchini et~al.(2016)Zucchini, MacDonald, and
+  Langrock]{ZucchiniEtAl2016}
+Zucchini, W., I.~L. MacDonald, and R.~Langrock (2016), \emph{Hidden Markov
+  Models for Time Series: An Introduction Using R}, 2nd edition, Chapman and
+  Hall/CRC.
+\newblock \doi{10.1201/b20790}.
+
+\end{thebibliography}

@@ -1,0 +1,80 @@
+[
+  {
+    "file": "GSM337641.CEL.gz",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM337nnn/GSM337641/suppl/GSM337641.CEL.gz",
+    "bytes": 26874647,
+    "sha256": "c8ae24512127354abd665acc916493afba0bcf9a22fb9b51789d1881068aaffc",
+    "utc": "2026-09-10T20:04:24.362085+00:00",
+    "destination": "data/genomics/GSM337641.CEL.gz"
+  },
+  {
+    "file": "GSM337662.CEL.gz",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM337nnn/GSM337662/suppl/GSM337662.CEL.gz",
+    "bytes": 27766426,
+    "sha256": "a121bcd3532341bfedd47e4f0795b3d81d8305a319d42a02c6338393b4424eca",
+    "utc": "2026-09-10T20:04:31.059947+00:00",
+    "destination": "data/genomics/GSM337662.CEL.gz"
+  },
+  {
+    "file": "GSM337642.CEL.gz",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM337nnn/GSM337642/suppl/GSM337642.CEL.gz",
+    "bytes": 27031968,
+    "sha256": "db8f98f40b534b692a58cf401ab63d1ee196a0510fd277b584f8de94ca1a0082",
+    "utc": "2026-09-10T20:04:23.951740+00:00",
+    "destination": "data/genomics/GSM337642.CEL.gz"
+  },
+  {
+    "file": "GSM337663.CEL.gz",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM337nnn/GSM337663/suppl/GSM337663.CEL.gz",
+    "bytes": 27210236,
+    "sha256": "231f5317213598da88b6480d8ef33b9c3ac450e5917e48bdc9dc0f9a7c64a4ab",
+    "utc": "2026-09-10T20:04:24.425690+00:00",
+    "destination": "data/genomics/GSM337663.CEL.gz"
+  },
+  {
+    "file": "GenomeWideSNP_6,Full.CDF",
+    "url": "https://www.aroma-project.org/data/annotationData/chipTypes/GenomeWideSNP_6/GenomeWideSNP_6,Full.CDF.gz",
+    "destination": "genomic_processing/annotationData/chipTypes/GenomeWideSNP_6/GenomeWideSNP_6,Full.CDF",
+    "sha256": "753ae57eec5c50750bfaeee9c57c1076e9c839f96318efe2b43207835baff4c1",
+    "compression": "gzip",
+    "hash_representation": "uncompressed"
+  },
+  {
+    "file": "GenomeWideSNP_6,HB20080710.acs",
+    "url": "https://www.aroma-project.org/data/annotationData/chipTypes/GenomeWideSNP_6/GenomeWideSNP_6,HB20080710.acs.gz",
+    "destination": "genomic_processing/annotationData/chipTypes/GenomeWideSNP_6/GenomeWideSNP_6,HB20080710.acs",
+    "sha256": "02cd840ad5e2532d3e71af322b78caafcb26912e7630a93f74edde7baaa38853",
+    "compression": "gzip",
+    "hash_representation": "uncompressed"
+  },
+  {
+    "file": "GenomeWideSNP_6,Full,na31,hg19,HB20110328.ufl",
+    "url": "https://www.aroma-project.org/data/annotationData/chipTypes/GenomeWideSNP_6/GenomeWideSNP_6,Full,na31,hg19,HB20110328.ufl.gz",
+    "destination": "genomic_processing/annotationData/chipTypes/GenomeWideSNP_6/GenomeWideSNP_6,Full,na31,hg19,HB20110328.ufl",
+    "sha256": "247762809ca5f80674e23b8c34e9bd3e4fb1a71b73d06eb1901d1200b8fc417f",
+    "compression": "gzip",
+    "hash_representation": "uncompressed"
+  },
+  {
+    "file": "GenomeWideSNP_6,Full,na31,hg19,HB20110328.ugp",
+    "url": "https://www.aroma-project.org/data/annotationData/chipTypes/GenomeWideSNP_6/GenomeWideSNP_6,Full,na31,hg19,HB20110328.ugp.gz",
+    "destination": "genomic_processing/annotationData/chipTypes/GenomeWideSNP_6/GenomeWideSNP_6,Full,na31,hg19,HB20110328.ugp",
+    "sha256": "a670f52e0fe7c4db2890182d68aa7043d97adbfb384be6ab7f429cc44bc5d0b7",
+    "compression": "gzip",
+    "hash_representation": "uncompressed"
+  },
+  {
+    "file": "GenomeWideSNP_6,Full,na30,hg18,HB20100215.ugp",
+    "url": "https://www.aroma-project.org/data/annotationData/chipTypes/GenomeWideSNP_6/GenomeWideSNP_6,Full,na30,hg18,HB20100215.ugp.gz",
+    "destination": "genomic_processing/annotationData/chipTypes/GenomeWideSNP_6/GenomeWideSNP_6,Full,na30,hg18,HB20100215.ugp",
+    "sha256": "0bef43a977401b42493ae9978d57c1782cf49617bec985ecb77c5f72fd67e2d4",
+    "compression": "gzip",
+    "hash_representation": "uncompressed"
+  },
+  {
+    "file": "Chiang2009_sequencing_segments_hg18.pdf",
+    "destination": "data/genomics/Chiang2009_sequencing_segments_hg18.pdf",
+    "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnmeth.1276/MediaObjects/41592_2009_BFnmeth1276_MOESM182_ESM.pdf",
+    "sha256": "fd7fcc04c4785c986ff1fb451941c9f51a5fe107c376c935dc0620fc6a443796"
+  }
+]

@@ -1,0 +1,73 @@
+Loading required package: R.utils
+Loading required package: R.oo
+Loading required package: R.methodsS3
+R.methodsS3 v1.8.2 (2022-06-13 22:00:14 UTC) successfully loaded. See ?R.methodsS3 for help.
+R.oo v1.27.1 (2025-05-02 21:00:05 UTC) successfully loaded. See ?R.oo for help.
+
+Attaching package: ‘R.oo’
+
+The following object is masked from ‘package:R.methodsS3’:
+
+    throw
+
+The following objects are masked from ‘package:methods’:
+
+    getClasses, getMethods
+
+The following objects are masked from ‘package:base’:
+
+    attach, detach, load, save
+
+R.utils v2.13.0 (2025-02-24 21:20:02 UTC) successfully loaded. See ?R.utils for help.
+
+Attaching package: ‘R.utils’
+
+The following object is masked from ‘package:utils’:
+
+    timestamp
+
+The following objects are masked from ‘package:base’:
+
+    cat, commandArgs, getOption, isOpen, nullfile, parse, use, warnings
+
+Loading required package: R.filesets
+R.filesets v2.15.1 (2024-01-24 17:22:49 UTC) successfully loaded. See ?R.filesets for help.
+
+Attaching package: ‘R.filesets’
+
+The following object is masked from ‘package:R.utils’:
+
+    validate
+
+The following objects are masked from ‘package:base’:
+
+    append, readLines
+
+Loading required package: R.devices
+R.devices v2.17.4 (2026-05-09 14:42:11 UTC) successfully loaded. See ?R.devices for help.
+aroma.core v3.3.2 (2025-08-18 23:10:02 UTC) successfully loaded. See ?aroma.core for help.
+
+Attaching package: ‘aroma.core’
+
+The following objects are masked from ‘package:base’:
+
+    .Machine, colMeans, colSums, library, require, write
+
+Warning message:
+package ‘R.devices’ was built under R version 4.5.2 
+Downloading chiptype file...
+ Path: annotationData/chipTypes/GenomeWideSNP_6
+ Full chip type: GenomeWideSNP_6,Full,na26,.*
+ Searching local file system...
+ Searching local file system...done
+ Searching repository...
+  File found: annotationData/chipTypes/GenomeWideSNP_6/GenomeWideSNP_6,Full,na26,HB20080821.ugp.gz
+ Searching repository...done
+ Downloading...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 7123k  100 7123k    0     0  8246k      0 --:--:-- --:--:-- --:--:-- 8254k
+  Downloaded file: annotationData/chipTypes/GenomeWideSNP_6/GenomeWideSNP_6,Full,na26,HB20080821.ugp.gz
+ Downloading...done
+Downloading chiptype file...done
+[1] "annotationData/chipTypes/GenomeWideSNP_6/GenomeWideSNP_6,Full,na26,HB20080821.ugp"

@@ -1,83 +1,137 @@
 # Extra Hidden States under Emission Misspecification in Hidden Markov Models
 
-This repository contains the revised manuscript, supporting information,
-analysis code, fixed seeds, generated outputs, and validation tests for
-manuscript 4416781, currently under revision for *Statistica Neerlandica*.
+Research materials for the second revision of manuscript 4416781 for
+*Statistica Neerlandica*, dated 17 September 2026 (version 1.2.1).
 
-The numerical work has two parts: a fixed-seed simulation study and an
-empirical illustration using the public `elk_data` object distributed with the
-R package `moveHMM`. The complete computational workflow is implemented in R,
-and all figures are generated with `ggplot2`.
+The main empirical application is genomic: chromosomal allelic imbalance in
+the HCC1143 breast cancer cell line and its matched normal cell line,
+HCC1143BL. The earlier elk movement application is retained in Supporting
+Information S4–S5, including its sensitivity analyses and unfavorable results.
+It is no longer the main application.
 
-## Repository contents
+This version includes the revised manuscript and supplement, processed genomic
+data, analysis code, fitted models, the corrected 600-replication simulation
+study, and all 199 parametric-bootstrap replicates. It corresponds to a
+revision prepared for resubmission; it does not indicate journal acceptance.
+
+## Start here
+
+| Material | Location |
+| --- | --- |
+| Current manuscript | [PDF](article/main.pdf), [LaTeX source](article/main.tex) |
+| Supporting Information | [PDF](supplement/supporting_information.pdf), [LaTeX source](supplement/supporting_information.tex) |
+| Genomic data and analysis guide | [genomics/README.md](genomics/README.md) |
+| Full reproduction instructions | [REPRODUCIBILITY.md](REPRODUCIBILITY.md) |
+| Data download URLs and SHA-256 hashes | [genomics/source_manifest.json](genomics/source_manifest.json) |
+| Changes in this revision | [CHANGELOG.md](CHANGELOG.md) |
+
+The scientific question is whether extra Gaussian HMM states describe
+additional persistent regimes or compensate for an overly simple emission
+distribution. In the genomic example, an unphased allele fraction can alternate
+between low and high values within the same regional imbalance. This gives a
+measurement-based reason for paired emission components.
+
+## Where are the data?
+
+The original SNP-array measurements are public in
+[NCBI GEO, GSE13372](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE13372),
+from [Chiang et al. (2009), Nature Methods, 6, 99–103](https://doi.org/10.1038/nmeth.1276).
+The selected arrays are GSM337641/GSM337662 (tumor/normal) and
+GSM337642/GSM337663 (technical repeat tumor/normal).
+
+The processed inputs used by the HMMs are included here. Each row is one
+retained SNP marker with its genomic position and allele-fraction measurement.
+Coordinates use the hg18 reference genome. These are repeated measurements
+of one cell-line pair, not independent patients.
+
+| Processed input | Use | Retained markers |
+| --- | --- | ---: |
+| [development_chr1.csv](genomics/data/genomics/development_chr1.csv) | Chromosome 1: model fitting | 20,697 |
+| [validation_chr12_17.csv](genomics/data/genomics/validation_chr12_17.csv) | Chromosomes 12–17: held-out evaluation | 52,294 |
+| [confirmation_chr18_22.csv](genomics/data/genomics/confirmation_chr18_22.csv) | Chromosomes 18–22: later held-out evaluation | 25,413 |
+| [replication_chr1.csv](genomics/data/genomics/replication_chr1.csv) | Chromosome 1: technical repeat | 20,937 |
+
+The `confirmation` filename identifies a later held-out block in an exploratory
+analysis, not a preregistered confirmatory study. Published sequencing segment
+estimates used as an independent assay are also supplied in
+[Chiang2009_sequencing_segments_hg18.csv](genomics/data/genomics/Chiang2009_sequencing_segments_hg18.csv).
+Their original source is the supplementary material of Chiang et al. (2009).
+Raw CEL files are downloaded from GEO when regenerating the preprocessing;
+they are not duplicated in this repository. Download locations and hashes,
+processing details, source references and dependency versions are documented
+in the [genomic guide](genomics/README.md).
+
+For the supplementary elk analyses, see [empirical/DATA_SOURCE.md](empirical/DATA_SOURCE.md),
+[the contextual-data provenance](empirical/revision2/context_provenance.json)
+and Supporting Information S4–S5. The original coordinates are loaded from
+`moveHMM::elk_data`; the retained derived results do not replace that source.
+
+## Repository structure
 
 ```text
-article/                         revised manuscript, figures and tables
-supplement/                      proofs, computational details and diagnostics
-numerics/R/                      HMM implementations and diagnostics
-numerics/scripts/                simulation and elk analysis drivers
-numerics/tests/                  testthat validation suite
-numerics/output/                 fixed-seed simulation outputs
-empirical/output/                derived elk analysis outputs
-empirical/figures/               elk diagnostic figures
-empirical/DATA_SOURCE.md         data provenance and object digest
-renv.lock                        locked R package environment
+article/                         current genomic manuscript, figures and tables
+supplement/                      proofs, genomics and supplementary elk analyses
+genomics/data/genomics/           processed genomic inputs and signal exports
+genomics/scripts/                 genomic models, evaluation, preprocessing and tests
+genomics/results/                 fitted models, diagnostics and bootstrap replicates
+genomics/audit/                   computational provenance and package inventory
+numerics/R/                      HMM and mixture-emission EM implementations
+numerics/output/optimization_audit/ 600 corrected simulation checkpoints
+numerics/scripts/                simulation and supplementary movement workflows
+empirical/                       retained supplementary movement results
+tools/validate_repository.R      integrity, data-provenance and completeness checks
+manifest_sha256.json             SHA-256 digest of every distributed package file
 ```
 
-## Requirements
+## Verify the distributed results
 
-The archived analyses were produced with R 4.5.0 and `moveHMM` 1.10. Package
-versions are recorded in `renv.lock`. From the repository root, restore the
-environment with:
-
-```sh
-Rscript -e 'renv::restore()'
-```
-
-A LaTeX distribution is required only to rebuild the document PDFs.
-
-## Reproduce the analyses
-
-From the repository root:
+Run commands from the repository root. R 4.5.0 and an Rcpp-compatible C++
+compiler were used. For the checks below, install `Rcpp`, `data.table`,
+`testthat`, `jsonlite`, `digest` and `moveHMM` (the archived movement data use
+version 1.10). Disable the legacy project autoloader before genomic commands:
 
 ```sh
-Rscript numerics/scripts/run_review_simulation.R
-Rscript numerics/scripts/run_elk_application.R
-Rscript numerics/tests/testthat.R
+export RENV_CONFIG_AUTOLOADER_ENABLED=false
 Rscript tools/validate_repository.R
+Rscript numerics/tests/testthat.R
+Rscript genomics/scripts/test_genomic_results.R
+Rscript genomics/scripts/test_symmetric_genomic_hmm.R
+Rscript numerics/scripts/test_optimization_audit.R
 ```
 
-The full simulation uses 200 replications at each sample size. A reduced
-implementation check can be run with:
+These checks use saved inputs and results; they do not refit the complete
+simulation, genomic or movement analyses. The genomic tests independently
+check likelihood calculations and the stored model summaries. The optimization
+checks examine all 600 simulation checkpoints and 199 bootstrap replicates.
+The repository workflow runs these checks on GitHub.
 
-```sh
-REVIEW_N_REPS=2 Rscript numerics/scripts/run_review_simulation.R
-```
+For fixed-parameter evaluation, complete refits, figure generation and raw
+array preprocessing, follow [genomics/README.md](genomics/README.md) and
+[REPRODUCIBILITY.md](REPRODUCIBILITY.md). Full refits should run in a separate
+copy because analysis scripts overwrite generated results. The historical
+`run_review_simulation.R` uses the older optimization protocol; use the revised
+optimization workflow in the reproduction guide for the current article.
 
-Reduced outputs must not replace the archived 200-replication results.
+The root `renv.lock` records the earlier simulation and movement environment.
+It does not cover all genomic preprocessing dependencies. Their installation
+instructions and recorded versions are provided separately in the genomic guide.
 
-## Data provenance
+## Interpretation and limits
 
-The original elk coordinate table is not redistributed. The empirical script
-loads `moveHMM::elk_data` directly into memory and verifies its structure and
-SHA-256 object digest before fitting any model. No CSV containing the original
-coordinates or derived coordinate endpoints is created. The CSV files in
-`empirical/output/` contain derived analysis results only. Full provenance and
-source citations are recorded in `empirical/DATA_SOURCE.md`.
+The genomic application concerns one cell line. Technical repeats and different
+chromosomes do not supply biological replication. Three fitted allelic profiles
+do not establish three biological populations, absolute copy-number states,
+or a known true state count. The symmetry-aware F3 model has a lower BIC and
+a higher confirmation score than M221; these comparisons are retained.
+Nonrejection of the refinement constraints does not establish equivalence.
 
-## Compile the documents
+The supplementary elk results illustrate sensitivity to emission families and
+temporal validation. They do not establish behavioral labels or a uniform
+predictive advantage for mixture emissions.
 
-From `article/`:
+## Compile and cite
 
-```sh
-latexmk -pdf main.tex
-```
-
-From `supplement/`:
-
-```sh
-latexmk -pdf supporting_information.tex
-```
-
-Precompiled PDFs are included for review convenience. Numerical interpretation
-should be based on the archived CSV and JSON outputs.
+With a LaTeX distribution installed, run `latexmk -pdf main.tex` from `article/`
+and `latexmk -pdf supporting_information.tex` from `supplement/`.
+Precompiled PDFs are included. Citation metadata are in [CITATION.cff](CITATION.cff).
+Earlier public versions remain accessible through Git history.

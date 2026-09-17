@@ -1,0 +1,27 @@
+[
+  {
+    "file": "GenomeWideSNP_6,Full.CDF",
+    "status": 206,
+    "gzip_signature_verified": true
+  },
+  {
+    "file": "GenomeWideSNP_6,HB20080710.acs",
+    "status": 206,
+    "gzip_signature_verified": true
+  },
+  {
+    "file": "GenomeWideSNP_6,Full,na31,hg19,HB20110328.ufl",
+    "status": 206,
+    "gzip_signature_verified": true
+  },
+  {
+    "file": "GenomeWideSNP_6,Full,na31,hg19,HB20110328.ugp",
+    "status": 206,
+    "gzip_signature_verified": true
+  },
+  {
+    "file": "GenomeWideSNP_6,Full,na30,hg18,HB20100215.ugp",
+    "status": 206,
+    "gzip_signature_verified": true
+  }
+]

@@ -1,0 +1,15 @@
+Warning message:
+package ‘Rcpp’ was built under R version 4.5.2 
+Warning message:
+package ‘data.table’ was built under R version 4.5.2 
+    model states parameters log_likelihood       BIC converged floor_hits  runs
+   <char>  <int>      <num>          <num>     <num>    <lgcl>      <int> <int>
+1:     F2      2          7       10980.25 -21890.93      TRUE          0    68
+2:     F3      3         14       12487.15 -24835.16      TRUE          0   184
+    model state displacement         sd self_transition occupancy
+   <char> <int>        <num>      <num>           <num>     <num>
+1:     F2     1  0.088548882 0.06435081       0.9967873 0.6108453
+2:     F2     2  0.305974483 0.11201768       0.9949580 0.3891547
+3:     F3     1  0.004072686 0.05416136       0.9630152 0.1246528
+4:     F3     2  0.104753278 0.05682527       0.9974942 0.4925366
+5:     F3     3  0.310113130 0.10789892       0.9879947 0.3828107

@@ -1,0 +1,3 @@
+model,states,parameters,log_likelihood,BIC,converged,floor_hits,runs
+F2,2,7,10980.2468520839,-21890.9294958794,TRUE,0,68
+F3,3,14,12487.1464718336,-24835.1645270903,TRUE,0,184

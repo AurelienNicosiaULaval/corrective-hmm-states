@@ -1,0 +1,4 @@
+profile,n,pscbs_matched,median_pscbs_dh,sequencing_matched,median_sequencing_ratio
+Approximately balanced,2580,2580,0.0797,2578,1.072
+Strong imbalance,7939,7939,0.6406,7939,1.016
+Moderate imbalance,10178,10178,0.2144,10178,0.846

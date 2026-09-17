@@ -2,6 +2,9 @@
 
 # Validate the public reproducibility repository without refitting all models.
 
+library(jsonlite)
+library(digest)
+
 command_arguments <- commandArgs(trailingOnly = FALSE)
 script_argument <- grep("^--file=", command_arguments, value = TRUE)
 if (length(script_argument) != 1L) {
@@ -18,10 +21,21 @@ required_files <- c(
   "renv.lock",
   "README.md",
   "CITATION.cff",
+  "REPRODUCIBILITY.md",
+  "manifest_sha256.json",
   "article/main.tex",
   "article/main.pdf",
   "article/references.bib",
   "article/figures/simulation_density.pdf",
+  "article/figures/genomic_profiles.pdf",
+  "article/figures/genomic_assays.pdf",
+  "article/tables/genomic_comparison.tex",
+  "genomics/README.md",
+  "genomics/source_manifest.json",
+  "genomics/scripts/test_genomic_results.R",
+  "genomics/scripts/genomic_refinement_bootstrap.R",
+  "genomics/results/genomic_pilot/metrics.csv",
+  "genomics/results/refinement_bootstrap/summary.csv",
   "article/figures/elk_observation_diagnostics.pdf",
   "article/figures/elk_state_mapping.pdf",
   "article/tables/elk_model_comparison.tex",
@@ -55,12 +69,7 @@ repository_files <- list.files(
   include.dirs = FALSE, no.. = TRUE
 )
 repository_files <- repository_files[!grepl("/(\\.git|renv/library|renv/staging)/", repository_files)]
-if (any(grepl("\\.py$", repository_files, ignore.case = TRUE))) {
-  fail("Python source files remain in the R-only repository")
-}
-if (any(basename(repository_files) == "requirements.txt")) {
-  fail("a Python requirements.txt file remains in the R-only repository")
-}
+# R/Rcpp implements the models; Python supports source downloads and extraction.
 forbidden_elk_files <- c("elk_data.csv", "elk_daily_steps.csv")
 if (any(tolower(basename(repository_files)) %in% forbidden_elk_files)) {
   fail("an elk coordinate or step-endpoint CSV is distributed")
@@ -122,8 +131,8 @@ review_metadata <- jsonlite::read_json(
   file.path(ROOT, "numerics/output/review_metadata.json"),
   simplifyVector = TRUE
 )
-if (!identical(review_metadata$implementation, "R")) {
-  fail("the archived simulation is not identified as an R implementation")
+if (!identical(review_metadata$implementation, "R with Rcpp EM verified against the R updates")) {
+  fail("the archived simulation does not identify the revised R/Rcpp implementation")
 }
 if (!identical(as.integer(review_metadata$n_replications_per_T), 200L)) {
   fail("archived simulation does not contain 200 replications per sample size")
@@ -132,8 +141,46 @@ if (!identical(as.integer(review_metadata$T_grid), c(500L, 1500L, 5000L))) {
   fail("unexpected simulation sample-size grid")
 }
 
+manifest <- jsonlite::read_json(
+  file.path(ROOT, "manifest_sha256.json"), simplifyVector = TRUE
+)
+if (anyDuplicated(manifest$path) || any(grepl("(^/|(^|/)\\.\\.(/|$))", manifest$path))) {
+  fail("invalid or duplicated manifest paths")
+}
+for (i in seq_len(nrow(manifest))) {
+  path <- file.path(ROOT, manifest$path[i])
+  if (!file.exists(path) || file.info(path)$size != manifest$bytes[i] ||
+      digest::digest(file = path, algo = "sha256") != manifest$sha256[i]) {
+    fail(paste("manifest mismatch:", manifest$path[i]))
+  }
+}
+
+expected_markers <- c(
+  development_chr1 = 20697L, validation_chr12_17 = 52294L,
+  confirmation_chr18_22 = 25413L, replication_chr1 = 20937L
+)
+for (name in names(expected_markers)) {
+  path <- file.path(ROOT, "genomics/data/genomics", paste0(name, ".csv"))
+  if (!file.exists(path) || nrow(utils::read.csv(path)) != expected_markers[[name]]) {
+    fail(paste("unexpected genomic input size:", name))
+  }
+}
+checkpoints <- list.files(
+  file.path(ROOT, "numerics/output/optimization_audit"),
+  pattern = "^fit_[0-9]+_[0-9]+\\.rds$"
+)
+bootstrap <- list.files(
+  file.path(ROOT, "genomics/results/refinement_bootstrap"),
+  pattern = "^replicate_[0-9]+\\.rds$"
+)
+if (length(checkpoints) != 600L || length(bootstrap) != 199L) {
+  fail("incomplete corrected simulation or bootstrap checkpoints")
+}
+
 message("Required files: ", length(required_files), " found")
-message("Implementation: R only")
+message("Distributed files: ", nrow(manifest), " SHA-256 digests verified")
+message("Genomics: four processed inputs; 199 bootstrap checkpoints")
+message("Implementation: R/Rcpp models; Python source-data utilities")
 message("Elk data: loaded from moveHMM; digest verified; no coordinate endpoints distributed")
-message("Archived simulation: 200 replications for T = 500, 1500, 5000")
+message("Archived simulation: 600 corrected checkpoints; 200 replications for T = 500, 1500, 5000")
 message("Repository validation: passed")

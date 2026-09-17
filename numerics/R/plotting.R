@@ -183,7 +183,7 @@ plot_bic_boxplot <- function(delta_bic, figure_directory) {
     ggplot2::labs(
       x = NULL,
       y = expression(BIC(K == 3) - BIC(K == 2)),
-      title = sprintf("BIC favours K=3 in %.0f%% of replications", 100 * frequency)
+      title = sprintf("BIC favours K=3 in %.1f%% of replications", 100 * frequency)
     ) +
     study_theme()
   save_ggplot(plot, figure_directory, "bic_boxplot", 4.4, 3.5)

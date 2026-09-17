@@ -1,0 +1,29 @@
+R version 4.5.0 (2025-04-11)
+Platform: aarch64-apple-darwin20
+Running under: macOS 26.7
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRblas.0.dylib 
+LAPACK: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1
+
+locale:
+[1] C.UTF-8/C.UTF-8/C.UTF-8/C/C.UTF-8/C.UTF-8
+
+time zone: America/Toronto
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] data.table_1.18.0      aroma.light_3.38.0     aroma.affymetrix_3.2.3
+ [4] aroma.core_3.3.2       R.devices_2.17.4       R.filesets_2.15.1     
+ [7] R.utils_2.13.0         R.oo_1.27.1            affxparser_1.80.0     
+[10] R.methodsS3_1.8.2     
+
+loaded via a namespace (and not attached):
+ [1] digest_0.6.39     codetools_0.2-20  base64enc_0.1-6   matrixStats_1.5.0
+ [5] parallel_4.5.0    R.rsp_0.46.0      R.huge_0.10.1     PSCBS_0.68.0     
+ [9] parallelly_1.44.0 future_1.49.0     compiler_4.5.0    R.cache_0.17.0   
+[13] globals_0.18.0    tools_4.5.0       listenv_0.9.1     DNAcopy_1.82.0   
+[17] aroma.apd_0.7.1  

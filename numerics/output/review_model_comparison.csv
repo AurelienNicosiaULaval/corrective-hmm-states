@@ -1,4 +1,4 @@
 "model","emission","K","logLik","BIC","diagnostic"
-"Gaussian HMM","one Gaussian per state",2,-2218.09551368553,4487.38357008069,"merges the heterogeneous regime"
-"Gaussian HMM","one Gaussian per state",3,-2047.46403121386,4197.31314784698,"splits the heterogeneous regime"
-"Mixture-emission HMM","two Gaussians per state",2,-2048.37513991324,4191.82214485866,"absorbs the split in the emission"
+"Gaussian HMM","one Gaussian per state",2,-2218.09551368536,4487.38357008036,"merges the heterogeneous regime"
+"Gaussian HMM","one Gaussian per state",3,-2047.46396920881,4197.31302383688,"splits the heterogeneous regime"
+"Mixture-emission HMM","two Gaussians per state",2,-2048.25087845004,4191.57362193226,"absorbs the split in the emission"

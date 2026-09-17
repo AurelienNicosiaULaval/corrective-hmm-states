@@ -1,0 +1,21 @@
+Warning message:
+package ‘Rcpp’ was built under R version 4.5.2 
+Warning message:
+package ‘data.table’ was built under R version 4.5.2 
+aroma.light v3.38.0 (2025-04-15) successfully loaded. See ?aroma.light for help.
+      setting     n floor common_markers state_agreement log_likelihood
+       <char> <int> <num>          <int>           <num>          <num>
+1:  floor_005 20697 0.005          20697       1.0000000      12508.295
+2:  floor_020 20697 0.020          20697       1.0000000      12508.295
+3:     thin_2 10349 0.010          10349       0.9756498       6065.772
+4:     thin_5  4140 0.010           4140       0.9635266       2392.632
+5: normal_025 23611 0.010          20696       0.9858427      13283.317
+6: normal_035 18558 0.010          18556       0.9876051      12168.705
+   converged floor_hits  runs
+      <lgcl>      <int> <int>
+1:      TRUE          0   181
+2:      TRUE          0   181
+3:      TRUE          0    33
+4:      TRUE          0    20
+5:      TRUE          0   302
+6:      TRUE          0    55

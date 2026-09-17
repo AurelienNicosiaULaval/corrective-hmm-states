@@ -1,0 +1,52 @@
+[
+  {
+    "file": "GSM337641.CEL.gz",
+    "status": 200,
+    "type": "application/x-gzip",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM337nnn/GSM337641/suppl/GSM337641.CEL.gz"
+  },
+  {
+    "file": "GSM337662.CEL.gz",
+    "status": 200,
+    "type": "application/x-gzip",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM337nnn/GSM337662/suppl/GSM337662.CEL.gz"
+  },
+  {
+    "file": "GSM337642.CEL.gz",
+    "status": 200,
+    "type": "application/x-gzip",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM337nnn/GSM337642/suppl/GSM337642.CEL.gz"
+  },
+  {
+    "file": "GSM337663.CEL.gz",
+    "status": 200,
+    "type": "application/x-gzip",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM337nnn/GSM337663/suppl/GSM337663.CEL.gz"
+  },
+  {
+    "file": "GenomeWideSNP_6,Full.CDF",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "file": "GenomeWideSNP_6,HB20080710.acs",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "file": "GenomeWideSNP_6,Full,na31,hg19,HB20110328.ufl",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "file": "GenomeWideSNP_6,Full,na31,hg19,HB20110328.ugp",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "file": "GenomeWideSNP_6,Full,na30,hg18,HB20100215.ugp",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "file": "Chiang2009_sequencing_segments_hg18.pdf",
+    "status": 200,
+    "type": "application/pdf",
+    "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnmeth.1276/MediaObjects/41592_2009_BFnmeth1276_MOESM182_ESM.pdf"
+  }
+]

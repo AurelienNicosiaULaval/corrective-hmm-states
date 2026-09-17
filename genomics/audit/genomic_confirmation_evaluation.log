@@ -1,0 +1,38 @@
+Warning message:
+package ‘Rcpp’ was built under R version 4.5.2 
+Warning message:
+package ‘data.table’ was built under R version 4.5.2 
+         dataset  model     n   log_score mean_log_score  runs
+          <char> <char> <int>       <num>          <num> <int>
+ 1:  replication     G2 20937  7049.59441   0.3367050872    18
+ 2:   validation     G2 52294   -46.96585  -0.0008981116    19
+ 3: confirmation     G2 25413 15572.46369   0.6127754962    32
+ 4:  replication    M21 20937  9816.14943   0.4688422137   100
+ 5:   validation    M21 52294 14423.17921   0.2758094468   238
+ 6: confirmation    M21 25413 17015.29924   0.6695509872    84
+ 7:  replication     G3 20937  9818.62298   0.4689603564  4008
+ 8:   validation     G3 52294 14410.44133   0.2755658647 17921
+ 9: confirmation     G3 25413 17013.16452   0.6694669862  2894
+10:  replication   M221 20937 11906.57346   0.5686857457   251
+11:   validation   M221 52294 16386.29235   0.3133493776   657
+12: confirmation   M221 25413 21371.07708   0.8409505796   223
+13:  replication     G5 20937 11907.56808   0.5687332513  9227
+14:   validation     G5 52294 16350.04256   0.3126561854 23655
+15: confirmation     G5 25413 21365.91441   0.8407474288  7832
+16:  replication     F2 20937 10309.49019   0.4924053203    92
+17:   validation     F2 52294 14620.20201   0.2795770454   208
+18: confirmation     F2 25413 16146.24623   0.6353538044    80
+19:  replication     F3 20937 11887.64211   0.5677815402   249
+20:   validation     F3 52294 16379.29428   0.3132155559   661
+21: confirmation     F3 25413 21386.96051   0.8415755915   215
+         dataset  model     n   log_score mean_log_score  runs
+          <char> <char> <int>       <num>          <num> <int>
+    model common_markers state_agreement
+   <char>          <int>           <num>
+1:     G2          19727       0.9951843
+2:    M21          19727       0.9868201
+3:     G3          19727       0.9804329
+4:   M221          19727       0.9808384
+5:     G5          19727       0.9406904
+6:     F2          19727       0.9919907
+7:     F3          19727       0.9804329

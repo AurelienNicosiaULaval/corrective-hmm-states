@@ -1,0 +1,15 @@
+{
+  "frozen_utc": "2026-09-10T20:36:56.636504+00:00",
+  "purpose": "Freeze fitted models and primary specification before first evaluation of chromosomes 18-22. No refitting on these chromosomes.",
+  "files": {
+    "results/genomic_pilot/M21.rds": "9332e5431da357798e415482b99c30333b67833f779a8f38ad4797e39b1f8d82",
+    "results/genomic_pilot/M221.rds": "61ed4040b787dfe3bc3907ece8771a07ac0dca356f6b2355c04ce5b7cff5db6d",
+    "results/genomic_pilot/G2.rds": "56286e301c70373199cd3fb0b37e1e55b14254e66518dcaddfb7fec8d3bc70c5",
+    "results/genomic_pilot/G3.rds": "43db19ca8624f337e7777b1fff0d47e549b49d63d8fad528fc00d75e0cfa85fa",
+    "results/genomic_pilot/G5.rds": "6ccbfb20924eda4c213a07ed855d1e3ac1a95ec53c5a80c963aa1ed51ccece9c",
+    "results/genomic_symmetry_benchmark/F3.rds": "b1945756072745476dc8a628a76a4ac611a21f6e2f3626c6a45de3607f86f4ab",
+    "results/genomic_symmetry_benchmark/F2.rds": "1d3da73773d3ab8a3111c490e42e7d41443445109eba7400566ae2341b6f666c",
+    "GENOMICS_PROTOCOL.md": "278152175c8ff1bb0def8771e661e9a99fb20c1c65c201dffb5f32046bc57bbf",
+    "scripts/evaluate_genomic_pilot.R": "cae9497b6bf10b19af00e6c2cc6cbadbd1b95fb8ae1a5285883c1fab9517dd59"
+  }
+}

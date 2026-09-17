@@ -1,0 +1,19 @@
+Warning message:
+package ‘data.table’ was built under R version 4.5.2 
+aroma.light v3.38.0 (2025-04-15) successfully loaded. See ?aroma.light for help.
+Warning message:
+package ‘ggplot2’ was built under R version 4.5.2 
+[1] "total" "fracB"
+[1] "total" "fracB"
+                            stage      n
+                           <char>  <int>
+1:         chromosome_1_all_units 146401
+2: finite_mapped_SNP_measurements  73346
+3:     normal_heterozygote_filter  20786
+4:               unique_positions  20697
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+-0.0577  0.3601  0.4965  0.4951  0.6307  1.0607 
+   sequence     n
+      <int> <int>
+1:        1 10322
+2:        2 10375

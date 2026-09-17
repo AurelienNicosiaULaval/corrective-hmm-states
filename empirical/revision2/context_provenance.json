@@ -1,0 +1,9 @@
+{
+  "source": "https://doi.org/10.6084/m9.figshare.3523667.v1",
+  "downloaded_file": "https://ndownloader.figshare.com/files/5594180",
+  "sha256": "36d423b2832aecd929f7d539da8779965b93a48fa6aa1321fdb7b194e68db2a5",
+  "alignment": "All 735 IDs and coordinate pairs exactly match moveHMM::elk_data.",
+  "blank_rows_removed": 370,
+  "angle_alignment": "Angle at the departure location of the outgoing step; first angle per animal unavailable.",
+  "interpretation": "Auxiliary descriptive variables from the same trajectory, not independent behavioral validation."
+}

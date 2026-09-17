@@ -1,0 +1,4 @@
+profile,n,fraction,median_sequencing_ratio
+Moderate imbalance,116,0.100694444444444,1.957
+Approximately balanced,1032,0.895833333333333,1.655
+Strong imbalance,4,0.00347222222222222,1.806

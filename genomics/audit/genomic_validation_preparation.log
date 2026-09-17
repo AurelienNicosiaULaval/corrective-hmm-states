@@ -1,0 +1,14 @@
+Warning message:
+package ‘data.table’ was built under R version 4.5.2 
+aroma.light v3.38.0 (2025-04-15) successfully loaded. See ?aroma.light for help.
+   chromosome     n
+        <int> <int>
+1:          1 20937
+   chromosome     n
+        <int> <int>
+1:         12 12637
+2:         13  9646
+3:         14  8395
+4:         15  7493
+5:         16  8071
+6:         17  6052

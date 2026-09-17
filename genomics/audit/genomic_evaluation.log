@@ -1,0 +1,29 @@
+Warning message:
+package ‘Rcpp’ was built under R version 4.5.2 
+Warning message:
+package ‘data.table’ was built under R version 4.5.2 
+        dataset  model     n   log_score mean_log_score  runs
+         <char> <char> <int>       <num>          <num> <int>
+ 1: replication     G2 20937  7049.59441   0.3367050872    18
+ 2:  validation     G2 52294   -46.96585  -0.0008981116    19
+ 3: replication    M21 20937  9816.14943   0.4688422137   100
+ 4:  validation    M21 52294 14423.17921   0.2758094468   238
+ 5: replication     G3 20937  9818.62298   0.4689603564  4008
+ 6:  validation     G3 52294 14410.44133   0.2755658647 17921
+ 7: replication   M221 20937 11906.57346   0.5686857457   251
+ 8:  validation   M221 52294 16386.29235   0.3133493776   657
+ 9: replication     G5 20937 11907.56808   0.5687332513  9227
+10:  validation     G5 52294 16350.04256   0.3126561854 23655
+11: replication     F2 20937 10309.49019   0.4924053203    92
+12:  validation     F2 52294 14620.20201   0.2795770454   208
+13: replication     F3 20937 11887.64211   0.5677815402   249
+14:  validation     F3 52294 16379.29428   0.3132155559   661
+    model common_markers state_agreement
+   <char>          <int>           <num>
+1:     G2          19727       0.9951843
+2:    M21          19727       0.9868201
+3:     G3          19727       0.9804329
+4:   M221          19727       0.9808384
+5:     G5          19727       0.9406904
+6:     F2          19727       0.9919907
+7:     F3          19727       0.9804329

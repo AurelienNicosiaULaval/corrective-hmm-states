@@ -1,0 +1,3 @@
+"phase","start","end","intervals","median_rate","mean_rate","maximum_rate","path_length_km","spatial_diameter_km","median_distance_water_km","fraction_within_1km_water","observed_mean_cos"
+"mobile",1,91,91,0.195,2.22266666666667,17.85,204.408364342298,89.7713064180312,0.45962,0.956043956043956,0.186567080515571
+"localized",92,163,72,0.29,0.371388888888889,1.03,26.6238486500632,1.56291938371741,2.07108,0,-0.31795589568627

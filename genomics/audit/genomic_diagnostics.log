@@ -1,0 +1,42 @@
+Warning message:
+package ‘Rcpp’ was built under R version 4.5.2 
+Warning message:
+package ‘data.table’ was built under R version 4.5.2 
+Warning message:
+package ‘ggplot2’ was built under R version 4.5.2 
+         dataset  model     n coverage95 pit_KS_distance residual_lag1
+          <char> <char> <int>      <num>           <num>         <num>
+ 1:   validation     G2 52294  0.9891957     0.131123015 -0.0004253587
+ 2:   validation    M21 52294  0.9782575     0.061849288 -0.0002644189
+ 3:   validation     G3 52294  0.9785444     0.061840378 -0.0047273173
+ 4:   validation   M221 52294  0.9635522     0.055201770 -0.0006696846
+ 5:   validation     G5 52294  0.9627873     0.055262666 -0.0057618769
+ 6:   validation     F2 52294  0.9706467     0.053974965  0.0011717782
+ 7:   validation     F3 52294  0.9629977     0.061952301 -0.0008136564
+ 8: confirmation     G2 25413  0.9835517     0.033564201 -0.0066859336
+ 9: confirmation    M21 25413  0.9810727     0.036441121 -0.0064453583
+10: confirmation     G3 25413  0.9809940     0.036696264 -0.0085335131
+11: confirmation   M221 25413  0.9547869     0.012142248 -0.0064254482
+12: confirmation     G5 25413  0.9539999     0.010898561 -0.0116848831
+13: confirmation     F2 25413  0.9655295     0.066392614 -0.0050400480
+14: confirmation     F3 25413  0.9552198     0.006518856 -0.0066280376
+    absolute_residual_lag1
+                     <num>
+ 1:             0.24947732
+ 2:             0.12969549
+ 3:             0.13243336
+ 4:             0.05651668
+ 5:             0.06316646
+ 6:             0.13903262
+ 7:             0.05643837
+ 8:             0.45428813
+ 9:             0.39555633
+10:             0.39712477
+11:             0.14220113
+12:             0.14835362
+13:             0.38265314
+14:             0.14145623
+              profile first second total_variation
+               <char> <int>  <int>           <num>
+1:   Strong imbalance     1      5     0.010351505
+2: Moderate imbalance     2      3     0.006513332

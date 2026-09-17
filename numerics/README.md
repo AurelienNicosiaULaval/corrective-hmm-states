@@ -1,4 +1,7 @@
-# Numerical study: corrective hidden states in misspecified HMMs
+# Simulation and supplementary numerical workflows
+
+For the second-revision application, follow the package-root README. The commands below reproduce the corrected simulation and retain access
+to the supplementary movement workflows.
 
 This directory contains the reproducible numerical study for manuscript 4416781,
 *Extra Hidden States under Emission Misspecification in Hidden Markov Models*.
@@ -50,32 +53,28 @@ endpoints.
 
 ## Main reproduction command
 
-From the project root:
+From the package root:
 
 ```sh
-Rscript numerics/scripts/run_review_simulation.R
-Rscript numerics/scripts/run_elk_application.R
+Rscript numerics/scripts/test_fast_em.R
+Rscript numerics/scripts/run_optimization_audit.R
+Rscript numerics/scripts/refine_reference_simulation.R
+Rscript numerics/scripts/test_optimization_audit.R
 Rscript numerics/tests/testthat.R
 ```
 
-All seeds are fixed from `SEED = 20260610`. The default review run uses
-`N_REPS = 200` for each `T` in `(500, 1500, 5000)`, 10 random EM starts for
-each replicated Gaussian fit, 10 random EM starts for each replicated
-mixture-emission fit and deterministic parallel execution. The replicated fits
-screen all 10 starts, then refine the three best starts with relative
-log-likelihood tolerance `1e-6`.
-
-For quick local checks only, the number of replications can be reduced:
-
-```sh
-REVIEW_N_REPS=2 Rscript numerics/scripts/run_review_simulation.R
-```
-
-Do not use reduced-replication outputs for submission.
+The corrected simulation uses the same data seeds as the original study,
+10 random starts per model, the three best screened candidates, and additional
+starts derived from fitted G2, M21 and M22 models. Final fits have relative
+log-likelihood gain at most 1e-9, with exact-refinement nesting checks.
+The compiled EM is tested against the original R updates. Per-fit parameters,
+traces and the original results are saved in `output/optimization_audit`.
+The historical `run_review_simulation.R` is retained to document the original
+protocol, but running it directly overwrites corrected outputs.
 
 ## Main outputs
 
-`run_review_simulation.R` writes:
+The simulation scripts write:
 
 - `numerics/output/review_gaussian_fit_summary.csv`;
 - `numerics/output/review_mixture_fit_summary.csv`;

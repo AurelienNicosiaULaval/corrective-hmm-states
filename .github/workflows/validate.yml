@@ -7,6 +7,9 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      RENV_CONFIG_AUTOLOADER_ENABLED: "false"
     steps:
       - uses: actions/checkout@v5
 
@@ -15,10 +18,27 @@ jobs:
           r-version: "4.5.0"
           use-public-rspm: true
 
-      - uses: r-lib/actions/setup-renv@v2
+      - name: Install dependencies for archived-result checks
+        shell: Rscript {0}
+        run: |
+          install.packages(c("Rcpp", "data.table", "testthat", "jsonlite", "digest"))
+          if (available.packages()["moveHMM", "Version"] == "1.10") {
+            install.packages("moveHMM")
+          } else {
+            install.packages("remotes")
+            remotes::install_version("moveHMM", version = "1.10", upgrade = "never")
+          }
+
+      - name: Validate archived outputs, data provenance, and repository structure
+        run: Rscript tools/validate_repository.R
 
       - name: Run numerical tests
         run: Rscript numerics/tests/testthat.R
 
-      - name: Validate archived outputs, data provenance, and repository structure
-        run: Rscript tools/validate_repository.R
+      - name: Check genomic results and independent likelihood calculations
+        run: |
+          Rscript genomics/scripts/test_genomic_results.R
+          Rscript genomics/scripts/test_symmetric_genomic_hmm.R
+
+      - name: Check all corrected simulation and bootstrap results
+        run: Rscript numerics/scripts/test_optimization_audit.R

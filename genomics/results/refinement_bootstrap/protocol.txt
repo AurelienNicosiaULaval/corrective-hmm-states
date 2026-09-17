@@ -1,0 +1,6 @@
+Model-conditional parametric bootstrap; B=199, plus-one tail probability.
+Two independent sequences retain their observed lengths and a shared freely estimated initial distribution.
+Each fit screens 10 random starts plus saved-data starts for 100 iterations; best four refined at 1e-8.
+The G5 fit additionally retains/refines the exact M221 expansion. Fixed state grouping: (2,2,1).
+This calibration assumes the fitted Gaussian-mixture HMM, not independent identically distributed markers.
+Residual dependence and other misspecification can invalidate model-conditional calibration; nonrejection is not equivalence.
