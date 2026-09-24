@@ -127,3 +127,6 @@ p<-ggplot(z,aes(position/1e6,beta_corrected,color=state))+
   labs(x='Chromosome 1 position (Mb, hg18)',y='Corrected tumor B-allele fraction',color='State')+
   theme_bw(base_size=11)+theme(legend.position='none')
 ggsave(file.path(out,'development_profiles.png'),p,width=10,height=10,dpi=160)
+
+# Complete the ordinary Gaussian order comparison with G4.
+source('genomics/scripts/genomic_g4.R', local = TRUE)

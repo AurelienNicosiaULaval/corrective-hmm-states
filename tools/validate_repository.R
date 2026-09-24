@@ -33,14 +33,21 @@ required_files <- c(
   "genomics/README.md",
   "genomics/source_manifest.json",
   "genomics/scripts/test_genomic_results.R",
+  "genomics/scripts/genomic_g4.R",
+  "genomics/scripts/test_genomic_g4.R",
+  "genomics/results/genomic_pilot/G4.rds",
+  "genomics/results/genomic_g4/protocol.rds",
   "genomics/scripts/genomic_refinement_bootstrap.R",
   "genomics/results/genomic_pilot/metrics.csv",
+  "genomics/results/genomic_symmetry_benchmark/metrics.csv",
   "genomics/results/refinement_bootstrap/summary.csv",
   "article/figures/elk_observation_diagnostics.pdf",
   "article/figures/elk_state_mapping.pdf",
   "article/tables/elk_model_comparison.tex",
   "supplement/supporting_information.tex",
   "supplement/supporting_information.pdf",
+  "supplement/figures/genomic_assays.pdf",
+  "supplement/tables/genomic_comparison_full.tex",
   "empirical/DATA_SOURCE.md",
   "empirical/output/elk_analysis_metadata.json",
   "empirical/output/elk_decoding.csv",
@@ -147,12 +154,24 @@ manifest <- jsonlite::read_json(
 if (anyDuplicated(manifest$path) || any(grepl("(^/|(^|/)\\.\\.(/|$))", manifest$path))) {
   fail("invalid or duplicated manifest paths")
 }
+unlisted_required <- setdiff(required_files, c(manifest$path, "manifest_sha256.json"))
+if (length(unlisted_required) > 0L) {
+  fail(paste("required files absent from the manifest:", paste(unlisted_required, collapse = ", ")))
+}
 for (i in seq_len(nrow(manifest))) {
   path <- file.path(ROOT, manifest$path[i])
   if (!file.exists(path) || file.info(path)$size != manifest$bytes[i] ||
       digest::digest(file = path, algo = "sha256") != manifest$sha256[i]) {
     fail(paste("manifest mismatch:", manifest$path[i]))
   }
+}
+
+genomic_metrics <- utils::read.csv(file.path(ROOT, "genomics/results/genomic_pilot/metrics.csv"))
+symmetry_metrics <- utils::read.csv(file.path(ROOT, "genomics/results/genomic_symmetry_benchmark/metrics.csv"))
+genomic_models <- c(genomic_metrics$model, symmetry_metrics$model)
+if (!setequal(genomic_models, c("G2", "G3", "G4", "G5", "M21", "M221", "F2", "F3")) ||
+    length(genomic_models) != 8L) {
+  fail("the genomic comparison must contain all eight distinct candidates, including G4")
 }
 
 expected_markers <- c(

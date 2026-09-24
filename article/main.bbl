@@ -1,4 +1,4 @@
-\begin{thebibliography}{35}
+\begin{thebibliography}{32}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -18,22 +18,6 @@ Allman, E.~S., C.~Matias, and J.~A. Rhodes (2009), Identifiability of
   Annals of Statistics}, 37\penalty0 (6A),\penalty0{} 3099--3132.
 \newblock \doi{10.1214/09-AOS689}.
 
-\bibitem[Bengtsson et~al.(2009)Bengtsson, Wirapati, and
-  Speed]{BengtssonEtAl2009}
-Bengtsson, H., P.~Wirapati, and T.~P. Speed (2009), {A single-array
-  preprocessing method for estimating full-resolution raw copy numbers from all
-  Affymetrix genotyping arrays including GenomeWideSNP 5 \& 6},
-  \emph{Bioinformatics}, 25\penalty0 (17),\penalty0{} 2149--2156.
-\newblock \doi{10.1093/bioinformatics/btp371}.
-
-\bibitem[Bengtsson et~al.(2010)Bengtsson, Neuvial, and
-  Speed]{BengtssonEtAl2010}
-Bengtsson, H., P.~Neuvial, and T.~P. Speed (2010), {TumorBoost: Normalization
-  of allele-specific tumor copy numbers from a single pair of tumor-normal
-  genotyping microarrays}, \emph{BMC Bioinformatics}, 11\penalty0
-  (1),\penalty0{} 245.
-\newblock \doi{10.1186/1471-2105-11-245}.
-
 \bibitem[Bickel et~al.(1998)Bickel, Ritov, and Ryd{\'e}n]{BickelEtAl1998}
 Bickel, P.~J., Y.~Ritov, and T.~Ryd{\'e}n (1998), Asymptotic normality of the
   maximum-likelihood estimator for general hidden {Markov} models, \emph{The
@@ -45,14 +29,6 @@ Bickel, P.~J., Y.~Ritov, and T.~Ryd{\'e}n (1998), Asymptotic normality of the
 Capp{\'e}, O., {\'E}.~Moulines, and T.~Ryd{\'e}n (2005), \emph{Inference in
   Hidden Markov Models}, Springer.
 \newblock \doi{10.1007/0-387-28982-8}.
-
-\bibitem[Chen et~al.(2017)Chen, Robertson, Ganesamoorthy, and
-  Coin]{ChenEtAl2017}
-Chen, W., A.~J. Robertson, D.~Ganesamoorthy, and L.~J. Coin (2017), {sCNAphase:
-  using haplotype resolved read depth to genotype somatic copy number
-  alterations from low cellularity aneuploid tumors}, \emph{Nucleic Acids
-  Research}, 45\penalty0 (5),\penalty0{} e34.
-\newblock \doi{10.1093/nar/gkw1086}.
 
 \bibitem[Chiang et~al.(2009)Chiang, Getz, Jaffe, O'Kelly, Zhao, Carter, Russ,
   Nusbaum, Meyerson, and Lander]{ChiangEtAl2009}

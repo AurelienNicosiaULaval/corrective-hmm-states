@@ -1,17 +1,27 @@
 \begin{table}[htbp]
 \centering
 \small
-\caption{Held-out predictive calibration. $D$ is the empirical PIT distance from the uniform distribution; $r_1$ and $r^{|z|}_1$ are lag-one correlations of normal-score residuals and their absolute values. Sequence boundaries are excluded from the correlations. No independent-observation significance test is used.}
+\caption{Fixed-parameter predictive diagnostics. Coverage is the percentage inside the central 95\% predictive interval; $D_{\mathrm{PIT}}$ is the empirical distance from a uniform PIT distribution. The last two columns are lag-one correlations of normal-score residuals and their absolute values, excluding sequence boundaries.}
 \label{tab:si-genomic-calibration}
-\begin{tabular}{lrrrrr}
+\begin{tabular}{llrrrr}
 \toprule
-Chromosomes & Model & Coverage (\%) & $D$ & $r_1$ & $r^{|z|}_1$ \\
+Chromosomes & Model & Coverage (\%) & $D_{\mathrm{PIT}}$ & $r_1$ & $r_1^{|\cdot|}$ \\
 \midrule
-12--17 & M221 & 96.36 & 0.055 & -0.001 & 0.057 \\
+12--17 & G2 & 98.92 & 0.131 & -0.000 & 0.249 \\
+12--17 & G3 & 97.85 & 0.062 & -0.005 & 0.132 \\
+12--17 & G4 & 97.03 & 0.036 & -0.008 & 0.052 \\
 12--17 & G5 & 96.28 & 0.055 & -0.006 & 0.063 \\
+12--17 & M21 & 97.83 & 0.062 & -0.000 & 0.130 \\
+12--17 & M221 & 96.36 & 0.055 & -0.001 & 0.057 \\
+12--17 & F2 & 97.06 & 0.054 & 0.001 & 0.139 \\
 12--17 & F3 & 96.30 & 0.062 & -0.001 & 0.056 \\
-18--22 & M221 & 95.48 & 0.012 & -0.006 & 0.142 \\
+18--22 & G2 & 98.36 & 0.034 & -0.007 & 0.454 \\
+18--22 & G3 & 98.10 & 0.037 & -0.009 & 0.397 \\
+18--22 & G4 & 98.08 & 0.034 & -0.012 & 0.355 \\
 18--22 & G5 & 95.40 & 0.011 & -0.012 & 0.148 \\
+18--22 & M21 & 98.11 & 0.036 & -0.006 & 0.396 \\
+18--22 & M221 & 95.48 & 0.012 & -0.006 & 0.142 \\
+18--22 & F2 & 96.55 & 0.066 & -0.005 & 0.383 \\
 18--22 & F3 & 95.52 & 0.007 & -0.007 & 0.141 \\
 \bottomrule
 \end{tabular}

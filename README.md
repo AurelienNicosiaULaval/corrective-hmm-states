@@ -95,12 +95,13 @@ Rscript tools/validate_repository.R
 Rscript numerics/tests/testthat.R
 Rscript genomics/scripts/test_genomic_results.R
 Rscript genomics/scripts/test_symmetric_genomic_hmm.R
+Rscript genomics/scripts/test_genomic_g4.R
 Rscript numerics/scripts/test_optimization_audit.R
 ```
 
 These checks use saved inputs and results; they do not refit the complete
 simulation, genomic or movement analyses. The genomic tests independently
-check likelihood calculations and the stored model summaries. The optimization
+check likelihood calculations, the stored model summaries and G4 evaluation scores. The optimization
 checks examine all 600 simulation checkpoints and 199 bootstrap replicates.
 The repository workflow runs these checks on GitHub.
 
@@ -121,7 +122,9 @@ The genomic application concerns one cell line. Technical repeats and different
 chromosomes do not supply biological replication. Three fitted allelic profiles
 do not establish three biological populations, absolute copy-number states,
 or a known true state count. The symmetry-aware F3 model has a lower BIC and
-a higher confirmation score than M221; these comparisons are retained.
+a higher score on chromosomes 18--22 than M221. G4 scores best on
+chromosomes 12--17. These comparisons are retained in the supplement;
+the main article focuses on chromosome 1.
 Nonrejection of the refinement constraints does not establish equivalence.
 
 The supplementary elk results illustrate sensitivity to emission families and

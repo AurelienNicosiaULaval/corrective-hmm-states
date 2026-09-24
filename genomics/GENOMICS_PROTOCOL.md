@@ -40,7 +40,7 @@ these comparisons supplies independent patient-level validation.
 
 ## Candidate models and estimation
 
-Gaussian HMMs G2, G3 and G5 have two, three and five states. Mixture models
+Gaussian HMMs G2--G5 have two through five states. Mixture models
 M21 and M221 have component counts (2, 1) and (2, 2, 1). The comparisons
 M21–G3 and M221–G5 hold the total component count fixed. Multiple starts,
 refinement of the best solutions and starts at exact nested representations
@@ -50,8 +50,8 @@ analyses use 0.005 and 0.02.
 The recorded outputs include emission parameters, transition rows, posterior
 occupation, decoded runs, convergence diagnostics, competing solutions and
 boundary estimates. Selection within each candidate family uses likelihood.
-The detailed fitting settings and symmetry-aware comparators are described
-in Supporting Information S3.2.
+The fitting settings are described in Supporting Information S3.2;
+the symmetry-aware models are in S3.5.
 
 ## Interpretation and sensitivity
 
@@ -67,3 +67,13 @@ assay of total copy ratio after coordinate alignment. Neither provides
 error-free labels for the HMM allelic profiles. The results, including the
 advantages of competing models and the instability of short segments, are
 reported in the article and Supporting Information S3.
+
+## Amendment of 24 September 2026
+
+G4 was added in response to the reviewer after the original seven-model
+evaluation. It uses the same chromosome-1 observations, variance floor and
+likelihood objective. Its start-level records are in `results/genomic_g4`;
+its supplementary scores are retrospective comparisons. This amendment does
+not change the original protocol or the seven frozen models. The article
+now concentrates on chromosome 1. Other chromosomes, preprocessing, symmetry
+models and segmentation comparators are documented in the supplement.

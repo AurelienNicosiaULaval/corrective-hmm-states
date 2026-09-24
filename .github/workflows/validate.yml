@@ -39,6 +39,7 @@ jobs:
         run: |
           Rscript genomics/scripts/test_genomic_results.R
           Rscript genomics/scripts/test_symmetric_genomic_hmm.R
+          Rscript genomics/scripts/test_genomic_g4.R
 
       - name: Check all corrected simulation and bootstrap results
         run: Rscript numerics/scripts/test_optimization_audit.R

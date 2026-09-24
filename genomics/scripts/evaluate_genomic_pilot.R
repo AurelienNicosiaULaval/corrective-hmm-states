@@ -11,8 +11,8 @@ datasets<-list(replication=fread(file.path(root,'data/genomics/replication_chr1.
                validation=fread(file.path(root,'data/genomics/validation_chr12_17.csv')))
 confirmation_file<-file.path(root,'data/genomics/confirmation_chr18_22.csv')
 if(file.exists(confirmation_file))datasets$confirmation<-fread(confirmation_file)
-fits<-lapply(c('G2','M21','G3','M221','G5'),function(n)readRDS(file.path(root,'results/genomic_pilot',paste0(n,'.rds'))))
-names(fits)<-c('G2','M21','G3','M221','G5')
+fits<-lapply(c('G2','M21','G3','G4','M221','G5'),function(n)readRDS(file.path(root,'results/genomic_pilot',paste0(n,'.rds'))))
+names(fits)<-c('G2','M21','G3','G4','M221','G5')
 for(n in c('F2','F3'))fits[[n]]<-readRDS(file.path(root,'results/genomic_symmetry_benchmark',paste0(n,'.rds')))
 eval_fit<-function(d,f,symmetric) {
   start<-c(TRUE,diff(d$sequence)!=0)

@@ -256,7 +256,7 @@ residuals for the Gaussian-emission HMMs with $K=2$ and $K=3$.}
 
 \section{Genomic application details}\label{sec:genomic-si}
 
-\subsection{Provenance, preprocessing and partition}
+\subsection{Provenance, preprocessing and partition}\label{sec:si-genomic-data}
 
 The original Affymetrix SNP 6.0 CEL files are from Gene Expression Omnibus
 (GEO), series \href{https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE13372}{GSE13372},
@@ -310,9 +310,20 @@ is a later version. Here
 ``confirmation'' denotes a later held-out block within this exploratory
 analysis, rather than preregistered confirmatory inference.
 No chromosome outside chromosome 1 contributes to parameter estimation.
-The second array pair assesses technical repeatability on chromosome 1.
+The held-out blocks contain 52,294 markers on chromosomes 12--17 and
+25,413 on chromosomes 18--22. The second array pair supplies 20,937
+chromosome-1 markers, including 19,727 positions shared with the first pair,
+and assesses technical repeatability.
 
-\subsection{Estimation and numerical checks}
+The seven original candidates were G2, G3, G5, M21, M221, F2 and F3.
+G4 was added on 24 September 2026 in response to the reviewer, after the
+original evaluation results had been inspected. It uses the same
+chromosome-1 input and is evaluated on the same fixed blocks. Its results
+are therefore a retrospective extension of the comparison, not part of the
+original model freeze or a new confirmatory analysis. The original fitted
+objects and freeze record are retained without alteration.
+
+\subsection{Estimation and numerical checks}\label{sec:si-genomic-estimation}
 
 All ordinary and unconstrained mixture models use the EM updates in the
 main article. The likelihood is a product over explicitly reset sequences;
@@ -335,7 +346,16 @@ first two component distributions. A duplicated aggregate state additionally
 embeds M21 in M221. Finally, M221 is included in G5 by exact refinement.
 The code checks the likelihood at these inclusions and refines from them,
 including small separation perturbations. The selected G3 and G5 likelihoods
-must be at least those of M21 and M221. The tests independently compare the
+must be at least those of M21 and M221. G4 uses the same 40-start screening
+and eight-start refinement settings, with seed 20261314. Each G3 state is
+also duplicated in turn to create an exactly equivalent G4 start. The two
+duplicated means are then either kept equal or perturbed by $\pm0.015$, giving
+nine additional starts. All nine are refined, rather than discarded at the
+screening stage. Its selected log likelihood lies between those of G3 and G5.
+The implementation uses the compiled equivalent of the R EM updates; the
+selected likelihood is checked independently with the R emission calculation
+and sequence recursion. Parameters, complete start-level likelihood traces
+and input hashes are retained in \path{genomics/results/genomic_g4}. The tests independently compare the
 multiple-sequence recursion with direct path enumeration and verify that
 changing later observations cannot alter earlier predictive probabilities.
 
@@ -343,24 +363,23 @@ changing later observations cannot alter earlier predictive probabilities.
 
 The unrestricted five-state model has a minimum transition estimate of about
 $1.29\times10^{-7}$. This is not a zero transition or proof of structural
-absence. The lower variance bound is inactive in every selected primary fit.
+absence. G4 has a smaller minimum transition estimate,
+$2.60\times10^{-14}$, effectively at the boundary at the reported precision.
+We retain this diagnostic rather than treating its BIC as a regular-model
+order test. The lower variance bound is inactive in every selected primary fit.
 Relative convergence of EM and multiple starts do not prove global optimality;
 all screened and refined likelihoods are retained in the fitted objects.
 
-For F2 and F3, the E-step uses the two reflected normal contributions within
-each state. The M-step ties their variances, weights them equally and updates
-a nonnegative separation from one half. Thirty starts receive 120 screening
-iterations; the best six are refined for up to 3,000 iterations at tolerance
-$10^{-8}$. Initial and transition probabilities have a $10^{-6}$ lower bound.
-Scores are densities of the original signed fraction, so no folded-density
-factor is inadvertently added to comparisons with G2--G5 or M21/M221.
-Direct enumeration, likelihood ascent and exact invariance under independent
-allele flips are tested. F3's fitted separations are 0.0041, 0.1048 and 0.3101.
-The nearly zero first separation is another reason not to use regular
-asymptotic mixture-order tests.
-
 \paragraph{Likelihood-ratio calibration for the refinement constraints.}
 The prespecified grouping has two paired emissions and one single emission.
+Holzmann and Schwaiger (2015),
+\url{https://doi.org/10.1007/s11222-014-9481-1}, give a state-reduction test
+under a stationary initial law. Their reference degrees of freedom for
+reducing $k$ states to $r$ groups are $k^2-2k-r^2+2r$, hence 12 for
+$k=5$ and $r=3$. Here the common initial law is freely estimated from two
+sequences. Increasing their lengths does not increase the number of
+initial draws. Adding the two extra initial-law parameters therefore does
+not justify replacing 12 by 14 chi-squared degrees of freedom.
 The likelihood ratio compares M221 with its unrestricted five-state Gaussian
 refinement, including the corresponding initial-distribution constraints.
 The statistic after numerical refinement is 18.2582; the saved primary fits
@@ -396,19 +415,31 @@ The bootstrap is conditional on M221 being an adequate observation model;
 it does not correct residual dependence or validate a biological partition.
 Because the initial distribution is estimated from two sequence starts,
 we do not use the difference of 14 free parameters as automatic chi-squared
-degrees of freedom. The stationary-law result of Holzmann and Schwaiger
-(2015), discussed in the main article, concerns different initial-law
-assumptions. We report the bootstrap as an approximate calibration of this
+degrees of freedom. The stationary-law result concerns different initial-law assumptions. We report the bootstrap as an approximate calibration of this
 specified constrained comparison, not as a new state-reduction test.
 
-\subsection{Prediction and calibration}
+\subsection{Prediction and calibration}\label{sec:si-genomic-prediction}
 
 Sequential held-out log scores use the previous forward filter and fixed
 training parameters. Each validation or confirmation sequence starts with
 the fitted initial distribution, not a state estimated from the full held-out
 path. Smoothed states are used only for descriptive assignment and are never
 substituted into the predictive density. Table~\ref{tab:si-genomic-chromosomes}
-gives all chromosome-specific differences, including those favouring F3.
+gives chromosome-specific differences, including those favouring G4 and F3.
+Table~\ref{tab:si-genomic-comparison} preserves the full eight-model comparison.
+
+\input{tables/genomic_comparison_full.tex}
+
+Relative to G5, M221 gains 36.25 log-score units on chromosomes 12--17
+and 5.16 on chromosomes 18--22, but loses 0.99 on the technical repeat.
+The corresponding differences per marker are 0.00069, 0.00020 and
+$-0.00005$. These are small differences in this comparison, without a
+prespecified equivalence margin or sampling uncertainty estimate.
+G4 has the highest score on chromosomes 12--17, exceeding M221 by 1591.85,
+although its chromosome-1 BIC and technical-repeat score are worse. On
+chromosomes 18--22, its score is 3999.33 lower than M221's. Thus the
+chromosome-1 preference does not imply a uniform predictive ranking.
+The G4 extension is retrospective, as stated in S3.1.
 
 \input{tables/genomic_chromosomes.tex}
 \input{tables/genomic_calibration.tex}
@@ -431,7 +462,7 @@ between the mixture, ordinary and symmetry-aware models.}
 \label{fig:si-genomic-pit}
 \end{figure}
 
-\subsection{Aggregation, technical replication and sensitivity}
+\subsection{Aggregation, technical replication and sensitivity}\label{sec:si-genomic-sensitivity}
 
 Correspondence between the five G5 states and M221 components minimizes the
 sum of squared Hellinger distances between Gaussian emissions. The assignment
@@ -458,8 +489,16 @@ positions, with the same one-megabase reset rule. Agreement is computed only
 at markers present in both versions. Filters can change which marker is kept
 at a duplicated position, explaining why the common counts are sometimes
 slightly below the smaller sample size. All selected sensitivity fits
-converge and have no variance-floor hits. The pronounced reduction in run
-counts after thinning is a material limitation for short-segment inference.
+converge and have no variance-floor hits. Changing the standard-deviation floor to 0.005 or 0.02 does not change
+assignments; both values lie below the smallest primary fitted standard
+deviation, approximately 0.054, so these constraints are inactive.
+The alternative normal-fraction filters retain 98.58\% and 98.76\%
+assignment agreement at shared markers, but change the run count from 181
+to 302 and 55. Retaining every second or fifth marker gives 97.56\% and
+96.35\% agreement, with only 33 and 20 runs. Broad regional profiles are
+more stable than individual short segments. The 181 primary runs must not
+be read as 181 verified alterations, nor the transition probabilities as
+physical segment lengths.
 
 The allele-designation experiment uses seed 20260910 to select each
 marker independently with probability one half for the transformation $y_i\mapsto1-y_i$, without
@@ -469,7 +508,44 @@ the raw G5 path on 56.63\%, and aggregated G5 on 99.55\%. F2 and F3 are
 invariant up to numerical rounding. Approximate invariance of the unconstrained
 mixture is an empirical finding, not an imposed property.
 
-\subsection{Genomic comparators and limits of the external reference}
+\subsection{Models incorporating allelic symmetry}\label{sec:si-genomic-symmetry}
+
+The complementary low and high fractions motivate a separate constrained
+family with state densities
+\[
+ f_k(y)=\tfrac12\phi(y;\tfrac12-d_k,s_k^2)
+       +\tfrac12\phi(y;\tfrac12+d_k,s_k^2),\qquad d_k\geq0.
+\]
+Here $\phi(y;\mu,\sigma^2)$ denotes the normal density. The two-state F2
+and three-state F3 models are equivalent to folded-normal models for
+$|y-1/2|$. They have four and six tied Gaussian components, with 7 and 14
+free parameters. F3 is a separate comparator; it is not the equal-component
+or nested counterpart of M221. Table~\ref{tab:si-genomic-comparison}
+reports both models alongside the unconstrained candidates.
+
+For F2 and F3, the E-step uses the two reflected normal contributions within
+each state. The M-step ties their variances, weights them equally and updates
+a nonnegative separation from one half. Thirty starts receive 120 screening
+iterations; the best six are refined for up to 3,000 iterations at tolerance
+$10^{-8}$. Initial and transition probabilities have a $10^{-6}$ lower bound.
+Scores are densities of the original signed fraction, so no folded-density
+factor is inadvertently added to comparisons with G2--G5 or M21/M221.
+Direct enumeration, likelihood ascent and exact invariance under independent
+allele flips are tested. F3's fitted separations are 0.0041, 0.1048 and 0.3101.
+The nearly zero first separation is another reason not to use regular
+asymptotic mixture-order tests.
+
+F3 has BIC 17.4 below M221, although its training log likelihood is
+21.15 lower. Its score on chromosomes 18--22 is 15.88 higher, with 14.97
+of that difference arising on chromosome 20. Its scores on chromosomes
+12--17 and on the technical repeat are 7.00 and 18.93 lower, respectively.
+It reproduces the same broad three-profile pattern, with 98.04\%
+technical-repeat assignment agreement compared with 98.08\% for M221.
+The known symmetry can therefore provide a more parsimonious description,
+while its predictive advantages vary across sequences. The comparison is
+retained as evidence against a general superiority claim for M221.
+
+\subsection{Genomic comparators and limits of the external reference}\label{sec:si-genomic-comparators}
 
 PSCBS 0.68 uses the same candidate heterozygous loci and the total-signal
 ratio $2T/N$, with the two chromosome-1 sequences analyzed separately.
@@ -477,8 +553,11 @@ We use the default paired segmentation procedure with seeds 20260911 and
 20260912. It returns 51 segments. The factor two is the method's relative
 copy-number convention; it does not establish absolute tumor ploidy.
 PSCBS combines the total signal with allelic imbalance, so it is a
-scientific comparator using additional information rather than a fair
-BAF-only predictive benchmark. See Olshen et al. (2011),
+comparator using additional information beyond the HMM allele fractions.
+At markers assigned to the approximately balanced, moderate and strong
+M221 profiles, its median allelic-imbalance measure is 0.080, 0.214 and
+0.641, respectively. This supports the ordering of the fitted profiles,
+but is not independent validation because PSCBS uses the same arrays. See Olshen et al. (2011),
 \url{https://doi.org/10.1093/bioinformatics/btr329}.
 
 The publisher's supplementary sequencing tables for Chiang et al. (2009)
@@ -500,6 +579,18 @@ illustration on the development chromosome, selected to explain that
 distinction; it is not presented as a reserved validation endpoint. No
 clinical claim, absolute copy-number estimate, patient-level performance
 claim or novel biological discovery follows from this comparison.
+
+
+\begin{figure}[htbp]
+\centering\includegraphics[width=.94\linewidth]{genomic_assays.pdf}
+\caption{A chromosome-1 interval used to compare measurements. Panel A
+shows the M221 allele-fraction profiles. Panel B shows PSCBS segmentation
+of the same arrays using total intensity and allele fractions. Panel C
+shows the independent sequencing copy-ratio segments of Chiang et al.
+(2009). Approximately balanced fractions can coexist with increased total
+DNA dosage. This comparison does not provide true labels for the HMM states.}
+\label{fig:si-genomic-assays}
+\end{figure}
 
 
 \section{Elk movement: Gaussian comparisons and limitations}\label{sec:elk-si}
@@ -886,8 +977,10 @@ For the genomic application, run from the reproducibility-package root:
 \begin{verbatim}
 Rscript genomics/scripts/test_genomic_results.R
 Rscript genomics/scripts/test_symmetric_genomic_hmm.R
+Rscript genomics/scripts/test_genomic_g4.R
 Rscript genomics/scripts/evaluate_genomic_pilot.R
 Rscript genomics/scripts/genomic_diagnostics.R
+Rscript numerics/scripts/render_publication_tables.R
 \end{verbatim}
 The supplied processed inputs allow this numerical verification without
 reprocessing the microarrays. The genomic README documents a complete

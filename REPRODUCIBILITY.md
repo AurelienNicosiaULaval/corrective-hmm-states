@@ -25,6 +25,21 @@ The SHA-256 manifest lists every distributed file except the manifest itself.
 The commands below reproduce the simulation study, genomic analyses and
 supplementary movement analyses, with checks of the saved estimates.
 
+## Added four-state genomic comparison
+
+`Rscript genomics/scripts/genomic_g4.R` reproduces the added G4 fit from
+40 random starts and nine duplicated-state G3 starts. Checkpoints record
+input and reference hashes and are resumed only when those hashes match.
+The complete genomic fitting script calls this extension automatically.
+`Rscript genomics/scripts/test_genomic_g4.R` independently checks the G4
+likelihood, all fixed-parameter scores and the seven unchanged model hashes.
+After evaluation and diagnostics, regenerate all genomic tables with
+`Rscript numerics/scripts/render_publication_tables.R`.
+
+G4 was added after the original evaluation. Its scores on excluded
+chromosomes are retrospective comparisons, as stated in Supporting
+Information S3.1. The original model freeze is not extended retroactively.
+
 ## Gaussian movement benchmark
 
 Use R 4.5.0 or a compatible version, a compiler supported by Rcpp, and the

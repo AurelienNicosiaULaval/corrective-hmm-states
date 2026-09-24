@@ -54,19 +54,23 @@ ORCID: \href{https://orcid.org/0000-0002-0974-9988}{0000-0002-0974-9988}}
 
 \begin{abstract}
 Additional hidden Markov states can compensate for restrictive emission
-distributions without representing additional scientific regimes. Building on
-the established representation of mixture components as refined states, we
-prove a uniform lower bound on the observed-law Kullback--Leibler divergence
-that grows linearly with sequence length. The result assumes a compact,
-identifiable emission family, positive aggregate transitions and distinct
-mixture components. An exact refinement removes this approximation gap.
-Simulations examine state splitting and its sensitivity to numerical optimization. In tumor allele-fraction data,
-five Gaussian components describe three regional allelic profiles using
-fourteen fewer parameters than a five-state Gaussian model, with comparable
-held-out prediction. Technical replication supports the broad profiles, while
-short segments remain sensitive to preprocessing. A symmetry-aware comparator has lower BIC but mixed predictive advantages.
-A parametric bootstrap does not reject the refinement constraints at the 5\% level
-(p-value 0.09); independent sequencing limits the interpretation of aggregate states.
+distributions without representing additional scientific regimes. We study
+this distinction using the established representation of mixture components
+as refined states. Under compactness, mixture identifiability and positive
+aggregate transitions, we prove that a simple-emission HMM with too few
+components has an observed-law Kullback--Leibler loss that grows at least
+linearly with sequence length. An exact refinement, or an aggregate HMM
+with mixture emissions, removes this approximation gap. Simulations
+illustrate the resulting incentive to add states. An analysis of tumor
+allele fractions on chromosome 1 then compares five Gaussian states with
+three regional profiles containing five Gaussian components. The fitted
+emissions and regional assignments are nearly the same after grouping the
+Gaussian states, while the mixture model uses fourteen fewer parameters.
+This example illustrates how additional states can describe variation
+within a regional profile rather than additional regional regimes. The
+number of fitted states alone therefore does not determine the number of
+scientifically distinct regimes.
+
 \end{abstract}
 
 \noindent\textit{Keywords:} hidden Markov model; emission misspecification;
@@ -124,19 +128,17 @@ length and a positive relative-entropy-rate gap. The result
 complements HMM likelihood and identifiability theory
 \citep{Leroux1992,BickelEtAl1998,AllmanEtAl2009,GassiatEtAl2016,AlexandrovichEtAl2016}.
 
-The empirical comparison concerns the allocation of distributional complexity
-to emissions or to latent dynamics. We compare simple-emission and
-mixture-emission HMMs, including pairs with the same total number of Gaussian
-components. The Bayesian information criterion (BIC), held-out sequential
-predictions, and decoded paths assess different aspects of this comparison.
-A simulation isolates the mechanism. The application examines unphased tumor
-allele fractions, for which the measurement process gives a direct reason
-for paired emission components. It asks whether low- and high-fraction bands
-require distinct latent transition laws. Held-out chromosomes, a technical
-replicate, symmetry-aware models and an independent assay assess the resulting
-regional interpretation. The Supporting Information also examines elk movement, including
-its sensitivity to the emission family and the distinction between
-aggregate states and density modes.
+The empirical comparison asks whether an additional state is needed to
+describe a new regime or to represent variation within an existing one.
+We compare ordinary and mixture-emission HMMs, including pairs with the
+same total number of Gaussian components. Holding this count fixed isolates
+the additional freedom in the transition model. A simulation shows the
+mechanism when the aggregate states are known. The application examines
+chromosome-1 tumor allele fractions: low and high fractions at successive
+markers can describe the same regional imbalance. This gives a scientific
+reason to group two emission components within one Markov state. The
+Supporting Information contains further genomic comparisons and an elk
+movement example that examines sensitivity to the emission family.
 
 Section~\ref{sec:mechanism} gives the formal mechanism; Sections~\ref{sec:em}
 and~\ref{sec:workflow} describe estimation and model comparison; and
@@ -282,6 +284,13 @@ Equation~\eqref{eq:refined-transition} retains the probability of moving from
 aggregate state $k$ to $\ell$, then draws a component of the destination
 emission. The refined states therefore encode within-regime mixture components,
 not new aggregate dynamics.
+
+For the genomic example in Section~\ref{sec:genomic}, the component counts
+$(2,2,1)$ give three aggregate states and five refined states. The two
+components of each paired state have different emissions but share the same
+transition row in the refined representation. An unrestricted five-state
+HMM can instead give each component its own transition row. This is the
+specific restriction examined in the application.
 
 Assume now that
 $\varepsilon:=\min_{1\leq k,\ell\leq K_0}\gamma^0_{k\ell}>0$, let
@@ -436,19 +445,12 @@ the component count and the transition structure.
 The factorization requires both equal transition rows within each source
 group and destination-component proportions that do not depend on the source
 state. Equal rows or a low matrix rank alone do not establish the full
-constraint \citep{HolzmannSchwaiger2015}. Here the groupings are specified
-from the emission mechanism. The state-reduction likelihood-ratio test of
-\citet{HolzmannSchwaiger2015} addresses these constraints. Under their
-regularity conditions and stationary initial law, reducing $k$ states to $r$
-groups gives $k^2-2k-r^2+2r$ reference degrees of freedom, hence 12 for
-$k=5$ and $r=3$. Our genomic fits instead estimate a common initial law from
-two independent sequences. The information about this initial law does not
-grow as it does for transition parameters when only sequence lengths grow;
-adding two initial-probability parameters therefore does not by itself justify
-a chi-squared law with 14 degrees of freedom. We use a parametric bootstrap
-under the fitted constrained model, retaining the observed sequence lengths,
-the same screening and refinement settings for observed and simulated data
-(SI S3.2), and starts at the exact refinement. This calibration is conditional on the fitted model.
+constraint \citep{HolzmannSchwaiger2015}. We specify the groups from the
+emission mechanism, then compare the constrained and unrestricted fits.
+The state-reduction test of \citet{HolzmannSchwaiger2015} addresses this
+question under a stationary initial law. For the genomic comparison we
+use a model-conditional parametric bootstrap with the fitted initial law;
+Supporting Information S3.2 explains its calibration and limitations.
 
 BIC summarizes penalized likelihood within the specified model classes.
 It is not a test of the number of biological regimes. In particular, mixture
@@ -458,16 +460,16 @@ have likelihood at least as high as the corresponding constrained fit at a
 common variance bound; initialization at the exact refinement provides a
 numerical check of that nesting.
 
-Prediction is assessed separately. Parameters estimated from a training
-prefix $Y_{1:n}$ are held fixed while the filter is updated using subsequent
-observations. For a validation block $n+1,\ldots,n'$,  the log score is
-$\sum_{t=n+1}^{n'}\log p_{\widehat\theta_n}(Y_t\mid Y_{1:t-1})$.
-The probability integral transforms
-$U_t=F_{\widehat\theta_n}(Y_t\mid Y_{1:t-1})$ assess the predictive
-distribution, rather than only its average log density. Exact continuous
-conditional distributions give uniform PIT values; fitted models need not.
-Empirical PIT discrepancies and central interval coverage are descriptive
-checks here, without an independence-based significance test.
+Prediction is assessed separately from fit. Parameters estimated on the
+training data are held fixed while the filter incorporates observations in
+an evaluation sequence. Its sequential log score is
+$\sum_t\log p_{\widehat\theta}(Y_t\mid Y_{1:t-1})$, with the fitted initial
+law used at a new sequence start. Higher scores indicate better predictive
+densities on that sequence. For a continuation of a training sequence, the
+filter instead continues from the training endpoint. Probability integral
+transforms and interval coverage provide further descriptive checks in the
+Supporting Information. Similar log scores alone do not establish predictive
+equivalence.
 
 Decoded sequences and state-dependent distributions connect these comparisons
 to the observations. Cross-tabulations indicate when two Gaussian states map
@@ -538,312 +540,145 @@ caution \citep{Keribin2000,RousseauMengersen2011,GassiatRousseau2014,Watanabe201
 
 \section{Chromosomal allelic imbalance}\label{sec:genomic}
 
-\subsection{Scientific question and measurements}
+\subsection{Question and models}\label{sec:genomic-question}
 
-We analyze HCC1143, a breast-cancer cell line (cells maintained in laboratory
-culture), and its matched normal cell line HCC1143BL, using the SNP-array
-data accompanying \citet{ChiangEtAl2009}. The aim is to describe chromosomal
-regions with similar relative contributions of DNA inherited from the two
-parents. A region with unequal contributions may produce two bands of observed
-fractions \citep{OlshenEtAl2011}.
+We analyze chromosome 1 of the breast-cancer cell line HCC1143 and its
+matched normal cell line HCC1143BL, using the SNP-array measurements of
+\citet{ChiangEtAl2009}. At a single-nucleotide polymorphism (SNP), the
+B-allele fraction is the B signal divided by the combined A and B signals.
+The measurements are unphased: the allele labelled B need not come from the
+same parental chromosome at successive markers. Consequently, fractions
+near 0.2 and 0.8 can describe the same regional allelic imbalance
+\citep{OlshenEtAl2011}. A mixture emission can represent these two bands
+within one regional profile. The question is whether the bands require
+separate transition dynamics. Data details are given in Supporting
+Information S3.1.
 
-A single-nucleotide polymorphism (SNP) is a DNA position at which alternative
-single-base variants occur. The two variants assayed at each SNP are labelled
-A and B. A marker is heterozygous when both variants are present in the
-matched normal. The array supplies signal intensities for the two alleles;
-the B-allele fraction is the B signal divided by the combined A and B signals
-\citep{BengtssonEtAl2010}. Approximately equal contributions give a fraction
-near one half; unequal contributions produce a low or high fraction.
+We fit Gaussian HMMs with two through five states (G2--G5) to 20,697 ordered
+markers. M21 has two Markov states with component counts $(2,1)$; M221 has
+three with counts $(2,2,1)$. The M21/G3 and M221/G5 comparisons hold the total
+number of Gaussian components fixed. In particular, M221 corresponds to
+$K_0=3$ and $R=5$ in Proposition~\ref{prop:refinement}. G5 relaxes its
+component-group transition and initial-distribution constraints, adding
+14 parameters without adding emission components. Multiple starts and
+numerical checks are documented in Supporting Information S3.2.
 
-Haplotype phasing identifies which variants lie on the same inherited
-chromosome copy.
-These array measurements are unphased: the allele designated B need not
-belong to the same parental chromosome at successive markers
-\citep{ChenEtAl2017}. For illustration, fractions near 0.2 and 0.8 at different
-markers can describe the same regional imbalance. Switching between these
-bands need not mark a regional change. This is the measurement-based reason
-for a mixture emission.
-
-The statistical question is whether the low- and high-fraction bands require
-separate transition laws or can be represented within regional allelic
-profiles. Here a profile describes balance or a degree of imbalance, not a
-cell population. DNA copy number is the total number of copies of a region;
-allele fractions alone do not determine it. Equal contributions can occur
-with different total copy numbers \citep{OlshenEtAl2011}.
-
-The data are deposited in Gene Expression Omnibus (GEO), series
-\href{https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE13372}{GSE13372},
-which contains repeated Affymetrix GenomeWideSNP 6.0 array measurements. We selected the first two accession-ordered tumor--normal
-replicate pairs before inspecting their processed profiles:
-GSM337641/GSM337662 and GSM337642/GSM337663. CEL files store the original
-probe intensities. AS-CRMAv2 converts these to allele-specific signals;
-TumorBoost then uses the matched normal to reduce marker-specific distortion
-of tumor fractions \citep{BengtssonEtAl2009,BengtssonEtAl2010}. We retain candidate heterozygous
-markers with matched-normal fractions in $[0.3,0.7]$, finite measurements and
-unique positive genomic positions. The selection rule does not use the tumor
-fraction: the normal sample identifies markers informative about allelic
-imbalance without selecting them on the tumor response. Each HMM observation
-is one corrected tumor fraction at a retained marker. Corrected values are
-not clipped at zero or one.
-
-Chromosome 1 of the first pair supplies 20,697 markers for estimation.
-Chromosomes 12--17 supply 52,294 validation markers. After the fitted
-parameters and specification were frozen, chromosomes 18--22 supplied a
-further 25,413 confirmation markers. Chromosomes 2--11 were not used. The
-second pair provides a technical replication on chromosome 1, with 20,937
-markers, including 19,727 shared with the estimation series. Technical
-replication means measuring the same cell lines again, rather than sampling
-additional patients. All coordinates use the hg18 human reference-genome
-assembly. Each chromosome boundary and gap exceeding one megabase
-(Mb, one million base pairs) resets the
-chain; chromosome 1 contains two sequences. The index orders markers by
-position, rather than representing equal elapsed times or equal distances.
-
-\subsection{Models and estimation}
-
-We fit ordinary Gaussian HMMs with two, three and five states (G2, G3 and G5).
-M21 has two aggregate states with component counts $(2,1)$; M221 has three
-with counts $(2,2,1)$. The latter can represent two degrees of imbalance and
-an approximately balanced profile. These are specified candidate
-representations, not a claim that three is the true or globally optimal
-number of genomic states. The M21--G3 and M221--G5 comparisons hold the total
-number of Gaussian components fixed. G5 relaxes the transition restrictions
-of the five-state refinement of M221, adding 14 parameters without adding
-emission components.
-
-Each unconstrained family uses 40 random starts, supplemented by persistent
-variance-regime starts for G2 and paired-band starts for the mixture models.
-The eight highest likelihoods are refined to a relative likelihood tolerance
-of $10^{-8}$, with a maximum of 2,500 iterations. Exact refinements and
-nested duplicated-component starts check the likelihood inclusions. All
-selected fits converge, and none reaches the standard-deviation floor of
-0.01. Competing solutions, transition estimates and numerical checks are
-reported in Supporting Information, Section S3.
-
-A symmetry-aware comparison uses state densities
-\[
- f_k(y)=\tfrac12\phi(y;\tfrac12-d_k,s_k^2)
-       +\tfrac12\phi(y;\tfrac12+d_k,s_k^2),\qquad d_k\geq0.
-\]
-The two- and three-state versions, F2 and F3, are equivalent to folded-normal
-models for $|y-1/2|$. They have four and six tied Gaussian components and
-7 and 14 free parameters, respectively. F3 is a separate scientific
-comparator, not the equal-component or a nested counterpart of M221. Their predictive densities are evaluated on the original
-fraction scale for comparison with the other models. This incorporates known
-allelic symmetry, instead of requiring an unconstrained mixture to estimate
-it. We use 30 starts and refine the best six. The BIC values describe these
-fitted candidates; we do not invoke a regular likelihood-ratio reference law
-or a general consistency theorem for mixture order selection.
-
-\subsection{Components and regional profiles}
-
-M221 estimates paired component centres at $(0.185,0.805)$ for strong
-imbalance and $(0.392,0.601)$ for moderate imbalance, and a single centre at
-0.498 for approximate balance. The within-pair weights are close to one half.
-Posterior occupations are 38.3\%, 49.2\% and 12.5\%, and self-transition
-probabilities are 0.988, 0.998 and 0.963, respectively. The names describe the
-fitted fraction patterns, without translating their centres into integer
-copy numbers. Figure~\ref{fig:genomic-profiles} shows their spatial organization
-and separates the component densities from the aggregate profiles.
+\subsection{Chromosome-1 results}\label{sec:genomic-results}
 
 \input{tables/genomic_comparison.tex}
 
-G5 estimates almost the same five component distributions. Its maximized
-log likelihood exceeds M221's by 9.13, whereas its BIC is 120.87 higher
-(\Cref{tab:genomic-comparison}). Its low- and high-fraction states within each
-imbalance pair have nearly equal transition rows: their total-variation
-distances are 0.0104 and 0.0065. The five transition-matrix singular values
-are approximately $1.0003,0.9951,0.9546,0.0090,0.0051$. These are descriptive
-indications of the refinement structure, not evidence of exact rank three
-or a test of all factorization constraints.
-The positive empirical likelihood difference rules out claiming exact
-equality of the fitted observed laws. A refinement likelihood-ratio comparison,
-with both models refined to the same numerical tolerance, gives a statistic
-of 18.26. In 199 parametric bootstrap replicates under M221, 17 statistics
-are at least this large, giving the plus-one tail probability
-$(17+1)/(199+1)=0.09$ (Monte Carlo standard error approximately 0.02).
-No replicate violates the required likelihood nesting. At the conventional
-5\% threshold this comparison does not reject the refinement constraints;
-it does not establish equivalence or identify the true number of regional
-profiles. Residual dependence and other departures from the fitted model
-limit the calibration; SI S3.2 gives the protocol and Monte Carlo uncertainty.
+M221 estimates paired component centres at $(0.185,0.805)$ and
+$(0.392,0.601)$, and a single centre at 0.498. We call these strong imbalance,
+moderate imbalance and approximate balance, respectively. These names
+describe the measured fractions, not cell populations or absolute DNA copy
+numbers. Figure~\ref{fig:genomic-profiles} shows both the regional profiles
+and the Gaussian components within them.
 
-The raw G5 Viterbi path has 9,123 runs, compared with 181 for M221. Much of
-this difference records switches between allele-fraction bands. Matching the
-Gaussian emissions and then grouping the paired G5 states gives 99.73\%
-marker agreement with M221 and 194 runs. Thus a suitably aggregated ordinary
-HMM recovers nearly the same regional interpretation. The mixture makes the
-aggregation explicit in its transition model; it does not make that
-interpretation inaccessible to an ordinary HMM.
+G4 improves on G3, but its BIC remains 2402.7 higher than M221's.
+Among G2--G5, G5 has the lowest BIC. The more informative comparison for
+the refinement construction is G5 versus M221: G5 estimates almost the
+same five component distributions, gains only 9.13 log-likelihood units,
+and has a BIC 120.87 higher. Thus, on this chromosome the additional
+component-level transition freedom produces little improvement in fit.
+
+The raw G5 Viterbi path has 9,123 runs, compared with 181 for M221.
+Many G5 switches are between the low and high bands within the same regional
+profile. Matching the Gaussian emissions and grouping the paired G5 states
+gives 99.73\% agreement with M221 and 194 runs. The ordinary HMM therefore
+recovers nearly the same regional description after aggregation; the
+mixture model represents that grouping directly in its Markov structure.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=.96\linewidth]{genomic_profiles.pdf}
-\caption{Chromosome 1 of HCC1143. Panels A and B colour the corrected
-fractions by the M221 and G5 Viterbi paths. The paired light and dark colours
-in B distinguish ordinary states that have the same aggregate colour in A.
-Panel C shows M221 state densities (solid) and weighted within-state
-component contributions (dashed). These are conditional densities, without
-multiplication by state occupation. The gap near the centromere resets the
-chain.}
+\includegraphics[width=.94\linewidth]{genomic_profiles.pdf}
+\caption{Chromosome 1 of HCC1143. Panels A and B colour allele fractions by
+the M221 and G5 Viterbi paths. Paired light and dark colours in B distinguish
+Gaussian states belonging to the same aggregate colour in A. Panel C shows
+M221 state densities (solid) and weighted component contributions (dashed).
+The densities are conditional on the aggregate state.}
 \label{fig:genomic-profiles}
 \end{figure}
 
-\subsection{Prediction, replication and sensitivity}
+A second array pair measures the same cell lines again. With the
+chromosome-1 estimates held fixed, M221 and G5 have almost identical
+sequential log scores on this technical repeat (Table~\ref{tab:genomic-comparison}).
+M221 assigns the same profile to 98.08\% of the 19,727 shared markers.
+These results assess repeatability within this cell line, not performance
+across patients or accuracy against known regional states.
 
-All held-out scores use fixed chromosome-1 parameters and sequential
-one-step predictive densities, with filtering restarted at each sequence
-boundary. Relative to G5, M221 gains 36.25 log-score units on chromosomes
-12--17 and 5.16 on chromosomes 18--22, but loses 0.99 on the technical
-replicate. The corresponding differences per marker are $0.00069$,
-$0.00020$ and $-0.00005$. These support similar predictive performance with
-fewer parameters, not a substantial predictive improvement or a formal equivalence test.
-No equivalence margin or sampling uncertainty for these score differences
-is estimated. The aggregated
-G5 path agrees with M221 on 99.07\% and 99.06\% of validation and confirmation
-markers. M221 assignments agree on 98.08\% of markers shared between the two
-technical replicates. These are comparisons within one cell line, not
-independent patient-level validation.
+The application illustrates the distinction between emission components and
+regional dynamics. It does not establish that three is the true number of
+regional regimes. Unequal marker spacing and residual dependence also limit
+the interpretation of individual short runs. Supplementary analyses include
+prediction and calibration (S3.3), repeatability and sensitivity (S3.4),
+models incorporating allelic symmetry (S3.5), and comparisons with genomic
+segmentation and independent sequencing (S3.6). They retain the advantages
+of alternative models and the limits of the regional interpretation.
 
-F3 has the lowest BIC among the specified candidates, 17.4 below M221,
-although its training log likelihood is 21.15 lower. Its confirmation log
-score is 15.88 higher, with 14.97 of that difference arising on chromosome 20;
-its validation and technical-repeat scores are respectively 7.00 and 18.93
-lower. Technical-repeat assignment agreement is 98.04\%, compared with
-98.08\% for M221. Its estimated band separations reproduce the same three
-profiles. The symmetry constraint thus provides a parsimonious alternative,
-with predictive differences that vary across the evaluated sequences.
-The empirical purpose is to examine where an unrestricted HMM allocates
-complexity, rather than to propose a superior copy-number caller.
-
-Predictive calibration is also qualified. M221's central 95\% predictive
-intervals cover 96.36\% of validation and 95.48\% of confirmation observations.
-The respective empirical PIT distances from uniformity are 0.055 and 0.012;
-Section S3 shows the histograms and residual diagnostics. Absolute residuals
-retain lag-one correlations of 0.057 and 0.142. We do not interpret
-near-nominal coverage as proof that all spatial dependence has been modeled.
-
-Changing the standard-deviation floor to 0.005 or 0.02 leaves the M221
-assignments unchanged, but both bounds are below the smallest fitted
-standard deviation (approximately 0.054), so these are inactive constraints.
-The two alternative normal-fraction filters give 98.58\% and 98.76\%
-agreement at shared markers, while changing the run count from 181 to 302
-and 55, respectively. Retaining every second or
-fifth marker gives 97.56\% and 96.35\% agreement. However, the numbers of
-runs fall to 33 and 20 under thinning. The broad profiles are substantially
-more stable than the individual short segments. We therefore do not count
-all 181 runs as verified chromosomal alterations or interpret the transition
-probabilities as physical segment lengths.
-
-A further check independently exchanges the B designation at each marker
-with probability one half, using a fixed random seed. Without refitting, M221 retains 99.87\% of its assignments, compared
-with 56.63\% for the raw G5 labels and 99.55\% for aggregated G5 labels. F3 is
-exactly invariant by construction. M221 is only approximately invariant:
-its estimated weights and centres do not impose exact reflection symmetry.
-
-\subsection{Comparison with genomic segmentation and sequencing}
-
-We compare the chromosome-1 profiles with paired parent-specific circular
-binary segmentation (PSCBS; \citealp{OlshenEtAl2011}), which partitions a
-chromosome into regions with similar copy-number signals. It uses the same
-arrays' total intensities and allele fractions. Its median segmented allelic-imbalance measure, evaluated
-at markers assigned to the balanced, moderate and strong M221 profiles, is
-0.080, 0.214 and 0.641. This supports the ordering of the profiles using an
-established segmentation procedure. It is not independent validation and
-uses an additional measurement that is absent from the HMM likelihood.
-
-The published sequencing segments of \citet{ChiangEtAl2009} supply a separate
-assay of relative total copy ratio, on the same hg18 coordinate system.
-Between 210.542 and 221.671 Mb, 89.6\% of the 1,152 retained markers receive
-the approximately balanced M221 label, while sequencing copy ratios in that
-interval range from 1.438 to 2.255 (\Cref{fig:genomic-assays}). An approximately
-balanced allele fraction therefore coexists with increased relative DNA
-dosage. The low- and high-fraction bands on either side instead form a
-sustained imbalance profile. This example makes the inferential distinction
-concrete: an allele-fraction component is not an additional regional regime,
-and a balanced regional profile does not establish a diploid copy number
-(two copies in total).
-The sequencing estimates corroborate this distinction; they do not provide
-error-free labels of allelic balance or establish segmentation accuracy.
-
-\begin{figure}[!t]
-\centering
-\includegraphics[width=.96\linewidth]{genomic_assays.pdf}
-\caption{A chromosome-1 interval in the development data. Panel A shows
-M221 allele-fraction profiles, using the colours of
-Figure~\ref{fig:genomic-profiles}. Panel B shows the allelic-imbalance measure
-from PSCBS applied to the same arrays. Panel C shows the published independent
-sequencing copy-ratio segments of Chiang et al. (2009). Allelic balance and
-total dosage measure different properties. This development-data comparison
-is not a held-out classification test.}
-\label{fig:genomic-assays}
-\end{figure}
+\FloatBarrier
 
 \section{Discussion}\label{sec:discussion}
 
-The theoretical and empirical results clarify why additional HMM states can be
-both useful and scientifically misleading. They are useful when they improve
-the approximation of a restrictive observation model. They are misleading
-when approximation components are labelled as new regimes without testing
-plausible emission alternatives.
+The theoretical result separates the number of emission components from the
+number of aggregate regimes. When the aggregate emissions contain more
+identifiable components than an ordinary HMM can supply, the assumptions
+of Theorem~\ref{thm:separation} imply a positive predictive approximation
+gap. Extra simple-emission states can remove this gap through the exact
+refinement construction. They need not introduce new aggregate dynamics.
 
-The equal-component comparisons connect the empirical models to the exact
-refinement result. Constraining the refined transition matrix groups emission
-components into aggregate regimes; relaxing those constraints allows distinct
-component-level persistence. In the genomic analysis, nearly identical
-component distributions yield different raw state counts but very similar
-regional profiles after aggregation. The reduction from five ordinary states
-to three mixture states is supported by near-equality of paired transition
-rows, comparable held-out prediction and the allele-measurement mechanism.
-The model-conditional bootstrap comparison does not reject the refinement
-constraints at 5\%, but this nonrejection is not an equivalence result.
-The symmetry-aware model has a lower BIC and mixed predictive differences
-across held-out sequences. These results illustrate the theoretical
-distinction without establishing a uniformly preferable genomic model. Decoded paths describe fitted partitions rather than an automatic
-state-merging rule.
+The simulation illustrates this mechanism with known aggregate states. The
+genomic application examines its practical counterpart: whether low and
+high allele-fraction bands need separate regional transition laws. M221
+and G5 fit nearly the same component distributions and yield nearly the
+same regional assignments after aggregation. M221 makes the grouping
+explicit and uses fewer parameters. The data illustrate the construction;
+they do not verify all assumptions of the separation theorem or identify a
+unique biological state count.
 
-Several limitations are important. Extra states can correct emissions,
-transitions, missing covariates, temporal resolution, or multiple mechanisms at
-once. Equality or near-equality of observed-law representations cannot identify
-a unique latent ontology. Domain knowledge, robustness to covariates and
-dependence structures, and scientific validation are therefore necessary
-\citep{PohleEtAl2017,McClintockEtAl2020}. The theorem does not prove finite-sample recovery or consistency of BIC
-selection. It is a one-way warning: under its assumptions, the aggregate-state simple-emission model is necessarily
-misspecified.
+Comparisons should therefore distinguish improved emission fit from evidence
+for additional regimes. At a fixed component count, the constrained and
+unrestricted models isolate additional freedom in the latent dynamics.
+BIC, predictive scores and decoded paths then answer different questions.
+The supplementary comparisons show that their rankings need not agree.
+In particular, nonrejection of the refinement constraints in the
+model-conditional bootstrap is not an equivalence result.
 
-The exact result assumes finite mixtures and a positive aggregate transition
-matrix. Heavy-tailed or skewed emissions may require successively richer
-approximations rather than a finite exact refinement. Structural zeros in the
-transition matrix would require blockwise accessibility conditions instead of
-the uniform one-step bound used here.
+The formal result assumes finite mixtures, a compact fitted emission family
+and positive aggregate transitions. Its separation constant can shrink as
+components approach one another or lower weight and transition bounds vanish.
+Heavy-tailed or skewed emissions may require increasingly rich approximations
+rather than a finite exact refinement. Structural zeros would require an
+accessibility argument in place of the uniform one-step bound. The theorem
+also does not establish finite-sample state recovery or BIC consistency;
+the likelihood-selection implication stated in Section~\ref{sec:mechanism}
+requires an additional uniform stochastic limit.
 
-The genomic analysis concerns one cell line and fixed candidate families.
-Chromosomes and technical repeats do not substitute for biological replication.
-Unequal marker spacing, residual dependence and sensitivity of short runs
-limit fine-scale segmentation. The independent sequencing assay measures total
-copy ratio, not the latent allelic profiles, so it cannot establish their true
-number or classification accuracy. The supplementary elk analyses additionally
-show that a favorable Gaussian comparison can weaken under more appropriate
-emission distributions or temporal validation. Neither the theorem nor these
-examples identify a unique set of scientific regimes.
+More generally, extra states can absorb omitted covariates, misspecified
+transitions or unresolved temporal structure as well as restrictive
+emissions. The supplementary elk analyses illustrate sensitivity to these
+modeling choices. Scientific interpretation therefore requires domain
+knowledge and measurements beyond fitted state labels
+\citep{PohleEtAl2017,McClintockEtAl2020}. Neither equivalent observed laws
+nor similar fitted partitions determine a unique scientific interpretation
+of the hidden process.
 
 \section{Conclusion}\label{sec:conclusion}
 
-Emission misspecification can make additional hidden states valuable for
-observed-law approximation even when the scientific process has fewer
-aggregate regimes. Exact refinement and predictive mixture separation explain
-the mechanism. Comparing simple additional-state models with enriched-emission
-models at equal component count distinguishes additional transition freedom
-from additional emission flexibility. In the genomic data, this comparison
-recovers interpretable regional allelic profiles with nearly unchanged
-prediction and fewer transition parameters. Scientific interpretation requires
-evidence beyond the number of fitted states or density modes.
+A simple-emission HMM can gain useful states because its emission family is
+too restrictive. Exact refinement and the predictive separation bound
+explain how this can occur without additional aggregate regimes. Comparing
+ordinary and mixture-emission models at a fixed component count makes the
+extra freedom in latent dynamics explicit. In the chromosome-1 example,
+five Gaussian components describe three regional allelic profiles almost
+unchanged by aggregation of the five-state fit. The scientific meaning of
+those profiles must be assessed separately from the number of fitted states.
 
-\section*{Acknowledgments}
-OpenAI ChatGPT and Codex were used in preparing and revising the text and
-computational materials, including code development, numerical checks and
-editorial assistance. Responsibility for the mathematical arguments,
-interpretation and final content remains with the author.
+\section*{Acknowledgments}\label{sec:acknowledgments}
+OpenAI ChatGPT and Codex were used for manuscript drafting and revision,
+including the genomic application, and for assistance with code development
+and numerical checks. The author is responsible for the mathematical
+arguments, verification and interpretation of results, and the final
+manuscript.
 
 \section*{Funding}
 This research did not receive any specific grant from funding agencies in the
@@ -856,12 +691,12 @@ accession GSE13372, at
 Sequencing segment estimates are in the supplementary materials of
 \citet{ChiangEtAl2009}. The accompanying reproducibility package contains
 processed marker tables, fitted models, scripts, fixed seeds, source hashes
-and numerical tests. It documents regeneration from the original CEL files
+and numerical tests for the simulations, genomic application and
+supplementary elk analyses. It documents regeneration from the original CEL files
 and annotation files, as well as reproduction from the supplied processed
-inputs. The code, processed inputs and computational results for the simulations,
-genomic application and supplementary elk analyses are available at
+inputs. The project repository is
 \url{https://github.com/AurelienNicosiaULaval/corrective-hmm-states}.
-The repository documents the original sources for each data set.
+The package documents the original sources for each data set.
 
 \section*{Ethics statement}
 This study reanalyzes publicly available cell-line measurements and previously

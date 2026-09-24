@@ -13,11 +13,18 @@ Core requirements are Rcpp, data.table, ggplot2, patchwork, clue and testthat. T
 ```
 Rscript genomics/scripts/test_genomic_results.R
 Rscript genomics/scripts/test_symmetric_genomic_hmm.R
+Rscript genomics/scripts/test_genomic_g4.R
 Rscript genomics/scripts/evaluate_genomic_pilot.R
 Rscript genomics/scripts/genomic_diagnostics.R
 ```
 
-The evaluation script uses fixed fitted parameters and resets filtering at recorded sequence boundaries. The file named `confirmation` contains only chromosomes 18–22 and represents a later held-out block in an exploratory analysis. The seven fitted objects and the original protocol, preserved in `audit/protocol_before_confirmation.md`, match the hashes in `audit/confirmation_freeze.json`. The current `GENOMICS_PROTOCOL.md` is an edited reader guide; `audit/protocol_provenance.json` records that distinction. The distributed evaluation script is a later version and does not match its earlier recorded hash. This is not a preregistered confirmatory study. Keep the saved models fixed when reproducing the reported scores.
+The evaluation script uses fixed fitted parameters and resets filtering at recorded sequence boundaries. The file named `confirmation` contains only chromosomes 18–22 and represents a later held-out block in an exploratory analysis. The seven original fitted objects and the original protocol, preserved in `audit/protocol_before_confirmation.md`, match the hashes in `audit/confirmation_freeze.json`. The current `GENOMICS_PROTOCOL.md` is an edited reader guide; `audit/protocol_provenance.json` records that distinction. The distributed evaluation script is a later version and does not match its earlier recorded hash. This is not a preregistered confirmatory study. Keep the saved models fixed when reproducing the reported scores.
+
+G4 was added on 24 September 2026 after the original evaluation results were
+available. Its fixed-parameter scores are a retrospective extension, not
+part of the original model freeze. The main article now contains the
+chromosome-1 comparison; all additional chromosomes, symmetry models and
+genomic segmentation comparisons are in Supporting Information S3.
 
 ## Complete refit
 
@@ -33,7 +40,15 @@ Rscript genomics/scripts/genomic_diagnostics.R
 Rscript genomics/scripts/test_genomic_results.R
 ```
 
-The first command refits all five unrestricted Gaussian/mixture candidates from fixed random seeds, including exact nesting and persistent variance-regime starts. F2/F3 are symmetry-aware comparators. Model choice is always by likelihood within a specified family. Numerical precision can vary across compilers; the independent refit on the reported platform reproduced the selected likelihoods and decoded paths.
+The first command refits the five original Gaussian/mixture candidates and
+then calls `genomic_g4.R` to complete G2--G5. G4 uses 40 screened random starts,
+refinement of the best eight, and nine exact/perturbed duplicated-state G3
+starts. Seed 20261314, stopping tolerances, input hashes and every start's
+likelihood history are saved under `results/genomic_g4`. To reproduce only
+the added fit, run `Rscript genomics/scripts/genomic_g4.R`. It resumes these
+checkpoints and verifies their input and G3-reference hashes. For a full refit
+that changes either input or the G3 file, move `results/genomic_g4` to a backup
+outside the working copy first; stale checkpoints are rejected. F2/F3 are symmetry-aware comparators. Model choice is always by likelihood within a specified family. Numerical precision can vary across compilers; the independent refit on the reported platform reproduced the selected likelihoods and decoded paths.
 
 ## Regenerate from original microarrays
 
@@ -54,7 +69,7 @@ The full raw preprocessing was performed for the analysis. The delivered raw-reg
 
 ## Interpretation and limitations
 
-The application illustrates a statistical modeling problem in one cell line. The fitted states describe regional allelic profiles; they do not identify cell populations, absolute copy-number states, or a known true order. F3 has lower BIC than M221 and a higher confirmation score. PSCBS uses total intensity as well as fractions. Published sequencing segments provide an independent assay of total copy ratio, not ground-truth allelic-state labels. Broad assignments are repeatable, but short runs are sensitive to marker thinning and residual magnitude dependence remains.
+The application illustrates a statistical modeling problem in one cell line. The fitted states describe regional allelic profiles; they do not identify cell populations, absolute copy-number states, or a known true order. F3 has lower BIC than M221 and a higher score on chromosomes 18--22. G4 has the highest score on chromosomes 12--17, despite its worse chromosome-1 BIC and lower score on chromosomes 18--22. PSCBS uses total intensity as well as fractions. Published sequencing segments provide an independent assay of total copy ratio, not ground-truth allelic-state labels. Broad assignments are repeatable, but short runs are sensitive to marker thinning and residual magnitude dependence remains.
 
 ## Refinement constraints
 
@@ -62,3 +77,11 @@ Run `Rscript genomics/scripts/genomic_refinement_bootstrap.R` for the
 model-conditional parametric bootstrap comparing M221 with G5. The script
 resumes saved replicates and retains all fitted parameters and likelihood
 traces; see `results/refinement_bootstrap/protocol.txt`.
+
+## Regenerate the publication tables
+
+After evaluation and diagnostics, run
+`Rscript numerics/scripts/render_publication_tables.R` to regenerate the
+chromosome-1 table and all five supplementary genomic tables. Run the G4
+tests to check independently the fitted likelihood, all evaluation scores,
+parameter counts, start selection and the seven unchanged model hashes.

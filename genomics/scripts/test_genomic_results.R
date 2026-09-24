@@ -24,7 +24,7 @@ test_that('partition, source rows and saved fit summaries agree',{
  expect_equal(unique(val$chromosome),12:17);expect_equal(unique(conf$chromosome),18:22)
  expect_length(intersect(d$marker_index,val$marker_index),0)
  expect_length(intersect(val$marker_index,conf$marker_index),0)
- for(n in c('G2','M21','G3','M221','G5')) {
+ for(n in c('G2','M21','G3','G4','M221','G5')) {
   f<-readfit(n);expect_true(isTRUE(f$converged));expect_true(all(f$sds>=.01))
   expect_true(all(diff(f$log_likelihood_trace)>= -1e-6*(1+abs(f$log_likelihood))))
   expect_equal(f$BIC,-2*f$log_likelihood+f$n_parameters*log(nrow(d)),tolerance=1e-10)

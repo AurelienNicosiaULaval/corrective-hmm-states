@@ -6,8 +6,8 @@
   },
   {
     "path": ".github/workflows/validate.yml",
-    "bytes": 1344,
-    "sha256": "94765b4255bb8a5bb3b7574f9c50e4cdd316d4fa5111490723fde26e718236bf"
+    "bytes": 1397,
+    "sha256": "4a8b7920901e297594f05af5667bb15a5df3e481b7694f6bacc712f863d464a6"
   },
   {
     "path": ".gitignore",
@@ -16,8 +16,8 @@
   },
   {
     "path": "CHANGELOG.md",
-    "bytes": 1548,
-    "sha256": "b30eb48bb0bafcd0eafc0282cd5235078b24c8ff85a6d61807006ff7a3ec2a62"
+    "bytes": 2235,
+    "sha256": "4fc8c9db820a6360b2bc369ae41a9a4da64c2b32c1494f7d284e92738773cd89"
   },
   {
     "path": "CITATION.cff",
@@ -31,18 +31,18 @@
   },
   {
     "path": "README.md",
-    "bytes": 7625,
-    "sha256": "3398ab2b25ce837fd457f32ca8829e0f4653142aa6fd93e4320e52e4df2c8515"
+    "bytes": 7797,
+    "sha256": "5b0b90db2e42f2bee82ff0bf59d276eb15861bae3c48577b8dfe789d8de2c36b"
   },
   {
     "path": "REPRODUCIBILITY.md",
-    "bytes": 8880,
-    "sha256": "146606a11b315a6b27fa8b5fe9dba6b99da35c0ec3c0120c1a4df0423fabd376"
+    "bytes": 9697,
+    "sha256": "f3968ace0678bba6a1de65bda4538fb18307d3cea1e207ef7b17f43759be89bb"
   },
   {
     "path": "article/figure_legends.tex",
-    "bytes": 1328,
-    "sha256": "d29ab1ae41bae2b1ef636f1d12a93fdddc372567637320be440e38082962dc7f"
+    "bytes": 722,
+    "sha256": "724a5ce5ce8ac2084178a8ec36be7f7192d080273a876040f707d09958978e47"
   },
   {
     "path": "article/figures/bic_boxplot.pdf",
@@ -106,8 +106,8 @@
   },
   {
     "path": "article/figures/genomic_profiles.pdf",
-    "bytes": 2080832,
-    "sha256": "cb01ecaf1d99f834e6d4dabfbcedda39186a06e1c05b2a9e77c5110186c47ed5"
+    "bytes": 2080829,
+    "sha256": "6ea1072447e79ba17d06becd6e7d981863bcdb8d37e8613c887628f646e54b07"
   },
   {
     "path": "article/figures/posterior_corrective_state.pdf",
@@ -151,18 +151,18 @@
   },
   {
     "path": "article/main.bbl",
-    "bytes": 11298,
-    "sha256": "ee2d3689c8dd6c541e684c4e0ed0a5dfa1e1ca57e6bb27165599cb5207b1e83a"
+    "bytes": 10128,
+    "sha256": "8d21a7045d101aea7a5c291498c8ebff9a5c5ebfcef90c83539bf856fc6a09cd"
   },
   {
     "path": "article/main.pdf",
-    "bytes": 2698593,
-    "sha256": "a5027e6cc586b907c937010ad0928dfa3ed294bc4b2847031c90d337a58a023f"
+    "bytes": 2499187,
+    "sha256": "045d522b6e2de3336c5505ca0207064c5511bc3ce437555832dba289e104d1e6"
   },
   {
     "path": "article/main.tex",
-    "bytes": 48088,
-    "sha256": "531c99b6ffa6987d14406f533234299ee08e9e2f9e8ebb39dd060e7aa8cb69d7"
+    "bytes": 37065,
+    "sha256": "f854967010c0bdc997f4333cdd6f13133115b7fb90c8565ecfcec425b521120e"
   },
   {
     "path": "article/references.bib",
@@ -186,8 +186,8 @@
   },
   {
     "path": "article/tables/genomic_comparison.tex",
-    "bytes": 965,
-    "sha256": "ea33c98d803b8dfa71c5dd70b2156ec4c9bd5d6ac93f2318975a91ecbca13d80"
+    "bytes": 818,
+    "sha256": "7a463b5b526cb825df049cac5c31bcafce78dca64b12cb8b150c7ec0135d46dd"
   },
   {
     "path": "article/tables/replication_summary_table.tex",
@@ -5391,13 +5391,13 @@
   },
   {
     "path": "genomics/GENOMICS_PROTOCOL.md",
-    "bytes": 3880,
-    "sha256": "3121bc7abc4260b63caea22e086c489f2cb6163deab43ec3ad85d79e2398a37a"
+    "bytes": 4423,
+    "sha256": "de6640f22e1d49cfb51c3e12da8681090d1d662eff658e43c5c4bbda6aeb3b82"
   },
   {
     "path": "genomics/README.md",
-    "bytes": 5976,
-    "sha256": "4448b3aec2ca0a0db3938772c89512da76af59dc00b31f45ea83c466c0f9d789"
+    "bytes": 7407,
+    "sha256": "e02f6177b8891b3e9efe5eb2e4fcf74b9dcbef6bc3f6b463542bd33b6c420104"
   },
   {
     "path": "genomics/audit/annotation_get_checks.json",
@@ -5506,8 +5506,8 @@
   },
   {
     "path": "genomics/audit/protocol_provenance.json",
-    "bytes": 474,
-    "sha256": "ba7670f46c535b007d9dcf7765c13f2536867afc9278245fd8b3e2b2ba283487"
+    "bytes": 609,
+    "sha256": "85d180573e74daf4ac232e6c51ed57c0940a3cfda7f44c3487abeff30e830f9f"
   },
   {
     "path": "genomics/audit/source_urls_checked.json",
@@ -5587,7 +5587,7 @@
   {
     "path": "genomics/results/genomic_diagnostics/genomic_assays.pdf",
     "bytes": 180723,
-    "sha256": "342bb9d1f1e25da9c3994dac9aeb0eb6130d5dc1bbfc928e1b086c92bf171065"
+    "sha256": "fed1248bf4ba2fc1f53b6750ecc35e1ea9c6cbf2bb5299a2f8366af260748b2f"
   },
   {
     "path": "genomics/results/genomic_diagnostics/genomic_assays.png",
@@ -5597,7 +5597,7 @@
   {
     "path": "genomics/results/genomic_diagnostics/genomic_pit.pdf",
     "bytes": 6301,
-    "sha256": "75e1eb84271ec5fcc63a8e5a879d7054bb1b6fcc0780f7173ed778b713d89e4d"
+    "sha256": "3aa7f7795ee2808b75b81b6c85990ef6a0ca4f840ffb99c5e6217737a08c62f1"
   },
   {
     "path": "genomics/results/genomic_diagnostics/genomic_pit.png",
@@ -5606,18 +5606,18 @@
   },
   {
     "path": "genomics/results/genomic_diagnostics/genomic_profiles.pdf",
-    "bytes": 2080832,
-    "sha256": "346388c718153edb79d37553813bfd54bc9b0fc41db226465650874c922231c1"
+    "bytes": 2080829,
+    "sha256": "6ea1072447e79ba17d06becd6e7d981863bcdb8d37e8613c887628f646e54b07"
   },
   {
     "path": "genomics/results/genomic_diagnostics/genomic_profiles.png",
-    "bytes": 687869,
-    "sha256": "8e5a981cf366ed08f8b4f07c8477aee981f21554ac5608c400cd377bfa1a083b"
+    "bytes": 687228,
+    "sha256": "c912c4c3bbe2cb83e5271fb8d0a5b8c3f8eb9f3966cecf02e24da915dab9d8ad"
   },
   {
     "path": "genomics/results/genomic_diagnostics/predictive_calibration.csv",
-    "bytes": 1449,
-    "sha256": "b117c6252fb4857567a92a4ed8df3e13632cb5be58ca00dd0fe5e879ddbddd50"
+    "bytes": 1642,
+    "sha256": "7be85bec76ea134fcb4543ca813d329d681dc80292a3e8e84cb46914ebdf93af"
   },
   {
     "path": "genomics/results/genomic_diagnostics/transition_row_distances.csv",
@@ -5628,6 +5628,306 @@
     "path": "genomics/results/genomic_diagnostics/transition_singular_values.csv",
     "bytes": 123,
     "sha256": "df0bcc136535692ef61741e5ae1cb3670f160545ffdee7ec1c9923a75b76916c"
+  },
+  {
+    "path": "genomics/results/genomic_g4/nested_1_negative.rds",
+    "bytes": 1188,
+    "sha256": "252f5fb4042c8adcdb548e267a55b7799a4feaaeab0d0db2d7313c4f61fefcc6"
+  },
+  {
+    "path": "genomics/results/genomic_g4/nested_1_positive.rds",
+    "bytes": 1191,
+    "sha256": "f73bab580a0034dc412cef1bddb70bb11e1f376515a0c44451fc727ec8d8e484"
+  },
+  {
+    "path": "genomics/results/genomic_g4/nested_1_zero.rds",
+    "bytes": 456,
+    "sha256": "0cf26e67699cdc456589bf01f3b06c478e8413c469a555351e75d42f400a0b2f"
+  },
+  {
+    "path": "genomics/results/genomic_g4/nested_2_negative.rds",
+    "bytes": 1424,
+    "sha256": "4506e6cb3b6f19255eee24b34c7f5f645796173ca8006e42f6e1ee021d8003e7"
+  },
+  {
+    "path": "genomics/results/genomic_g4/nested_2_positive.rds",
+    "bytes": 1428,
+    "sha256": "b416fce39a47a5c88ac394eb51136be8a8a42ceecc185a506db7e57f67c0143b"
+  },
+  {
+    "path": "genomics/results/genomic_g4/nested_2_zero.rds",
+    "bytes": 456,
+    "sha256": "77c395b86389c4248c7ba5bdfd8a93a70f1cc0ba053304beefe8aa824a61bc9a"
+  },
+  {
+    "path": "genomics/results/genomic_g4/nested_3_negative.rds",
+    "bytes": 1083,
+    "sha256": "95f6fdb756ee543753bb5bc5dbe7893c6e982ee134ec805b3a6308f7d65c320f"
+  },
+  {
+    "path": "genomics/results/genomic_g4/nested_3_positive.rds",
+    "bytes": 1078,
+    "sha256": "be527e7302f2687b5020de7049cd696004d0afb641923fe3d4982ce20d4198c5"
+  },
+  {
+    "path": "genomics/results/genomic_g4/nested_3_zero.rds",
+    "bytes": 454,
+    "sha256": "75114224981647fc0f5d0ce489b870a4e71f598424a38059c866cb2ba72c9f90"
+  },
+  {
+    "path": "genomics/results/genomic_g4/protocol.rds",
+    "bytes": 368,
+    "sha256": "bf878840f7251be07887f7204f09e461b476a3006aa36b1a8ad97b628b19f778"
+  },
+  {
+    "path": "genomics/results/genomic_g4/refine_06.rds",
+    "bytes": 594,
+    "sha256": "2ba7b15b9ec0eb40f78aa752b17c7d06b1a3938ec3a5c22bd6f0c0a1af39d396"
+  },
+  {
+    "path": "genomics/results/genomic_g4/refine_12.rds",
+    "bytes": 796,
+    "sha256": "0dbf8ecf1bacd89e88502b9885c1ce0902f184679b204793b97fb74a9ffc127e"
+  },
+  {
+    "path": "genomics/results/genomic_g4/refine_13.rds",
+    "bytes": 591,
+    "sha256": "2474bbe2db5cc6b846f3bdef6cb94ff618b68f5348eccb3ae83eb30a159cd132"
+  },
+  {
+    "path": "genomics/results/genomic_g4/refine_26.rds",
+    "bytes": 600,
+    "sha256": "8dc4f92504027ea684bcd8d71a451d52ce275ba6ac9b6108fb77c739d493c679"
+  },
+  {
+    "path": "genomics/results/genomic_g4/refine_35.rds",
+    "bytes": 827,
+    "sha256": "271ef0a5542e3055e207ce089df33f2759274531aa422ee62791b703880e0da3"
+  },
+  {
+    "path": "genomics/results/genomic_g4/refine_37.rds",
+    "bytes": 595,
+    "sha256": "068472532334146803b0f95dee28c6bd4d593bb53f54ccc4c26e1a4fab09ef2f"
+  },
+  {
+    "path": "genomics/results/genomic_g4/refine_38.rds",
+    "bytes": 575,
+    "sha256": "d60e454e5af64a1f5dd2d2b85c1577f1ea9cca4c1b3229f6fde98f0cee2d26ee"
+  },
+  {
+    "path": "genomics/results/genomic_g4/refine_40.rds",
+    "bytes": 588,
+    "sha256": "1e59f396132179063f2f3cb97e828c80cafaf84eafbd1847edd90bbda0c19ff5"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_01.rds",
+    "bytes": 874,
+    "sha256": "2b57372ecf0fe11fe304c3f116f8a194895ab4222ea3e2a593d6f378d4587351"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_02.rds",
+    "bytes": 652,
+    "sha256": "6d7cc9d1e908e64c41e34969821d84813dea20c10b274728be66bdd562092034"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_03.rds",
+    "bytes": 1279,
+    "sha256": "3567db9f50feb66bde86811afad8fcca007e182c8c3891f227e2316aa4d536b4"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_04.rds",
+    "bytes": 1284,
+    "sha256": "d914d20b0b513ac87ed54618eba68e559fc4f94565872d4422c0a35c1f5d79ae"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_05.rds",
+    "bytes": 705,
+    "sha256": "a10bbb0b4be709368760033d7677e8a42f96a5c5b5e62ae8bf5bd07b4c7e06d4"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_06.rds",
+    "bytes": 692,
+    "sha256": "f0f198c1f209667f795c707708af1e0c667f715c746eb7d6bf13f926879924de"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_07.rds",
+    "bytes": 915,
+    "sha256": "bafc4c6227fcbb2d0d17c9af6c280fdf843d29629bcd7d9df6a5613e0d99ff8e"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_08.rds",
+    "bytes": 766,
+    "sha256": "511e29ab8e5e36735f32bf6c3761b399d478660d97f372710232747de29988dd"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_09.rds",
+    "bytes": 1269,
+    "sha256": "9b3d0d91c4959c8c9f444f5f1247249175d47e04618bc73f5f304b27e2c3450a"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_10.rds",
+    "bytes": 749,
+    "sha256": "125b3e0ef47a1ef684feabd6efb494f319eabeef7bdb0e5df288d0fc743bc519"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_11.rds",
+    "bytes": 941,
+    "sha256": "396525cf27b90765a9b4c0597e2de62a736cadcbda4b22c2335d1a9144cf7440"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_12.rds",
+    "bytes": 730,
+    "sha256": "c8431c5e48405a511f2d92cd613805714f4ee6c05e5688b1b9e5e7e5e19b7a39"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_13.rds",
+    "bytes": 661,
+    "sha256": "4389d13cdf3b729b8e30c9e51cb5a623ca3d64102219ebdc374bacd5ec0687c8"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_14.rds",
+    "bytes": 619,
+    "sha256": "d8d1f484e89c3626f8dff09ee013a434fafd8e88c6a39b70f427e98b5b6cc5c5"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_15.rds",
+    "bytes": 814,
+    "sha256": "05986fd23745281e55d853e88f1285e8079592d2b1d11467047646db30e6d804"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_16.rds",
+    "bytes": 1285,
+    "sha256": "c55596c5f23569725885a86143dd8ee92f3a56845a53318fe998ec77f74a5ca9"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_17.rds",
+    "bytes": 1298,
+    "sha256": "991e843bedc188056504cd72a223cf25f6bafb1d226c5804fc49405cbd900a8a"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_18.rds",
+    "bytes": 1302,
+    "sha256": "9017b6c9a056f92fa7cef25defc9fb70ecc412af1d2fdbc6042f02f5be1262fb"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_19.rds",
+    "bytes": 797,
+    "sha256": "0809ac35938c6dbb16a8a0cc59555ed8e3f04b947c90628bce1a7ccdf27a671e"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_20.rds",
+    "bytes": 724,
+    "sha256": "3da14975a2645b33b4e3bfdf0cce57ae6d80488416cdca681535bfb5e7c5bf8a"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_21.rds",
+    "bytes": 932,
+    "sha256": "c78defc0a059769228bdd9427ce3974b1431d46b4e0afd6b0f74b95db8b260b4"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_22.rds",
+    "bytes": 670,
+    "sha256": "8cf46173363b64186b78181b1974f911d578212383932e924cdfa3f7f795e35a"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_23.rds",
+    "bytes": 699,
+    "sha256": "a21084576892edbe3fc410ef9b7c03369392b9104733100be49d1d1affc3d780"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_24.rds",
+    "bytes": 782,
+    "sha256": "6a08a65c1976f122679b6d516d4ebdf5fcf0d260d5d5b02f39642f02a25a28fd"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_25.rds",
+    "bytes": 697,
+    "sha256": "009f536a329de682d6821be0b77c37683bebf6cbecd44c6b34094d1397cbeaf8"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_26.rds",
+    "bytes": 663,
+    "sha256": "8afbb1885093e35510a1fc30d7a2bc85270d2f5e69c2b2c1c7a9a7bafcf8c55a"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_27.rds",
+    "bytes": 1258,
+    "sha256": "9eabaf0ad937a323a884cc2de0c9e247a6b25fb916b15660f96a22a6f584d40b"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_28.rds",
+    "bytes": 705,
+    "sha256": "ad1f250621a7dab23a3e98e19b1bb390b32ad5ab6b9af50e38eb50845585b633"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_29.rds",
+    "bytes": 683,
+    "sha256": "f0bc97d7e7a39c34d6438a32600439a1d28853ad5ef4e8b619453d859211b5c8"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_30.rds",
+    "bytes": 1015,
+    "sha256": "f7b9129589562b6e1c9a7097d78485261eafc8ec923fa32d4113d9b89771643c"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_31.rds",
+    "bytes": 1271,
+    "sha256": "3af1055a71c1c0bc5a4f191a6749772b4bac2657ee3355eb82ed77cd244345c1"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_32.rds",
+    "bytes": 1278,
+    "sha256": "043b6f4445f2fd45bea4112ee352dff43d94494190b670707ee01d3b6b41faeb"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_33.rds",
+    "bytes": 694,
+    "sha256": "782cb32409d9ba05a1ee62dfff5d71c9ea3982bfc45b46956560d0b8c4b5ac1e"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_34.rds",
+    "bytes": 1212,
+    "sha256": "85a17987ee3f9626dffbe27376ddcfd9dc6142b843f4728e940b08684a6705c1"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_35.rds",
+    "bytes": 732,
+    "sha256": "a1bfdc91167ea2f5c34fc16a628e16e86a3889490fe82e675083843b75310859"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_36.rds",
+    "bytes": 737,
+    "sha256": "6846cc74030c9019f51862e0796bafd882a97fc2a4509b2290c7b9760343b5ce"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_37.rds",
+    "bytes": 644,
+    "sha256": "81b61becddfc9f876db8e8e8948ec70e2406a04518b99b70398d8e28698cbe67"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_38.rds",
+    "bytes": 739,
+    "sha256": "fe707099ca93510b77af863c1d18bfba7c34c2188e3dbeac8e11a8677b759502"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_39.rds",
+    "bytes": 669,
+    "sha256": "59a8e2efe004e923e03a5c7bc21f0f4a2c704acd94efbecd8c07188e78c76433"
+  },
+  {
+    "path": "genomics/results/genomic_g4/screen_40.rds",
+    "bytes": 711,
+    "sha256": "48ec2babb1d66cac17ff9242944f8379737dfcbbd6c88870b38a4c185d0ab3a6"
+  },
+  {
+    "path": "genomics/results/genomic_g4/session_info.txt",
+    "bytes": 701,
+    "sha256": "59d73c4107ce6fbf0e87667566488e64ec23dea636bd212966198285a920d41c"
+  },
+  {
+    "path": "genomics/results/genomic_g4/start_audit.csv",
+    "bytes": 2018,
+    "sha256": "2163fbf57594035819477420001ac8ebd534ae1db3f91ea147b9f675cf3ac179"
   },
   {
     "path": "genomics/results/genomic_pilot/G2.rds",
@@ -5648,6 +5948,16 @@
     "path": "genomics/results/genomic_pilot/G3_decoded.csv",
     "bytes": 2629488,
     "sha256": "0079b4c7cfd07e4e4e369961da598d100a4aa9e78224c493de514c8c4e763289"
+  },
+  {
+    "path": "genomics/results/genomic_pilot/G4.rds",
+    "bytes": 622456,
+    "sha256": "7dbf70794ca94aea98cc8cf202e1f201ce060623ce05a893f9fdf6d5d72c361e"
+  },
+  {
+    "path": "genomics/results/genomic_pilot/G4_decoded.csv",
+    "bytes": 2629488,
+    "sha256": "b0c79a28b2a0a5fcd960bd5108ecf0b2ee72b197e1e8e5c866fc4da73f91c6bd"
   },
   {
     "path": "genomics/results/genomic_pilot/G5.rds",
@@ -5686,13 +5996,13 @@
   },
   {
     "path": "genomics/results/genomic_pilot/metrics.csv",
-    "bytes": 599,
-    "sha256": "e9aaac5bcc1e52532b393183209cbadcdf904b8f08f014db52c53f7cb9d4362f"
+    "bytes": 698,
+    "sha256": "a22dac381825b107aba1162fb1e18134d2ad820614eb69cad1d533f6797b6d23"
   },
   {
     "path": "genomics/results/genomic_pilot/parameters.csv",
-    "bytes": 1630,
-    "sha256": "b9ae04f3c6cfdde3759cc8e1d5e0cddf3198696eb4017119fbeafd49cb3a021a"
+    "bytes": 1955,
+    "sha256": "805129b6c1eb67990309aebada7e0b5ef9db63f42739302166f23118c4c5c7c5"
   },
   {
     "path": "genomics/results/genomic_pscbs/segments.csv",
@@ -5815,6 +6125,11 @@
     "sha256": "5f8018a682a254a024999495022f0795eda79bf059cd3984bde2976eb5376b70"
   },
   {
+    "path": "genomics/results/genomic_validation/allele_flip_G4.csv",
+    "bytes": 87,
+    "sha256": "e8e6a614fd195d48ee084c9a2118d699714ccd98f030b54abd5d95af4c536d58"
+  },
+  {
     "path": "genomics/results/genomic_validation/allele_flip_G5.csv",
     "bytes": 87,
     "sha256": "d39f06ea1d0f820139b31161effbf5f3ed33847cb3169053f4945c2492124c7c"
@@ -5836,8 +6151,8 @@
   },
   {
     "path": "genomics/results/genomic_validation/chromosome_scores.csv",
-    "bytes": 4950,
-    "sha256": "443b1499efea9c71b47efb477ec9ee6db5542e2a21e301ff483fb8426755b443"
+    "bytes": 5640,
+    "sha256": "7ab994c90945659b40387d6fd75c50371606cc55f58a43b84299d75584994a33"
   },
   {
     "path": "genomics/results/genomic_validation/collapsed_confirmation.csv",
@@ -5880,6 +6195,11 @@
     "sha256": "6f12c7b3bc88764126c2bb5f0d984f6f4dbf22e44d248710516e257f4f30bbd4"
   },
   {
+    "path": "genomics/results/genomic_validation/confirmation_G4.csv",
+    "bytes": 3677296,
+    "sha256": "ca8c15cd5e6cea2907c9e210e5ce80ac215c1b69aef015ef5f182a6a70e36842"
+  },
+  {
     "path": "genomics/results/genomic_validation/confirmation_G5.csv",
     "bytes": 3673304,
     "sha256": "f344f38165ab8318ea306d2542606393f98972d17e3b0d8c06d61279755e913b"
@@ -5920,6 +6240,11 @@
     "sha256": "81555672f1b9d6aafb8288783c9079a7834df9a864a42e5da3da5533b3205feb"
   },
   {
+    "path": "genomics/results/genomic_validation/replication_G4.csv",
+    "bytes": 3035753,
+    "sha256": "a8b898ce536d4dffdca9c20615cc8c7c9c697cd56b75d365d065501f90dcd966"
+  },
+  {
     "path": "genomics/results/genomic_validation/replication_G5.csv",
     "bytes": 3032134,
     "sha256": "7dc5ee2f06985fc66382aacbf8204e79fcbb6872e7e1ae3a0565e1ac8da747a9"
@@ -5936,13 +6261,13 @@
   },
   {
     "path": "genomics/results/genomic_validation/scores.csv",
-    "bytes": 1316,
-    "sha256": "64618196a06d79d102520ac11d1d51283c3cfccf87ab2e08164b9bcf04f4d79b"
+    "bytes": 1500,
+    "sha256": "ca631cc7e06cb40267167682ce09d959f9190276ae22b661771d4719ac991206"
   },
   {
     "path": "genomics/results/genomic_validation/technical_replication.csv",
-    "bytes": 228,
-    "sha256": "ef8198cdd14aaaae195492637bd9c7fc252b6bd050248bf7aaab6dd0057cb5e1"
+    "bytes": 255,
+    "sha256": "ecf6298113f2d8eddf90a7b4339dadfbe532474289fbf1f07676a7bcd2db5838"
   },
   {
     "path": "genomics/results/genomic_validation/validation_F2.csv",
@@ -5963,6 +6288,11 @@
     "path": "genomics/results/genomic_validation/validation_G3.csv",
     "bytes": 7621263,
     "sha256": "dd713e2357c4888976efb5c5850d1fccedca0064eb67929833b51ef8c0eb495f"
+  },
+  {
+    "path": "genomics/results/genomic_validation/validation_G4.csv",
+    "bytes": 7623776,
+    "sha256": "bd1707064ac0069941748c2e605d71139ae474cb56c00bf345ea0df6d557cbe0"
   },
   {
     "path": "genomics/results/genomic_validation/validation_G5.csv",
@@ -6996,8 +7326,8 @@
   },
   {
     "path": "genomics/scripts/evaluate_genomic_pilot.R",
-    "bytes": 4934,
-    "sha256": "29f852a50fe1121d3b43121c71a6b512c2965f0a6173306ed0ae99026cd9f5cf"
+    "bytes": 4944,
+    "sha256": "89d2498c5127de99309fa31a1bb99a4f8c1e00fdeb444cb62363e4efc19cc8ba"
   },
   {
     "path": "genomics/scripts/extract_sequencing_table.py",
@@ -7016,13 +7346,18 @@
   },
   {
     "path": "genomics/scripts/genomic_diagnostics.R",
-    "bytes": 7738,
-    "sha256": "3738fe37720c50c8c60dc6fba54193a7f89febe5f8998bf9322c4a2a718ec62c"
+    "bytes": 7733,
+    "sha256": "8255f9cacf7cc0be772e49be95f1aa88f91f14d1177ea6d50611a07d19fdd572"
+  },
+  {
+    "path": "genomics/scripts/genomic_g4.R",
+    "bytes": 6994,
+    "sha256": "292ca8b28d52cbe396599414a100255b6b00a7b10e2330f95320f27f6a23d24a"
   },
   {
     "path": "genomics/scripts/genomic_pilot.R",
-    "bytes": 6622,
-    "sha256": "1671b6fc6fb72be71eb72c8e9c126b6282340fa9d5dc5f0ff98a49f377969b9d"
+    "bytes": 6736,
+    "sha256": "6c402e8ab3229b8626de25bbc64e5b82bd5bfbb40b5eaec00444b90993594451"
   },
   {
     "path": "genomics/scripts/genomic_pscbs_comparison.R",
@@ -7075,9 +7410,14 @@
     "sha256": "a8a7f8e89685294e7dda7e6b5cf229335d441dd159119aea09321b908fc50bb3"
   },
   {
+    "path": "genomics/scripts/test_genomic_g4.R",
+    "bytes": 5565,
+    "sha256": "dda751126331fc23893a667321ff0bc90ef8e2520ab041cde83fdc09781f39a8"
+  },
+  {
     "path": "genomics/scripts/test_genomic_results.R",
-    "bytes": 3984,
-    "sha256": "a9e75bad9d5e602b4526036db4b0da52d71a9305eeba4fa31c9b6d7295e2be07"
+    "bytes": 3989,
+    "sha256": "2ec9a9593450d690849ee1fa8cf531dd97e0e0f4079a86a10ba9109b009b07fb"
   },
   {
     "path": "genomics/scripts/test_symmetric_genomic_hmm.R",
@@ -10271,8 +10611,8 @@
   },
   {
     "path": "numerics/scripts/render_publication_tables.R",
-    "bytes": 2316,
-    "sha256": "12256f16f45b7bef0649aad4fed6d5a71f4cc64098c183585d423407867789c5"
+    "bytes": 6189,
+    "sha256": "a6e6c709dcc185400c6f162b6ece75bd931b0dd286a5359cedc1cc0401915868"
   },
   {
     "path": "numerics/scripts/render_revision_outputs.R",
@@ -10350,6 +10690,11 @@
     "sha256": "4ad0470bc460f9f14a8cd8bb54aa9e733e6625bbdf4596e180b07c040035eb75"
   },
   {
+    "path": "numerics/tests/testthat.R",
+    "bytes": 77,
+    "sha256": "0aaea519b6b7cef911b1f15b44352596429c3d820a7a61d8abe73fa155434a92"
+  },
+  {
     "path": "numerics/tests/testthat/helper-load.R",
     "bytes": 272,
     "sha256": "16d1f1ad2c7e6644403af2bd057104156a35a8bb047e144d4605dcdc4d62df37"
@@ -10360,9 +10705,9 @@
     "sha256": "3436543f91190f276a6e56b9e3ca359ad2ab7be3057c2d9836af4e64d4a46c48"
   },
   {
-    "path": "numerics/tests/testthat.R",
-    "bytes": 77,
-    "sha256": "0aaea519b6b7cef911b1f15b44352596429c3d820a7a61d8abe73fa155434a92"
+    "path": "renv.lock",
+    "bytes": 132068,
+    "sha256": "72a3948978777e1e4999fb67cbb50acb73f7b57755b377c529466a11f16aff23"
   },
   {
     "path": "renv/.gitignore",
@@ -10378,11 +10723,6 @@
     "path": "renv/settings.json",
     "bytes": 412,
     "sha256": "965ebd30972d4dee75c91a2ba32242c64d5d0a4c6f1d386f6c73b3979ee4dc19"
-  },
-  {
-    "path": "renv.lock",
-    "bytes": 132068,
-    "sha256": "72a3948978777e1e4999fb67cbb50acb73f7b57755b377c529466a11f16aff23"
   },
   {
     "path": "supplement/figures/bic_boxplot.pdf",
@@ -10425,9 +10765,14 @@
     "sha256": "17f0a2ccbb90c698b4b7c49c76642578f55ee7fdce14dcde736bff49912afe65"
   },
   {
+    "path": "supplement/figures/genomic_assays.pdf",
+    "bytes": 180723,
+    "sha256": "fed1248bf4ba2fc1f53b6750ecc35e1ea9c6cbf2bb5299a2f8366af260748b2f"
+  },
+  {
     "path": "supplement/figures/genomic_pit.pdf",
     "bytes": 6301,
-    "sha256": "75e1eb84271ec5fcc63a8e5a879d7054bb1b6fcc0780f7173ed778b713d89e4d"
+    "sha256": "3aa7f7795ee2808b75b81b6c85990ef6a0ca4f840ffb99c5e6217737a08c62f1"
   },
   {
     "path": "supplement/figures/movement_pit.pdf",
@@ -10446,13 +10791,13 @@
   },
   {
     "path": "supplement/supporting_information.pdf",
-    "bytes": 584692,
-    "sha256": "7966d872bee1b0e701e7d08b8451d6ac5d7f86df88b6f17c6378c09308c83a29"
+    "bytes": 770852,
+    "sha256": "63e96daac8d1a911ade3da4509e08c41c6a6c4283606ebf18c6162526c884c11"
   },
   {
     "path": "supplement/supporting_information.tex",
-    "bytes": 51639,
-    "sha256": "e8b505d771c99741663c355ded624172a3cc5a56e64d1bedca614160ac14f1f6"
+    "bytes": 57500,
+    "sha256": "565d28bc7e425fcab51fa1daffb55eb50272bc80ed987bc08bfed673daa956cf"
   },
   {
     "path": "supplement/tables/elk_convergence.tex",
@@ -10476,18 +10821,23 @@
   },
   {
     "path": "supplement/tables/genomic_calibration.tex",
-    "bytes": 830,
-    "sha256": "faaccc757e597d28590215fb71185c5772f7b5e719d51a573bf0d3066f3ec7f9"
+    "bytes": 1342,
+    "sha256": "0b9eb7d0f3dd9fdeeccb8693eaa37f242f6777e56b514d4d46164c1c0adbdb30"
   },
   {
     "path": "supplement/tables/genomic_chromosomes.tex",
-    "bytes": 723,
-    "sha256": "09d63c435632f5b5ba53b322534106f60b404fc581c42808151dedc98adf2f86"
+    "bytes": 865,
+    "sha256": "7ac263d5785acf1c31c6ddc212deed41a5906746667c564f9ca7fdb8d044ec55"
+  },
+  {
+    "path": "supplement/tables/genomic_comparison_full.tex",
+    "bytes": 965,
+    "sha256": "9b8b37c5853f4d2992387bc38031cacfe7a7f29d75732efdb1ddaecdc53813f9"
   },
   {
     "path": "supplement/tables/genomic_estimation.tex",
-    "bytes": 596,
-    "sha256": "01ea8c144ac4c999e5e233f69f529af58b436478d6815035149aac06935c464b"
+    "bytes": 730,
+    "sha256": "b5436f2ddfa54b59b09937337c66169662bfddeb8dfdc9005bab4f24b4cbf682"
   },
   {
     "path": "supplement/tables/genomic_sensitivity.tex",
@@ -10521,7 +10871,7 @@
   },
   {
     "path": "tools/validate_repository.R",
-    "bytes": 7244,
-    "sha256": "7ede4ea38afbff6284f4ff4509c31aa4ff97137b5151f5697896071d25163161"
+    "bytes": 8284,
+    "sha256": "dbebfb2a198c13552e04c205e3ada21aacd02ea15dbdc42e192d1fc37a72c920"
   }
 ]

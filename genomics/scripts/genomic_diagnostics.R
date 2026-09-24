@@ -39,7 +39,7 @@ cal <- list();pit_data <- list()
 for(key in c('validation','confirmation')) {
  file <- if(key=='validation')'validation_chr12_17.csv' else 'confirmation_chr18_22.csv'
  z <- fread(file.path(root,'data/genomics',file));start<-c(TRUE,diff(z$sequence)!=0)
- for(name in c('G2','M21','G3','M221','G5','F2','F3')) {
+ for(name in c('G2','M21','G3','G4','M221','G5','F2','F3')) {
   sym<-startsWith(name,'F')
   f<-readRDS(file.path(root,'results',if(sym)'genomic_symmetry_benchmark' else 'genomic_pilot',paste0(name,'.rds')))
   k<-if(sym)length(f$mu) else f$K
@@ -70,7 +70,7 @@ b <- ggplot(bd,aes(position/1e6,beta_corrected,color=ordinary_state))+geom_point
 y<-seq(-.12,1.12,length.out=1400)
 comp<-rbindlist(lapply(1:3,function(k)rbindlist(lapply(seq_len(m$component_counts[k]),function(j)data.table(y=y,density=m$weights[k,j]*dnorm(y,m$means[k,j],m$sds[k,j]),profile=factor(labels[k],levels=labels),component=paste(k,j))))))
 total<-comp[,.(density=sum(density)),by=.(y,profile)]
-c <- ggplot(total,aes(y,density,color=profile))+geom_line(linewidth=.65)+geom_line(data=comp,aes(group=component),linetype=2,linewidth=.35)+scale_color_manual(values=palette)+labs(x='Corrected tumor B-allele fraction',y='Conditional density',title='C  State densities and weighted within-state components',color=NULL)+base_theme
+c <- ggplot(total,aes(y,density,color=profile))+geom_line(linewidth=.65)+geom_line(data=comp,aes(group=component),linetype=2,linewidth=.35)+scale_color_manual(values=palette)+labs(x='Tumor B-allele fraction',y='Conditional density',title='C  State densities and weighted within-state components',color=NULL)+base_theme
 p <- a/b/c+plot_layout(heights=c(1,1,1))
 ggsave(file.path(out,'genomic_profiles.pdf'),p,width=7.1,height=7.7);ggsave(file.path(out,'genomic_profiles.png'),p,width=7.1,height=7.7,dpi=170)
 # The zoom is an illustration on the development chromosome, not held-out truth.

@@ -1,8 +1,10 @@
 {
-  "description": "The original protocol is preserved byte for byte. The current guide was edited for publication on 17 September 2026; no analytical settings were changed.",
+  "description": "The original protocol is preserved byte for byte. The current reader guide was edited on 17 September 2026 and amended on 24 September 2026 to document the retrospective addition of G4. The seven original model files are unchanged.",
   "original_recorded_path": "GENOMICS_PROTOCOL.md",
   "archived_path": "audit/protocol_before_confirmation.md",
   "original_sha256": "278152175c8ff1bb0def8771e661e9a99fb20c1c65c201dffb5f32046bc57bbf",
   "freeze_record": "audit/confirmation_freeze.json",
-  "current_guide": "GENOMICS_PROTOCOL.md"
+  "current_guide": "GENOMICS_PROTOCOL.md",
+  "amendment_date": "2026-09-24",
+  "added_model": "G4"
 }
