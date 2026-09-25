@@ -179,6 +179,15 @@ This proves the finite-sequence assertion for every $T\geq1$.
 Dividing by $T$ and taking a lower limit proves the positive
 relative-entropy-rate bound.
 
+For any integer $1\leq K<R$, keep the true process fixed and replace the
+candidate class by $\Hcal_K(\Fcal)$. As in Lemma~2.3, $\Acal_c$ and
+$\Mcal_K$ are compact and disjoint, so their $L^1$ distance $d_{c,K}$ is
+positive. Each candidate predictive density belongs to $\Mcal_K$, while
+every true prediction remains in $\Acal_c$. Pinsker's inequality and the
+chain rule give $T d_{c,K}^2/2$. The true aggregate-state count $K_0$ and
+weight bound $c$ remain unchanged; only the candidate class and its
+separation constant change.
+
 \subsection{Proof of Corollary~2.7: enriched-emission representation}
 
 Each true emission $g_k$ belongs to $\Mcal_M$ when
@@ -217,6 +226,10 @@ likelihoods. The per-replication parameters, stopping diagnostics, original
 results and comparisons are retained in
 \path{numerics/output/optimization_audit}. These checks address observed
 optimization failures without proving global optimality.
+In that directory, \path{original_replications.csv} records the initial
+fits and \path{comparison.csv} matches them to the final fits by sample
+size, replication and seed. Of the 40 initial G2-over-G3 BIC preferences,
+39 change to G3 after the additional starts and convergence refinement.
 The R and compiled implementations add $10^{-10}$ to initial-state and
 transition counts, and $10^{-12}$ to active component counts and emission
 update denominators. These numerical safeguards do not change the stated
@@ -358,6 +371,12 @@ and sequence recursion. Parameters, complete start-level likelihood traces
 and input hashes are retained in \path{genomics/results/genomic_g4}. The tests independently compare the
 multiple-sequence recursion with direct path enumeration and verify that
 changing later observations cannot alter earlier predictive probabilities.
+In addition, \path{genomics/scripts/test_genomic_g4.R} reconstructs G4
+emission densities with the R normal-density function and recomputes its
+sequential log scores on the technical repeat, chromosomes 12--17 and
+chromosomes 18--22. The checks compare total scores, per-marker contributions
+and sums of chromosome-specific scores with the saved results, using the
+fixed fitted parameters and the stated sequence boundaries.
 
 \input{tables/genomic_estimation.tex}
 
@@ -369,6 +388,26 @@ We retain this diagnostic rather than treating its BIC as a regular-model
 order test. The lower variance bound is inactive in every selected primary fit.
 Relative convergence of EM and multiple starts do not prove global optimality;
 all screened and refined likelihoods are retained in the fitted objects.
+
+\paragraph{Regional parameters and transition diagnostics.}
+For the M221 profiles labelled strong imbalance, moderate imbalance and
+approximate balance, posterior occupations are 38.3\%, 49.2\% and 12.5\%,
+and self-transition probabilities are 0.988, 0.998 and 0.963, respectively.
+Occupations are averages of the smoothed state probabilities over the
+development observations, not proportions of biological cell populations.
+After matching the G5 emissions to M221, the two G5 state pairs have
+transition-row total-variation distances 0.0104 and 0.0065, calculated as
+one half of the sum of absolute row differences. The five singular values
+of the G5 transition matrix are approximately
+$1.0003,0.9951,0.9546,0.0090,0.0051$.
+These are descriptive diagnostics of the fitted transition structure.
+Small row distances and small singular values do not establish exact
+rank three or the full refinement factorization, which also constrains
+destination-component proportions. Parameters are retained in
+\path{genomics/results/genomic_pilot/parameters.csv}; the transition
+diagnostics and their regeneration script are in
+\path{genomics/results/genomic_diagnostics} and
+\path{genomics/scripts/genomic_diagnostics.R}.
 
 \paragraph{Likelihood-ratio calibration for the refinement constraints.}
 The prespecified grouping has two paired emissions and one single emission.

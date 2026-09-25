@@ -331,6 +331,16 @@ for every $T$, hence the positive rate gap. This
 argument concerns observed predictive distributions and does not align hidden
 paths.
 
+More generally, for any integer $1\leq K<R$, define
+$d_{c,K}:=\inf_{p\in\Acal_c}\inf_{q\in\Mcal_K}\norm{p-q}_1>0$.
+The same argument gives
+$D\{(P_0^Y)^{1:T}\Vert Q^{1:T}\}\geq T d_{c,K}^2/2$
+for every $Q\in\Hcal_K(\Fcal)$. The constant depends on $K$;
+$d_{c,K_0}=d_c$. Thus the approximation gap persists whenever the candidate
+has fewer states than the true number of distinct emission components,
+not only when it has $K_0$ states. Supporting Information S1.4 gives the
+argument for this extension.
+
 \begin{corollary}[Enriched-emission representation]\label{cor:enriched}
 If the fitted emission family is enlarged from $\Fcal$ to $\Mcal_M$, with an
 integer $M\geq\max_{1\leq k\leq K_0}m_k$, then
@@ -482,6 +492,10 @@ relevant to the scientific question.
 
 \section{Simulation study}\label{sec:simulation}
 
+We write G$K$ for a $K$-state Gaussian HMM. For mixture-emission models,
+the digits after M give the component counts in successive states: M21
+has counts $(2,1)$, M22 has $(2,2)$, and M221 has $(2,2,1)$.
+
 We first isolate the mechanism in a controlled setting. The data-generating
 process has two aggregate states, transition matrix
 \begin{equation*}
@@ -521,13 +535,13 @@ are nearly equal on average, and the mean M22-minus-G3 BIC differences
 $-6.5,-7.7,-8.6$ are close to $-\log T$. The preference mainly reflects
 M22's smaller parameter count (13 versus 14), rather than a substantial
 improvement in fit.
-Each model retains the best fit from the original random starts and
-additional data-derived starts. In particular, the exact refinement of a
-fitted M21 model supplies a G3 start, without using generating parameters.
-Relative likelihood convergence is checked at $10^{-9}$. The more thorough
-optimization reverses 39 of the 40 original G2--G3 BIC preferences for two
-states; those original failures primarily reflected local maxima rather
-than state-order selection. SI S2 documents the protocol and retained fits.
+An initial fitting protocol preferred G2 over G3 by BIC in 40 of the 600
+replications. The reported fits use additional data-derived starts and
+refinement to relative likelihood tolerance $10^{-9}$. In particular, an
+exact refinement of a fitted M21 model supplies a G3 start without using
+generating parameters. This improved optimization changes 39 of those 40
+preferences to G3: the initial G2 preferences mainly reflected incomplete
+optimization. SI S2 documents both protocols and the retained fits.
 The enriched candidate has four components although the
 data-generating distribution has three; these frequencies therefore do not
 isolate the equal-component comparison of Section~\ref{sec:workflow}.
@@ -554,13 +568,18 @@ within one regional profile. The question is whether the bands require
 separate transition dynamics. Data details are given in Supporting
 Information S3.1.
 
-We fit Gaussian HMMs with two through five states (G2--G5) to 20,697 ordered
-markers. M21 has two Markov states with component counts $(2,1)$; M221 has
-three with counts $(2,2,1)$. The M21/G3 and M221/G5 comparisons hold the total
+We fit G2--G5, M21 and M221 to 20,697 ordered markers. Each Markov state
+of a mixture model represents a regional profile, corresponding to an
+aggregate regime in Section~\ref{sec:mechanism}.
+The M21/G3 and M221/G5 comparisons hold the total
 number of Gaussian components fixed. In particular, M221 corresponds to
 $K_0=3$ and $R=5$ in Proposition~\ref{prop:refinement}. G5 relaxes its
 component-group transition and initial-distribution constraints, adding
-14 parameters without adding emission components. Multiple starts and
+14 parameters without adding emission components. If an M221 process
+satisfied the assumptions of Theorem~\ref{thm:separation}, its extension
+to $K<R$ would give a positive approximation gap for G2--G4. This motivates
+examining emission complexity; the fitted data do not verify those assumptions.
+Multiple starts and
 numerical checks are documented in Supporting Information S3.2.
 
 \subsection{Chromosome-1 results}\label{sec:genomic-results}
@@ -580,6 +599,10 @@ the refinement construction is G5 versus M221: G5 estimates almost the
 same five component distributions, gains only 9.13 log-likelihood units,
 and has a BIC 120.87 higher. Thus, on this chromosome the additional
 component-level transition freedom produces little improvement in fit.
+A model-conditional parametric bootstrap under M221 gives a likelihood-ratio
+statistic of 18.26 and a Monte Carlo p-value of 0.09 from 199 replicates
+(Supporting Information S3.2), without rejecting the refinement constraints
+at the 5\% level.
 
 The raw G5 Viterbi path has 9,123 runs, compared with 181 for M221.
 Many G5 switches are between the low and high bands within the same regional
@@ -602,7 +625,8 @@ The densities are conditional on the aggregate state.}
 A second array pair measures the same cell lines again. With the
 chromosome-1 estimates held fixed, M221 and G5 have almost identical
 sequential log scores on this technical repeat (Table~\ref{tab:genomic-comparison}).
-M221 assigns the same profile to 98.08\% of the 19,727 shared markers.
+The M221 paths decoded from the first and second array pairs assign the
+same regional profile to 98.08\% of the 19,727 shared markers.
 These results assess repeatability within this cell line, not performance
 across patients or accuracy against known regional states.
 
@@ -612,8 +636,10 @@ regional regimes. Unequal marker spacing and residual dependence also limit
 the interpretation of individual short runs. Supplementary analyses include
 prediction and calibration (S3.3), repeatability and sensitivity (S3.4),
 models incorporating allelic symmetry (S3.5), and comparisons with genomic
-segmentation and independent sequencing (S3.6). They retain the advantages
-of alternative models and the limits of the regional interpretation.
+segmentation and independent sequencing (S3.6). S3.3 identifies evaluation
+sequences on which other models predict better; S3.5 reports the fit and
+prediction trade-offs of imposing symmetry. S3.6 examines how the inferred
+profiles relate to measurements from other methods.
 
 \FloatBarrier
 
@@ -639,7 +665,9 @@ Comparisons should therefore distinguish improved emission fit from evidence
 for additional regimes. At a fixed component count, the constrained and
 unrestricted models isolate additional freedom in the latent dynamics.
 BIC, predictive scores and decoded paths then answer different questions.
-The supplementary comparisons show that their rankings need not agree.
+On chromosome 1, M221 has the lower BIC while G5 has a slightly higher
+technical-repeat score (Table~\ref{tab:genomic-comparison}); neither criterion
+alone establishes the regional interpretation.
 In particular, nonrejection of the refinement constraints in the
 model-conditional bootstrap is not an equivalence result.
 
@@ -669,8 +697,9 @@ too restrictive. Exact refinement and the predictive separation bound
 explain how this can occur without additional aggregate regimes. Comparing
 ordinary and mixture-emission models at a fixed component count makes the
 extra freedom in latent dynamics explicit. In the chromosome-1 example,
-five Gaussian components describe three regional allelic profiles almost
-unchanged by aggregation of the five-state fit. The scientific meaning of
+M221 represents three regional profiles using five Gaussian components.
+Grouping the five G5 states gives nearly the same regional assignments.
+The scientific meaning of
 those profiles must be assessed separately from the number of fitted states.
 
 \section*{Acknowledgments}\label{sec:acknowledgments}
