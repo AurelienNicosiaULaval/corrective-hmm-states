@@ -1,7 +1,8 @@
-# Revision of 24 September 2026 (not yet released)
+# Revision of 25 September 2026
 
 - Add the four-state Gaussian HMM to the chromosome-1 comparison, with fixed
-  seeds, start-level records and independently verified predictions.
+  seeds, start-level records, likelihood cross-checks and recomputed
+  fixed-parameter prediction scores.
 - Condense the main application to chromosome 1 and move preprocessing,
   additional chromosomes, symmetry models and segmentation comparisons to
   Supporting Information.
@@ -9,7 +10,12 @@
   emission components and regional profiles.
 - Preserve the original seven models and document G4 as a retrospective
   addition; retain the comparisons favourable to G4 and F3.
-- Clarify the acknowledgement of ChatGPT and Codex assistance.
+- Clarify the acknowledgement of ChatGPT and Codex assistance, and disclose
+  Claude's role in critical review and suggestions.
+- Report Monte Carlo precision for the simulation selection frequencies
+  and mean BIC differences.
+- Keep the publisher's supplementary PDF outside the current repository
+  distribution; retain its source URL, digest and extracted numerical table.
 
 # Changes
 

@@ -11,13 +11,13 @@
   },
   {
     "path": ".gitignore",
-    "bytes": 640,
-    "sha256": "740c80a153b358ba5a3f161e6f1b205ee804877a2c92d59a5820d9c9e69cfc19"
+    "bytes": 703,
+    "sha256": "bcd98f46ff13afe4fa28d7390cfa5fc78628758576e8416cef21e4284c325c9a"
   },
   {
     "path": "CHANGELOG.md",
-    "bytes": 2235,
-    "sha256": "4fc8c9db820a6360b2bc369ae41a9a4da64c2b32c1494f7d284e92738773cd89"
+    "bytes": 2567,
+    "sha256": "c68670662d684b19c38c715ffaa996eb92993832ceeb504d32e7db5fbcff613f"
   },
   {
     "path": "CITATION.cff",
@@ -31,13 +31,13 @@
   },
   {
     "path": "README.md",
-    "bytes": 7905,
-    "sha256": "c22dbe37d5262468344e97a91f6be3548eba40a564a801e72cc6359b017d2f82"
+    "bytes": 8047,
+    "sha256": "3d88f8a0549dc641939b58418580835527bb94b81d19d5ea6eedd6f94997ce56"
   },
   {
     "path": "REPRODUCIBILITY.md",
-    "bytes": 9697,
-    "sha256": "f3968ace0678bba6a1de65bda4538fb18307d3cea1e207ef7b17f43759be89bb"
+    "bytes": 9858,
+    "sha256": "3a929702add09c8c4aae63e0d8ad6b19d715254262585934b77a69d5143d5409"
   },
   {
     "path": "article/figure_legends.tex",
@@ -5396,8 +5396,8 @@
   },
   {
     "path": "genomics/README.md",
-    "bytes": 7854,
-    "sha256": "3ebfebec7f634babc8514b327c5981cb99a5d0155f9201f55deb34104e048d54"
+    "bytes": 7889,
+    "sha256": "76c8c62d1e4826ebf7483b58f5cd35421d9cca8ca7739441ff804ddc35e28162"
   },
   {
     "path": "genomics/audit/annotation_get_checks.json",
@@ -5916,8 +5916,8 @@
   },
   {
     "path": "genomics/results/genomic_g4/session_info.txt",
-    "bytes": 701,
-    "sha256": "59d73c4107ce6fbf0e87667566488e64ec23dea636bd212966198285a920d41c"
+    "bytes": 683,
+    "sha256": "d067f12b369026dd1ac53ffc1c78fa17f7edf054a8298c26645b6c463188595a"
   },
   {
     "path": "genomics/results/genomic_g4/start_audit.csv",

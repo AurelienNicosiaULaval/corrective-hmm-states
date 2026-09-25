@@ -22,7 +22,8 @@ genomic data, analysis scripts, fitted models, 600 simulation replicates and
 | Full reproduction instructions | [REPRODUCIBILITY.md](REPRODUCIBILITY.md) |
 | Data download URLs and SHA-256 hashes | [genomics/source_manifest.json](genomics/source_manifest.json) |
 | Version history | [CHANGELOG.md](CHANGELOG.md) |
-| Downloadable materials | [Releases](https://github.com/AurelienNicosiaULaval/corrective-hmm-states/releases/latest) |
+| Current downloadable materials | [Repository ZIP](https://github.com/AurelienNicosiaULaval/corrective-hmm-states/archive/refs/heads/main.zip) |
+| Earlier archived versions | [Releases](https://github.com/AurelienNicosiaULaval/corrective-hmm-states/releases) |
 
 The scientific question is whether extra Gaussian HMM states describe
 additional persistent regimes or compensate for an overly simple emission

@@ -31,8 +31,11 @@ supplementary movement analyses, with checks of the saved estimates.
 40 random starts and nine duplicated-state G3 starts. Checkpoints record
 input and reference hashes and are resumed only when those hashes match.
 The complete genomic fitting script calls this extension automatically.
-`Rscript genomics/scripts/test_genomic_g4.R` independently checks the G4
-likelihood, all fixed-parameter scores and the seven unchanged model hashes.
+`Rscript genomics/scripts/test_genomic_g4.R` cross-checks the G4 likelihood
+and the seven unchanged model hashes. Fixed-parameter evaluation scores
+are recomputed using R emission densities and the same compiled forward
+recursion as the evaluation pipeline; this is not an independent filtering
+implementation.
 After evaluation and diagnostics, regenerate all genomic tables with
 `Rscript numerics/scripts/render_publication_tables.R`.
 

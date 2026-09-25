@@ -33,6 +33,7 @@ supplement/notes_for_revision.md
 genomics/library/
 genomics/genomic_processing/
 genomics/data/genomics/*.CEL.gz
+genomics/data/genomics/Chiang2009_sequencing_segments_hg18.pdf
 
 # Archived bibliography and computational provenance are distributed
 !article/main.bbl

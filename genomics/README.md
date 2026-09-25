@@ -67,8 +67,8 @@ The Python extraction command requires pypdf. Source downloads are checked again
 
 The full raw preprocessing was performed for the analysis. The delivered raw-regeneration instructions fix the coordinate export that was initially performed as a separate step. The supplied processed-input path, numerical refit, predictive evaluation, table extraction and tests were verified separately; the raw download-and-preprocess sequence was not repeated from a second empty machine.
 
-The publisher's original supplementary PDF is not bundled with the revision
-archive. Its download URL and SHA-256 digest are in `source_manifest.json`;
+The publisher's original supplementary PDF is not bundled with the current
+repository distribution or revision archive. Its download URL and SHA-256 digest are in `source_manifest.json`;
 `fetch_sources.py` retrieves it in the raw-regeneration sequence above.
 The extracted numerical table used for the analysis is supplied.
 
