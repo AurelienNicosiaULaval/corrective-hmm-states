@@ -156,13 +156,13 @@
   },
   {
     "path": "article/main.pdf",
-    "bytes": 2501188,
-    "sha256": "a961655a9ab68b6de2f313e64d2a58d96ac14c81a780aa5195dfa9d64b183574"
+    "bytes": 2501422,
+    "sha256": "52c46985111ab3c98e2a8e12fc7f7d9ccf451b14e5493c7f9a5635c70d2a12fb"
   },
   {
     "path": "article/main.tex",
-    "bytes": 38611,
-    "sha256": "7625b12204ffb41a2ee9848f9097ef5da3e6ba0ee1d801de3322d07a80ceb985"
+    "bytes": 38843,
+    "sha256": "b43699e50f7084242bbed5f986d37675550dd10827ac4a0021d3153a93596115"
   },
   {
     "path": "article/references.bib",
@@ -7411,8 +7411,8 @@
   },
   {
     "path": "genomics/scripts/test_genomic_g4.R",
-    "bytes": 5565,
-    "sha256": "dda751126331fc23893a667321ff0bc90ef8e2520ab041cde83fdc09781f39a8"
+    "bytes": 5583,
+    "sha256": "02a9767b375012bf96184896315a68b139f3a929c7c1d52f8de1688773dd9d07"
   },
   {
     "path": "genomics/scripts/test_genomic_results.R",
@@ -10791,13 +10791,13 @@
   },
   {
     "path": "supplement/supporting_information.pdf",
-    "bytes": 774934,
-    "sha256": "9e8ddea3c2cf519775deeed35240cfa4babec3929177a738a0595c2c73d56a40"
+    "bytes": 775191,
+    "sha256": "6117b11fe2f07216684f4a15aca29c17721b669f4266d27d426d39ba9a20317a"
   },
   {
     "path": "supplement/supporting_information.tex",
-    "bytes": 59958,
-    "sha256": "25b76ae189979085ae72cd51436cb4eaffddf6e82b115b3cd9fa666993411573"
+    "bytes": 60345,
+    "sha256": "a42cf3b527bc142b617bcd7a36c69058558ce16f1a7ea9bfac3b0d997ff5b82a"
   },
   {
     "path": "supplement/tables/elk_convergence.tex",

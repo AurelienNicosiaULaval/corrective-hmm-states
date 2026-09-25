@@ -332,8 +332,8 @@ argument concerns observed predictive distributions and does not align hidden
 paths.
 
 More generally, for any integer $1\leq K<R$, define
-$d_{c,K}:=\inf_{p\in\Acal_c}\inf_{q\in\Mcal_K}\norm{p-q}_1>0$.
-The same argument gives
+$d_{c,K}:=\inf_{p\in\Acal_c}\inf_{q\in\Mcal_K}\norm{p-q}_1$.
+As in Lemma~\ref{lem:separation}, $d_{c,K}>0$. The same argument gives
 $D\{(P_0^Y)^{1:T}\Vert Q^{1:T}\}\geq T d_{c,K}^2/2$
 for every $Q\in\Hcal_K(\Fcal)$. The constant depends on $K$;
 $d_{c,K_0}=d_c$. Thus the approximation gap persists whenever the candidate
@@ -541,7 +541,8 @@ refinement to relative likelihood tolerance $10^{-9}$. In particular, an
 exact refinement of a fitted M21 model supplies a G3 start without using
 generating parameters. This improved optimization changes 39 of those 40
 preferences to G3: the initial G2 preferences mainly reflected incomplete
-optimization. SI S2 documents both protocols and the retained fits.
+optimization. SI S2 documents the final protocol and identifies the
+retained initial fits.
 The enriched candidate has four components although the
 data-generating distribution has three; these frequencies therefore do not
 isolate the equal-component comparison of Section~\ref{sec:workflow}.
@@ -599,10 +600,10 @@ the refinement construction is G5 versus M221: G5 estimates almost the
 same five component distributions, gains only 9.13 log-likelihood units,
 and has a BIC 120.87 higher. Thus, on this chromosome the additional
 component-level transition freedom produces little improvement in fit.
-A model-conditional parametric bootstrap under M221 gives a likelihood-ratio
-statistic of 18.26 and a Monte Carlo p-value of 0.09 from 199 replicates
-(Supporting Information S3.2), without rejecting the refinement constraints
-at the 5\% level.
+The observed likelihood-ratio statistic for the refinement constraints is
+18.26. Calibration by a parametric bootstrap under the fitted M221 model
+(199 replicates) gives a Monte Carlo p-value of 0.09 (Supporting Information
+S3.2), so the constraints are not rejected at the 5\% level.
 
 The raw G5 Viterbi path has 9,123 runs, compared with 181 for M221.
 Many G5 switches are between the low and high bands within the same regional
@@ -637,8 +638,9 @@ the interpretation of individual short runs. Supplementary analyses include
 prediction and calibration (S3.3), repeatability and sensitivity (S3.4),
 models incorporating allelic symmetry (S3.5), and comparisons with genomic
 segmentation and independent sequencing (S3.6). S3.3 identifies evaluation
-sequences on which other models predict better; S3.5 reports the fit and
-prediction trade-offs of imposing symmetry. S3.6 examines how the inferred
+sequences on which other models predict better; S3.5 reports a
+symmetry-constrained model with lower BIC than M221 and predictive
+differences that vary across sequences. S3.6 examines how the inferred
 profiles relate to measurements from other methods.
 
 \FloatBarrier
@@ -723,7 +725,8 @@ processed marker tables, fitted models, scripts, fixed seeds, source hashes
 and numerical tests for the simulations, genomic application and
 supplementary elk analyses. It documents regeneration from the original CEL files
 and annotation files, as well as reproduction from the supplied processed
-inputs. The project repository is
+inputs. The accompanying archive provides the version used for this
+revision. The project repository is
 \url{https://github.com/AurelienNicosiaULaval/corrective-hmm-states}.
 The package documents the original sources for each data set.
 

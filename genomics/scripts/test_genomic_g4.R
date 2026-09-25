@@ -1,5 +1,5 @@
 #!/usr/bin/env Rscript
-# Independent checks of G4 and its retrospective comparisons.
+# Likelihood cross-checks and fixed-input recomputation of G4 comparisons.
 library(Rcpp)
 library(data.table)
 library(testthat)
@@ -62,7 +62,7 @@ test_that('screened and nested starts remain auditable and selection is by likel
                    digest(file = 'genomics/results/genomic_pilot/G3.rds', algo = 'sha256'))
 })
 
-test_that('all G4 scores are independently recomputed on the stated fixed inputs', {
+test_that('all G4 scores are recomputed on fixed inputs with the evaluation recursion', {
   sources <- c(replication = 'replication_chr1', validation = 'validation_chr12_17',
                confirmation = 'confirmation_chr18_22')
   saved <- fread('genomics/results/genomic_validation/scores.csv')

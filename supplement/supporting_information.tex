@@ -366,8 +366,10 @@ duplicated means are then either kept equal or perturbed by $\pm0.015$, giving
 nine additional starts. All nine are refined, rather than discarded at the
 screening stage. Its selected log likelihood lies between those of G3 and G5.
 The implementation uses the compiled equivalent of the R EM updates; the
-selected likelihood is checked independently with the R emission calculation
-and sequence recursion. Parameters, complete start-level likelihood traces
+selected G4 likelihood is checked with R emission densities and a separate
+compiled forward--backward implementation in
+\path{numerics/R/forward_backward.cpp}, resetting at each sequence start.
+Parameters, complete start-level likelihood traces
 and input hashes are retained in \path{genomics/results/genomic_g4}. The tests independently compare the
 multiple-sequence recursion with direct path enumeration and verify that
 changing later observations cannot alter earlier predictive probabilities.
@@ -377,6 +379,10 @@ sequential log scores on the technical repeat, chromosomes 12--17 and
 chromosomes 18--22. The checks compare total scores, per-marker contributions
 and sums of chromosome-specific scores with the saved results, using the
 fixed fitted parameters and the stated sequence boundaries.
+For these score checks, densities are reconstructed in R, but the forward
+recursion is the same compiled implementation used for evaluation. They
+verify recomputation from the fixed inputs and agreement with the saved
+scores, rather than agreement between two independent filtering algorithms.
 
 \input{tables/genomic_estimation.tex}
 
