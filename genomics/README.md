@@ -67,6 +67,11 @@ The Python extraction command requires pypdf. Source downloads are checked again
 
 The full raw preprocessing was performed for the analysis. The delivered raw-regeneration instructions fix the coordinate export that was initially performed as a separate step. The supplied processed-input path, numerical refit, predictive evaluation, table extraction and tests were verified separately; the raw download-and-preprocess sequence was not repeated from a second empty machine.
 
+The publisher's original supplementary PDF is not bundled with the revision
+archive. Its download URL and SHA-256 digest are in `source_manifest.json`;
+`fetch_sources.py` retrieves it in the raw-regeneration sequence above.
+The extracted numerical table used for the analysis is supplied.
+
 ## Interpretation and limitations
 
 The application illustrates a statistical modeling problem in one cell line. The fitted states describe regional allelic profiles; they do not identify cell populations, absolute copy-number states, or a known true order. F3 has lower BIC than M221 and a higher score on chromosomes 18--22. G4 has the highest score on chromosomes 12--17, despite its worse chromosome-1 BIC and lower score on chromosomes 18--22. PSCBS uses total intensity as well as fractions. Published sequencing segments provide an independent assay of total copy ratio, not ground-truth allelic-state labels. Broad assignments are repeatable, but short runs are sensitive to marker thinning and residual magnitude dependence remains.
@@ -83,5 +88,7 @@ traces; see `results/refinement_bootstrap/protocol.txt`.
 After evaluation and diagnostics, run
 `Rscript numerics/scripts/render_publication_tables.R` to regenerate the
 chromosome-1 table and all five supplementary genomic tables. Run the G4
-tests to check independently the fitted likelihood, all evaluation scores,
-parameter counts, start selection and the seven unchanged model hashes.
+tests to cross-check the fitted likelihood, parameter counts, start selection
+and the seven unchanged model hashes. Evaluation scores are recomputed from
+fixed inputs with R emission densities and the evaluation pipeline's compiled
+forward recursion; this is not an independent filtering implementation.

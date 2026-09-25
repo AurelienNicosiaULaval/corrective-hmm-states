@@ -100,8 +100,10 @@ Rscript numerics/scripts/test_optimization_audit.R
 ```
 
 These checks use saved inputs and results; they do not refit the complete
-simulation, genomic or movement analyses. The genomic tests independently
-check likelihood calculations, the stored model summaries and G4 evaluation scores. The optimization
+simulation, genomic or movement analyses. The genomic tests cross-check
+likelihood calculations and stored model summaries. G4 evaluation scores
+are recomputed from fixed inputs, using R emission densities and the same
+compiled recursion as the evaluation pipeline. The optimization
 checks examine all 600 simulation checkpoints and 199 bootstrap replicates.
 The repository workflow runs these checks on GitHub.
 

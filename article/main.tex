@@ -53,7 +53,7 @@ ORCID: \href{https://orcid.org/0000-0002-0974-9988}{0000-0002-0974-9988}}
 \ifdefined\showlinenumbers\linenumbers\fi
 
 \begin{abstract}
-Additional hidden Markov states can compensate for restrictive emission
+Additional states in a hidden Markov model (HMM) can compensate for restrictive emission
 distributions without representing additional scientific regimes. We study
 this distinction using the established representation of mixture components
 as refined states. Under compactness, mixture identifiability and positive
@@ -163,7 +163,7 @@ the Kullback--Leibler divergence and the $L^1(\lambda)$ distance by
  \qquad
  \norm{p-q}_1=\int_{\Yspace}|p(y)-q(y)|\lambda(dy).
 \end{equation*}
-Here, $0\log(0/q)=0$, and $D(p\Vert q)=+\infty$ if $q=0$ on a set having
+All logarithms are natural. Here, $0\log(0/q)=0$, and $D(p\Vert q)=+\infty$ if $q=0$ on a set having
 positive probability under $p$. The same notation $D(P\Vert Q)$ is used for
 probability laws through their densities. Let
 $\Fcal=\{f_\eta:\eta\in\Theta\}$ be the simple fitted emission family. Define
@@ -361,7 +361,8 @@ log-likelihood ratios $T^{-1}\log\{p_0(Y_{1:T})/q(Y_{1:T})\}$ converge almost
 surely, uniformly over $Q\in\Hcal_{K_0}(\Fcal)$, to limits bounded below by
 $d_c^2/2$. Then the maximized log-likelihood advantage of the $R$-state class
 is at least $T(d_c^2/2-o(1))$, since this class contains the truth. Any fixed
-parameter-count BIC penalty difference is only of order $\log T$.
+parameter-count penalty difference for the Bayesian information criterion
+(BIC) is only of order $\log T$.
 Under that additional assumption, BIC eventually prefers $R$ to $K_0$
 simple-emission states. This conditional comparison neither proves the
 uniform convergence assumption nor selects $R$ against every other order.
@@ -705,9 +706,12 @@ The scientific meaning of
 those profiles must be assessed separately from the number of fitted states.
 
 \section*{Acknowledgments}\label{sec:acknowledgments}
-OpenAI ChatGPT and Codex were used for manuscript drafting and revision,
+In 2026, OpenAI ChatGPT and Codex were used for manuscript drafting and revision,
 including the genomic application, and for assistance with code development
-and numerical checks. The author is responsible for the mathematical
+and numerical checks. Anthropic Claude was used during the September 2026
+revision for critical review and suggestions concerning clarity,
+argumentation and consistency. These tools assisted work directed by the
+author. The author is responsible for the mathematical
 arguments, verification and interpretation of results, and the final
 manuscript.
 

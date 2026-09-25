@@ -31,8 +31,8 @@
   },
   {
     "path": "README.md",
-    "bytes": 7797,
-    "sha256": "5b0b90db2e42f2bee82ff0bf59d276eb15861bae3c48577b8dfe789d8de2c36b"
+    "bytes": 7905,
+    "sha256": "c22dbe37d5262468344e97a91f6be3548eba40a564a801e72cc6359b017d2f82"
   },
   {
     "path": "REPRODUCIBILITY.md",
@@ -156,13 +156,13 @@
   },
   {
     "path": "article/main.pdf",
-    "bytes": 2501422,
-    "sha256": "52c46985111ab3c98e2a8e12fc7f7d9ccf451b14e5493c7f9a5635c70d2a12fb"
+    "bytes": 2501806,
+    "sha256": "94529324462ce56e15c98644ad0e3ccec54e3be743072ffb3d484547c5bdd66d"
   },
   {
     "path": "article/main.tex",
-    "bytes": 38843,
-    "sha256": "b43699e50f7084242bbed5f986d37675550dd10827ac4a0021d3153a93596115"
+    "bytes": 39136,
+    "sha256": "cfbacf3b2739374c423c8291e424321f3a5aa91777b151e045ca7dfa976fe19b"
   },
   {
     "path": "article/references.bib",
@@ -5396,8 +5396,8 @@
   },
   {
     "path": "genomics/README.md",
-    "bytes": 7407,
-    "sha256": "e02f6177b8891b3e9efe5eb2e4fcf74b9dcbef6bc3f6b463542bd33b6c420104"
+    "bytes": 7854,
+    "sha256": "3ebfebec7f634babc8514b327c5981cb99a5d0155f9201f55deb34104e048d54"
   },
   {
     "path": "genomics/audit/annotation_get_checks.json",
@@ -5518,11 +5518,6 @@
     "path": "genomics/data/genomics/Chiang2009_sequencing_segments_hg18.csv",
     "bytes": 67192,
     "sha256": "12ed0c440ae255cac94a504f58c7a114cef9e516e0d4ed382ea69c54c1303fa1"
-  },
-  {
-    "path": "genomics/data/genomics/Chiang2009_sequencing_segments_hg18.pdf",
-    "bytes": 324406,
-    "sha256": "fd7fcc04c4785c986ff1fb451941c9f51a5fe107c376c935dc0620fc6a443796"
   },
   {
     "path": "genomics/data/genomics/GSM337641_signals.rds",
@@ -10791,13 +10786,13 @@
   },
   {
     "path": "supplement/supporting_information.pdf",
-    "bytes": 775191,
-    "sha256": "6117b11fe2f07216684f4a15aca29c17721b669f4266d27d426d39ba9a20317a"
+    "bytes": 775773,
+    "sha256": "4fb7ab26b54d6be852d54c12d3879f38f639c41ccd80717f0f1543ba91aa5969"
   },
   {
     "path": "supplement/supporting_information.tex",
-    "bytes": 60345,
-    "sha256": "a42cf3b527bc142b617bcd7a36c69058558ce16f1a7ea9bfac3b0d997ff5b82a"
+    "bytes": 61000,
+    "sha256": "7cfea572d82a9f68a6468068110274328aca8134d5136514faf2a64f1026d22a"
   },
   {
     "path": "supplement/tables/elk_convergence.tex",

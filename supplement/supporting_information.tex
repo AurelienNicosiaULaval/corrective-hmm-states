@@ -235,6 +235,15 @@ transition counts, and $10^{-12}$ to active component counts and emission
 update denominators. These numerical safeguards do not change the stated
 model classes.
 
+With 200 independent replications per sample size, the Monte Carlo standard
+error of an estimated selection probability is at most 3.54 percentage
+points. The estimated standard errors for the M22-over-G3 selection
+frequencies are 1.39, 0.70 and 0.50 percentage points at the three sample
+sizes. For a frequency of 200 out of 200, the exact two-sided 95\% binomial
+interval is $[0.9817,1]$; observing no failures does not establish a selection
+probability of one. The Monte Carlo standard errors of the mean
+M22-minus-G3 BIC differences are 0.254, 0.256 and 0.262, respectively.
+
 Model comparisons use the Bayesian information criterion (BIC), as defined in
 the main article. Row-level results are stored in
 \path{numerics/output/review_replications.csv}; the compact summary is in
@@ -487,6 +496,7 @@ chromosome-1 preference does not imply a uniform predictive ranking.
 The G4 extension is retrospective, as stated in S3.1.
 
 \input{tables/genomic_chromosomes.tex}
+For predictive calibration, we use probability integral transforms (PITs).
 \input{tables/genomic_calibration.tex}
 
 The empirical PIT distance is
