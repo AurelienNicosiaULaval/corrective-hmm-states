@@ -156,13 +156,13 @@
   },
   {
     "path": "article/main.pdf",
-    "bytes": 2500846,
-    "sha256": "c90bed499b86355cff46b9a50534a9412aeea0456c2183b7e60f666aedf39177"
+    "bytes": 2500853,
+    "sha256": "aa4f876f3661c259fc3b0c35a683c1a6e9c3719c3cf5d7dc76947ad664161615"
   },
   {
     "path": "article/main.tex",
-    "bytes": 38495,
-    "sha256": "057dc0637fa3b68cf86fc27281f131def123079bb08efb3f7ebddae6c98e30a0"
+    "bytes": 38471,
+    "sha256": "8904f7f9cf0e911d5af389cf3c68fc4060f0171e8b1a5dc0d64785608f8a45a7"
   },
   {
     "path": "article/references.bib",
