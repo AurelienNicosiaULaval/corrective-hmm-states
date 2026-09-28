@@ -16,8 +16,8 @@
   },
   {
     "path": "CHANGELOG.md",
-    "bytes": 2567,
-    "sha256": "c68670662d684b19c38c715ffaa996eb92993832ceeb504d32e7db5fbcff613f"
+    "bytes": 3183,
+    "sha256": "79ed616bcfb9737ed9f4ea1dc785533279d20c1faeee9c3f6bcae3bfcd01f8dc"
   },
   {
     "path": "CITATION.cff",
@@ -156,13 +156,13 @@
   },
   {
     "path": "article/main.pdf",
-    "bytes": 2501806,
-    "sha256": "94529324462ce56e15c98644ad0e3ccec54e3be743072ffb3d484547c5bdd66d"
+    "bytes": 2501061,
+    "sha256": "c480709e1872df6f0c5dabe4c33745d6b8e446deb12ef5f8ba2f2d8ccd9ff7fa"
   },
   {
     "path": "article/main.tex",
-    "bytes": 39136,
-    "sha256": "cfbacf3b2739374c423c8291e424321f3a5aa91777b151e045ca7dfa976fe19b"
+    "bytes": 38737,
+    "sha256": "4c27a1786975f7a40159e854e18168c1372c5148c49cf180aed7890b4f00400f"
   },
   {
     "path": "article/references.bib",
@@ -10611,8 +10611,8 @@
   },
   {
     "path": "numerics/scripts/render_revision_outputs.R",
-    "bytes": 10979,
-    "sha256": "bd53bbd3e9e082a95c13cdb4a431506bb1f8c26688d784b04b11d51a7aa87aec"
+    "bytes": 11148,
+    "sha256": "9a7fdf8b0b93f94dc72dddd4d8aa945ca431d7d1095b0c5687390e7a2402e31a"
   },
   {
     "path": "numerics/scripts/run_elk_application.R",
@@ -10786,13 +10786,13 @@
   },
   {
     "path": "supplement/supporting_information.pdf",
-    "bytes": 775773,
-    "sha256": "4fb7ab26b54d6be852d54c12d3879f38f639c41ccd80717f0f1543ba91aa5969"
+    "bytes": 776094,
+    "sha256": "7f022d664961ff3ed14210e8787978bd7d6d52b02b6f6f76790ce037a1a0aa49"
   },
   {
     "path": "supplement/supporting_information.tex",
-    "bytes": 61000,
-    "sha256": "7cfea572d82a9f68a6468068110274328aca8134d5136514faf2a64f1026d22a"
+    "bytes": 61237,
+    "sha256": "fd4951aadd3d4c4194842078d9910c677ffc668a5e47bcdce64b17987c7e4801"
   },
   {
     "path": "supplement/tables/elk_convergence.tex",
@@ -10801,8 +10801,8 @@
   },
   {
     "path": "supplement/tables/elk_mixture_parameters.tex",
-    "bytes": 2270,
-    "sha256": "6d9f645db3d89e1cfc8df7cca549a745e86b109c1e4c215d5591686f19c58982"
+    "bytes": 2439,
+    "sha256": "4c2817e0bcbd0068b5818e9f371f48d97d9e603e916ab92590ffea9f05bdf25f"
   },
   {
     "path": "supplement/tables/elk_predictive_diagnostics.tex",

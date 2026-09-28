@@ -1,3 +1,15 @@
+# Revision of 28 September 2026
+
+- Remove the illustrative uniform likelihood-convergence assumption over
+  unrestricted candidate HMMs and state explicitly that the divergence bound
+  alone does not establish BIC consistency.
+- State the conditional independence structure of the joint movement
+  emissions at the aggregate-state and mixture-component level.
+- Clarify the state-label convention for M21 in the supplementary parameter
+  table and its rendering script.
+- Correct the reported F3-versus-M221 BIC difference to 17.3 using unrounded
+  stored values. Fitted models and numerical results are unchanged.
+
 # Revision of 25 September 2026
 
 - Add the four-state Gaussian HMM to the chromosome-1 comparison, with fixed

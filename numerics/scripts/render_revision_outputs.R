@@ -119,7 +119,7 @@ param_table<-parameters |> filter(fraction==1,floor==.05,model %in% c("M21","M22
    Mean=sprintf("%.3f",mean),SD=sprintf("%.3f",sd),Weight=sprintf("%.3f",weight),
    Occupation=sprintf("%.3f",occupation),Self=sprintf("%.3f",self_transition))
 table_tex(param_table,"supplement/tables/elk_mixture_parameters.tex",
- "Component parameters at bound 0.05. Means and standard deviations are on the transformed scale. Occupation is the average smoothed state probability and Self is the state self-transition probability. Components within a state share the same transition dynamics.","tab:si-parameters",align="llrrrrrrr",long=TRUE)
+ "Component parameters at bound 0.05. Means and standard deviations are on the transformed scale. Occupation is the average smoothed state probability and Self is the state self-transition probability. Components within a state share the same transition dynamics. For M21, state labels in this table may be permuted relative to the component-count notation; the model contains one two-component state and one single-component state.","tab:si-parameters",align="llrrrrrrr",long=TRUE)
 sen_table<-summary |> filter(fraction==1) |> select(ID,floor,model,BIC) |> pivot_wider(names_from=model,values_from=BIC) |>
  transmute(Elk=sub("elk-","",ID),Bound=sprintf("%.3f",floor),
   d21=sprintf("%.1f",M21-G3),d22=sprintf("%.1f",M22-G3),d24=sprintf("%.1f",M22-G4))

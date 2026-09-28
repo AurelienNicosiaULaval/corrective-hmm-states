@@ -590,7 +590,7 @@ allele flips are tested. F3's fitted separations are 0.0041, 0.1048 and 0.3101.
 The nearly zero first separation is another reason not to use regular
 asymptotic mixture-order tests.
 
-F3 has BIC 17.4 below M221, although its training log likelihood is
+F3 has BIC 17.3 below M221, although its training log likelihood is
 21.15 lower. Its score on chromosomes 18--22 is 15.88 higher, with 14.97
 of that difference arising on chromosome 20. Its scores on chromosomes
 12--17 and on the technical repeat are 7.00 and 18.93 lower, respectively.
@@ -848,6 +848,10 @@ The four rate families are gamma (mean and shape), Weibull (scale and shape),
 lognormal (log mean and log standard deviation), and a normal distribution
 on $\log(1+r)$ truncated below zero. All have two emission parameters per
 component. The joint families add two angular parameters per component.
+Conditional on the aggregate state and mixture component, movement rate
+and turning angle are assumed independent. Each state emission is therefore
+a mixture of products of a binned rate probability and a wrapped-Cauchy
+angular density.
 M21 and M22 have component counts $(2,1)$ and $(2,2)$. H2, H3 and H4 have
 one component per state. Their rate-only parameter counts are 7, 14, 23,
 10 and 13 for H2, H3, H4, M21 and M22; the corresponding joint counts are

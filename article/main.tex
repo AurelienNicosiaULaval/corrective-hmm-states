@@ -355,17 +355,12 @@ with richer emissions can describe the same observations. Equality of the two
 representations does not determine which latent description is scientifically
 meaningful.
 
-A likelihood-selection consequence requires an additional stochastic limit,
-not just a bound on expected divergence. For example, suppose the normalized
-log-likelihood ratios $T^{-1}\log\{p_0(Y_{1:T})/q(Y_{1:T})\}$ converge almost
-surely, uniformly over $Q\in\Hcal_{K_0}(\Fcal)$, to limits bounded below by
-$d_c^2/2$. Then the maximized log-likelihood advantage of the $R$-state class
-is at least $T(d_c^2/2-o(1))$, since this class contains the truth. Any fixed
-parameter-count penalty difference for the Bayesian information criterion
-(BIC) is only of order $\log T$.
-Under that additional assumption, BIC eventually prefers $R$ to $K_0$
-simple-emission states. This conditional comparison neither proves the
-uniform convergence assumption nor selects $R$ against every other order.
+The divergence bound alone does not establish an almost-sure
+likelihood-selection result. A separately established positive linear gap
+between maximized log likelihoods would dominate the $O(\log T)$ penalty
+difference in the Bayesian information criterion (BIC) for fixed model
+dimensions. We do not establish this additional stochastic control here
+and make no BIC consistency claim.
 
 For reference, Sections~S1.1--S1.5 of the Supporting Information give proofs
 of Lemma~2.3, Proposition~2.4, Proposition~2.5, Theorem~2.6, and
